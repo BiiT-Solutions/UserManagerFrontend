@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "clean:translations": "del-cli --force ./src/assets/i18n/biit-ui/",
+    "prepare:translations": "cpx './node_modules/biit-ui/assets/i18n/**/*.json' './src/assets/i18n/biit-ui/'",
     "test": "ng test"
   },
   "private": true,
@@ -40,6 +42,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~4.9.4"
+    "typescript": "~4.9.4",
+    "cpx": "^1.5.0",
+    "del-cli": "^5.0.0"
   }
 }
