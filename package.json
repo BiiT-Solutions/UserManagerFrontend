@@ -26,7 +26,7 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0",
     "user-manager-structure-lib": "latest",
-    "biit-ui": "^0.0.29",
+    "biit-ui": "latest",
     "biit-icons-collection": "latest"
   },
   "devDependencies": {
