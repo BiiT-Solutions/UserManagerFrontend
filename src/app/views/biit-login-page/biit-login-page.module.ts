@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BiitLoginPageComponent } from './biit-login-page.component';
 import {BiitLoginModule} from "biit-ui/login";
-import {BiitSnackbarModule} from "biit-ui/info";
+import {BiitProgressBarModule, BiitSnackbarModule} from "biit-ui/info";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitLoginPageRoutingModule} from "./biit-login-page-routing.module";
 
@@ -19,7 +19,8 @@ import {BiitLoginPageRoutingModule} from "./biit-login-page-routing.module";
     BiitLoginPageRoutingModule,
     CommonModule,
     BiitLoginModule,
-    TranslocoRootModule
+    TranslocoRootModule,
+    BiitProgressBarModule
   ]
 })
 export class BiitLoginPageModule { }

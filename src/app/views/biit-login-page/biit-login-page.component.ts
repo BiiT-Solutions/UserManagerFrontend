@@ -3,7 +3,7 @@ import {BiitLogin} from "biit-ui/models";
 import {AuthService, LoginRequest, User} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitIconService} from "biit-ui/icon";
 import {completeIconSet} from "biit-icons-collection";
@@ -24,6 +24,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class BiitLoginPageComponent implements OnInit {
 
+  protected readonly BiitProgressBarType = BiitProgressBarType;
+  protected waiting: boolean = true;
   constructor(private authService: AuthService,
               private sessionService: SessionService,
               private biitSnackbarService: BiitSnackbarService,
@@ -36,10 +38,15 @@ export class BiitLoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.managePathQueries();
+    if (!this.sessionService.isTokenExpired()) {
+      this.router.navigate([Constants.PATHS.PORTAL]);
+    } else {
+      this.waiting = false;
+    }
   }
 
-
   login(login: BiitLogin): void {
+    this.waiting = true;
     this.authService.login(new LoginRequest(login.username, login.password)).subscribe({
       next: (response: HttpResponse<User>) => {
         this.sessionService.setToken(response.headers.get(Constants.HEADERS.AUTHORIZATION_RESPONSE),
@@ -47,6 +54,7 @@ export class BiitLoginPageComponent implements OnInit {
           ,login.remember);
         this.sessionService.setUser(User.clone(response.body));
         this.router.navigate([Constants.PATHS.PORTAL]);
+        this.waiting = false;
       },
       error: (response: HttpResponse<void>) => {
         const error: string = response.status.toString();
@@ -54,6 +62,7 @@ export class BiitLoginPageComponent implements OnInit {
         this.translocoService.selectTranslate(error, {},  {scope: 'components/login'}).subscribe(msg => {
           this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
         });
+        this.waiting = false;
       }
     });
   }
@@ -77,4 +86,5 @@ export class BiitLoginPageComponent implements OnInit {
       this.router.navigate([], {queryParams: queryParams, queryParamsHandling: 'merge'});
     });
   }
+
 }

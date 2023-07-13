@@ -7,19 +7,15 @@ import {User} from "user-manager-structure-lib";
 })
 export class SessionService implements OnDestroy {
 
-  private authToken: string;
-  private expires: number;
   private store: boolean;
-  private user: User;
-
   constructor() {
-    const authToken: string = sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
-    const expires: number = +sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+    const authToken: string = localStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
+    const expires: number = +localStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
     if (authToken) {
-      this.authToken = authToken;
+      sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, authToken);
       this.store = true;
       if (expires && !isNaN(expires)) {
-        this.expires = expires;
+        sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
       }
     }
   }
@@ -29,46 +25,51 @@ export class SessionService implements OnDestroy {
   }
 
   clearToken(): void {
-    this.authToken = undefined;
-    this.store = undefined;
-    this.user = undefined;
     sessionStorage.removeItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
-    sessionStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+    sessionStorage.removeItem(Constants.SESSION_STORAGE.USER);
+    this.store = undefined;
+    localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
+    localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
   }
 
   setToken(token: string, expires: number, enableStore: boolean = undefined): void {
-    this.authToken = token;
-    this.expires = expires;
+    sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, token);
+    sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
     if (enableStore !== undefined) {
       this.store = enableStore;
       if (!enableStore) {
-        sessionStorage.removeItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
-        sessionStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+        localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
+        localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
       }
     }
     if (this.store) {
-      sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, token);
-      sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
+      localStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, token);
+      localStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
     }
   }
 
   getToken(): string {
-    return this.authToken;
+    return sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
   }
 
   isTokenExpired(): boolean {
-    return !this.expires || new Date().getTime() > this.expires || !this.getToken();
+    return !sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION) ||
+      new Date().getTime() > +sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION) || !this.getToken();
   }
   getExpirationDate(): Date {
-    return new Date(this.expires);
+    const sessionExpiration = sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+    if (!isNaN(+sessionExpiration)) {
+      return new Date(+sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION));
+    }
+    return null;
   }
 
   setUser(user: User): void {
-    this.user = user;
+    sessionStorage.setItem(Constants.SESSION_STORAGE.USER, JSON.stringify(user));
   }
 
   getUser(): User {
-    return this.user;
+    return sessionStorage.getItem(Constants.SESSION_STORAGE.USER) ? User.clone(JSON.parse(sessionStorage.getItem(Constants.SESSION_STORAGE.USER))) : null;
   }
 
 }
