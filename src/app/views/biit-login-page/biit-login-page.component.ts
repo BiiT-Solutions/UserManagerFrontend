@@ -1,12 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BiitLogin} from "biit-ui/models";
 import {AuthService, LoginRequest, User} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {TRANSLOCO_SCOPE, TranslocoScope, TranslocoService} from "@ngneat/transloco";
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitIconService} from "biit-ui/icon";
 import {completeIconSet} from "biit-icons-collection";
+import {SessionService} from "../../services/session.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'biit-login-page',
@@ -16,32 +18,63 @@ import {completeIconSet} from "biit-icons-collection";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'errors/login', alias: 'errors'}
+      useValue: {scope: 'components/login', alias: 'errors'}
     }
   ]
 })
-export class BiitLoginPageComponent{
+export class BiitLoginPageComponent implements OnInit {
 
   constructor(private authService: AuthService,
+              private sessionService: SessionService,
               private biitSnackbarService: BiitSnackbarService,
               private biitIconService: BiitIconService,
+              private activateRoute: ActivatedRoute,
+              private router: Router,
               private translocoService: TranslocoService) {
     biitIconService.registerIcons(completeIconSet);
   }
 
+  ngOnInit(): void {
+    this.managePathQueries();
+  }
+
+
   login(login: BiitLogin): void {
     this.authService.login(new LoginRequest(login.username, login.password)).subscribe({
       next: (response: HttpResponse<User>) => {
-        sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, response.headers.get(Constants.HEADERS.AUTHORIZATION));
-        const user: User = response.body;
+        this.sessionService.setToken(response.headers.get(Constants.HEADERS.AUTHORIZATION_RESPONSE),
+          +response.headers.get(Constants.HEADERS.EXPIRES)
+          ,login.remember);
+        this.sessionService.setUser(User.clone(response.body));
+        this.router.navigate([Constants.PATHS.PORTAL]);
       },
       error: (response: HttpResponse<void>) => {
         const error: string = response.status.toString();
         // Transloco does not load translation files. We need to load it manually;
-        this.translocoService.selectTranslate(error, {},  {scope: 'errors/login'}).subscribe(msg => {
+        this.translocoService.selectTranslate(error, {},  {scope: 'components/login'}).subscribe(msg => {
           this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
         });
       }
+    });
+  }
+
+  private managePathQueries(): void {
+    this.activateRoute.queryParams.subscribe(params => {
+      const queryParams: {[key: string]: string} = {};
+      if (params[Constants.PATHS.QUERY.EXPIRED] !== undefined) {
+        this.translocoService.selectTranslate(Constants.PATHS.QUERY.EXPIRED, {},  {scope: 'components/login'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.INFO, null, 5);
+        });
+        queryParams[Constants.PATHS.QUERY.EXPIRED] = null;
+      }
+      if (params[Constants.PATHS.QUERY.LOGOUT] !== undefined) {
+        this.sessionService.clearToken();
+        this.translocoService.selectTranslate(Constants.PATHS.QUERY.LOGOUT, {},  {scope: 'components/login'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS, null, 5);
+        });
+        queryParams[Constants.PATHS.QUERY.LOGOUT] = null;
+      }
+      this.router.navigate([], {queryParams: queryParams, queryParamsHandling: 'merge'});
     });
   }
 }
