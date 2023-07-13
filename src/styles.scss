@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; font-size: 20px}
+body { margin: 0;
+  font-family: Montserrat, "Montserrat", sans-serif; }
+
+biit-snackbar {
+  z-index: 1000;
+  position: absolute;
+}

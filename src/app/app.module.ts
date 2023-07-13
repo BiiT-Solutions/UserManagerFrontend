@@ -1,24 +1,24 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {BiitLoginPageModule} from "./views/biit-login-page/biit-login-page.module";
-import { HttpClientModule } from '@angular/common/http';
-import { TranslocoRootModule } from 'biit-ui/i18n';
-
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {BiitSnackbarModule} from "biit-ui/info";
+import {TranslocoRootModule} from "biit-ui/i18n";
+import {CommonModule} from "@angular/common";
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
-    BiitLoginPageModule,
     HttpClientModule,
-    TranslocoRootModule
+    TranslocoRootModule,
+    BiitSnackbarModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
