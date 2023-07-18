@@ -27,7 +27,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0",
-    "user-manager-structure-lib": "latest",
+    "user-manager-structure-lib": "^0.0.18",
     "biit-ui": "latest",
     "biit-icons-collection": "latest"
   },

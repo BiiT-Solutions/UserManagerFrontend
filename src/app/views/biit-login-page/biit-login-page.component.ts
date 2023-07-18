@@ -49,9 +49,9 @@ export class BiitLoginPageComponent implements OnInit {
     this.waiting = true;
     this.authService.login(new LoginRequest(login.username, login.password)).subscribe({
       next: (response: HttpResponse<User>) => {
-        this.sessionService.setToken(response.headers.get(Constants.HEADERS.AUTHORIZATION_RESPONSE),
-          +response.headers.get(Constants.HEADERS.EXPIRES)
-          ,login.remember);
+        const token: string = response.headers.get(Constants.HEADERS.AUTHORIZATION_RESPONSE);
+        const expiration: number = +response.headers.get(Constants.HEADERS.EXPIRES);
+        this.sessionService.setToken(token, expiration, login.remember, true);
         this.sessionService.setUser(User.clone(response.body));
         this.router.navigate([Constants.PATHS.PORTAL]);
         this.waiting = false;

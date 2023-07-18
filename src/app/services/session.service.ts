@@ -1,16 +1,20 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Constants} from "../shared/constants";
-import {User} from "user-manager-structure-lib";
+import {AuthService, TokenRenewListener, User} from "user-manager-structure-lib";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SessionService implements OnDestroy {
+export class SessionService implements OnDestroy, TokenRenewListener {
 
   private store: boolean;
-  constructor() {
+  constructor(private authService: AuthService) {
     const authToken: string = localStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
     const expires: number = +localStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+    if (!expires || isNaN(expires) || expires < new Date().getTime()) {
+      localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_TOKEN);
+      localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
+    }
     if (authToken) {
       sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, authToken);
       this.store = true;
@@ -18,6 +22,25 @@ export class SessionService implements OnDestroy {
         sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
       }
     }
+    if ((authToken && expires)
+      || (sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN) && sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION))) {
+      this.setAutoRenew(authToken? authToken : sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_TOKEN)
+        , expires ? expires : +sessionStorage.getItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION));
+    }
+  }
+
+  onTokenReceived(token: string, expiration: number): void {
+      this.setToken(token, expiration);
+      console.log('Token has been renewed successfully.', token);
+  }
+  onException(error: any): void {
+      console.error('There was an exception while renewing the token.');
+      this.clearToken();
+  }
+
+  private setAutoRenew(token: string, expires: number): void {
+    // ADD HERE ALL SERVICES NEED TO BE CALLED TO RENEW TOKEN
+    this.authService.autoRenewToken(token, expires, this);
   }
 
   ngOnDestroy(): void {
@@ -32,7 +55,11 @@ export class SessionService implements OnDestroy {
     localStorage.removeItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION);
   }
 
-  setToken(token: string, expires: number, enableStore: boolean = undefined): void {
+  setToken(token: string, expires: number, enableStore: boolean = undefined, autoRenew: boolean = false): void {
+    if (!token || !expires) {
+      this.clearToken();
+      return;
+    }
     sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, token);
     sessionStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
     if (enableStore !== undefined) {
@@ -45,6 +72,9 @@ export class SessionService implements OnDestroy {
     if (this.store) {
       localStorage.setItem(Constants.SESSION_STORAGE.AUTH_TOKEN, token);
       localStorage.setItem(Constants.SESSION_STORAGE.AUTH_EXPIRATION, expires.toString());
+    }
+    if (autoRenew) {
+      this.setAutoRenew(token, expires);
     }
   }
 
