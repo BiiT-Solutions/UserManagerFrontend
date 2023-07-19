@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BiitLogin} from "biit-ui/models";
-import {AuthService, LoginRequest, User} from "user-manager-structure-lib";
+import {AuthService} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
 import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
@@ -9,6 +9,7 @@ import {BiitIconService} from "biit-ui/icon";
 import {completeIconSet} from "biit-icons-collection";
 import {SessionService} from "../../services/session.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {LoginRequest, User} from "authorization-services-lib";
 
 @Component({
   selector: 'biit-login-page',

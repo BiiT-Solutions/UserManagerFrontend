@@ -1,6 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Constants} from "../shared/constants";
-import {AuthService, TokenRenewListener, User} from "user-manager-structure-lib";
+import {AuthService} from "user-manager-structure-lib";
+import {TokenRenewListener, User} from "authorization-services-lib";
 
 @Injectable({
   providedIn: 'root'
