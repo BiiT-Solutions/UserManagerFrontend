@@ -54,11 +54,11 @@ export class BiitUserListComponent implements OnInit {
         new BiitTableColumn("lastname", lastname, undefined, undefined, true),
         new BiitTableColumn("email", email, undefined, undefined, true),
         new BiitTableColumn("phone", phone, undefined, undefined, true),
-        new BiitTableColumn("accountLocked", accountLocked, 200, undefined, true),
-        new BiitTableColumn("accountBlocked", accountBlocked, 200, undefined, true),
+        new BiitTableColumn("accountLocked", accountLocked, 200, BiitTableColumnFormat.BOOLEAN, true),
+        new BiitTableColumn("accountBlocked", accountBlocked, 200, BiitTableColumnFormat.BOOLEAN, true),
         new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),
         new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, false),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, BiitTableColumnFormat.DATE, false),
+        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, false),
         new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, false),
       ];
       this.pageSize = BiitUserListComponent.DEFAULT_PAGE_SIZE;
