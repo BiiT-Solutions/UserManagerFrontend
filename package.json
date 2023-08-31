@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "v15-lts",
     "@angular/router": "v15-lts",
     "@ngneat/transloco": "^4.3.0",
+    "authorization-services-lib": "latest",
     "biit-icons-collection": "latest",
     "biit-ui": "latest",
     "fs-extra": "^10.1.0",

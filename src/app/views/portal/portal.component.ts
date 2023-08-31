@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {completeIconSet} from "biit-icons-collection";
+import {BiitIconService} from "biit-ui/icon";
 
 @Component({
   selector: 'biit-portal',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./portal.component.scss']
 })
 export class PortalComponent {
-
+  constructor(biitIconService: BiitIconService) {
+    biitIconService.registerIcons(completeIconSet);
+  }
 }

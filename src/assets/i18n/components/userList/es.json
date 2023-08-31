@@ -1,0 +1,13 @@
+{
+  "id": "Id",
+  "name": "Nombre",
+  "lastname": "Apellidos",
+  "email": "Correo",
+  "phone": "Teléfono",
+  "accountLocked": "Suspendido",
+  "accountBlocked": "Bloqueado",
+  "createdBy": "Creado por",
+  "createdAt": "Creado el",
+  "updatedBy": "Actualizado por",
+  "updatedAt": "Actualizado el"
+}
