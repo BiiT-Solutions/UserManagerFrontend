@@ -1,0 +1,14 @@
+{
+  "name": "Nombre",
+  "lastname": "Apellidos",
+  "email": "Correo",
+  "phone": "Teléfono",
+  "address": "Dirección",
+  "postalCode": "Código postal",
+  "city": "Ciudad",
+  "password": "Contraseña",
+  "repeatPassword": "Repita contraseña",
+  "account": "Cuenta",
+  "personalData": "Datos personales",
+  "save": "Guardar"
+}

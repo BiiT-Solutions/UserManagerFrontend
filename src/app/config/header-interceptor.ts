@@ -10,11 +10,6 @@ export class HeaderInterceptor implements HttpInterceptor {
 
   constructor(private sessionService: SessionService, private router: Router) {  }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken: string = this.sessionService.getToken();
-    if (!authToken) {
-      this.router.navigate(['/login']);
-      return null;
-    }
     const request: HttpRequest<any> = req.clone({
       headers: req.headers.append(Constants.HEADERS.AUTHORIZATION, `Bearer ${this.sessionService.getToken()}`)
     });

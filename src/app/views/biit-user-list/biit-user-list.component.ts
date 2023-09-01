@@ -3,8 +3,7 @@ import {BiitTableColumn, BiitTableColumnFormat, BiitTableData} from "biit-ui/tab
 import {UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {combineLatest, Observable} from "rxjs";
-import {Constants} from "../../shared/constants";
+import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -14,7 +13,7 @@ import {Constants} from "../../shared/constants";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/userList', alias: 'users'}
+      useValue: {scope: 'components/user_list', alias: 'users'}
     }
   ]
 })
@@ -29,23 +28,25 @@ export class BiitUserListComponent implements OnInit {
   protected users: User[];
   protected data: BiitTableData<User>;
 
+  protected target: User;
+
   constructor(private userService: UserService, private transloco: TranslocoService) {
   }
 
   ngOnInit(): void {
     combineLatest(
       [
-        this.transloco.selectTranslate('id', {}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('name', {}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('lastname', {}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('email', {}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('phone', {}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('accountLocked',{}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('accountBlocked',{}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('createdBy',{}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('createdAt',{}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('updatedBy',{}, {scope: 'components/userList', alias: 'users'}),
-        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/userList', alias: 'users'}),
+        this.transloco.selectTranslate('id', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('name', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('lastname', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('email', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('phone', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('accountLocked',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('accountBlocked',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('createdBy',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('createdAt',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('updatedBy',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/user_list', alias: 'users'}),
       ]
     ).subscribe(([id, name, lastname, email, phone, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
@@ -69,10 +70,6 @@ export class BiitUserListComponent implements OnInit {
 
   }
 
-  loadTranslations(): void {
-
-  }
-
   private loadData(): void {
     this.userService.getAll().subscribe( {
       next: (users: User[]): void => {
@@ -87,6 +84,9 @@ export class BiitUserListComponent implements OnInit {
     if (this.users.length > (this.page * this.pageSize)) {
       this.data = new BiitTableData(this.users.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize), this.users.length);
     }
-    console.log(this.data);
+  }
+
+  protected onAdd(): void {
+    this.target = new User();
   }
 }

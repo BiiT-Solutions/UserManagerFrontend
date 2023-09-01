@@ -2,5 +2,8 @@
   [columns]="columns"
   [defaultPageSize]="10"
   [data]="data"
+  (onAddAction)="onAdd()"
   selectable
 ></biit-table>
+<biit-user-form *ngIf="target" [user]="target">
+</biit-user-form>

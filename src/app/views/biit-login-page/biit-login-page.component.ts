@@ -30,7 +30,7 @@ export class BiitLoginPageComponent implements OnInit {
   constructor(private authService: AuthService,
               private sessionService: SessionService,
               private biitSnackbarService: BiitSnackbarService,
-              private biitIconService: BiitIconService,
+              biitIconService: BiitIconService,
               private activateRoute: ActivatedRoute,
               private router: Router,
               private translocoService: TranslocoService) {

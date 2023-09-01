@@ -1,0 +1,60 @@
+<biit-popup
+            title="Create User"
+            closable sixty-view
+>
+  <div class="form">
+    <biit-tab-group class="user-tabs">
+      <biit-tab name="{{'form.account' | transloco}}">
+        <div class="tab-row-single">
+          <biit-input-text
+            placeholder="{{'form.email' | transloco}}"
+            [(ngModel)]="user.email"
+          ></biit-input-text>
+        </div>
+        <div class="tab-row">
+          <biit-input-text
+            placeholder="{{'form.name' | transloco}}"
+            [(ngModel)]="user.name"
+          ></biit-input-text>
+          <biit-input-text
+            placeholder="{{'form.lastname' | transloco}}"
+            [(ngModel)]="user.lastname"
+          ></biit-input-text>
+        </div>
+        <div class="tab-row">
+          <biit-input-text
+            placeholder="{{'form.password' | transloco}}"
+            [type]="Type.PASSWORD"
+            [(ngModel)]="user.password"
+          ></biit-input-text>
+          <biit-input-text
+            placeholder="{{'form.repeatPassword' | transloco}}"
+            [type]="Type.PASSWORD"
+            [(ngModel)]="pwdVerification"
+          ></biit-input-text>
+        </div>
+      </biit-tab>
+      <biit-tab name="{{'form.personalData' | transloco}}">
+        <div>
+          <biit-input-text
+            placeholder="{{'form.address' | transloco}}"
+          ></biit-input-text>
+        </div>
+        <div class="tab-row">
+          <biit-input-text
+            placeholder="{{'form.postalCode' | transloco}}"
+          ></biit-input-text>
+          <biit-input-text
+            placeholder="{{'form.phone' | transloco}}"
+            [(ngModel)]="user.phone"
+          ></biit-input-text>
+        </div>
+      </biit-tab>
+    </biit-tab-group>
+    <div class="form-bottom">
+      <button biit-button primary style="display: block">
+        {{'form.save' | transloco}}
+      </button>
+    </div>
+  </div>
+</biit-popup>

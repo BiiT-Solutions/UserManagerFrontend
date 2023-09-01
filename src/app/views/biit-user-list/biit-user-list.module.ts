@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BiitUserListComponent } from './biit-user-list.component';
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
+import {UserFormModule} from "../../shared/user-form/user-form.module";
 
 
 
@@ -16,7 +17,8 @@ import {TranslocoRootModule} from "biit-ui/i18n";
   imports: [
     CommonModule,
     TranslocoRootModule,
-    BiitTableModule
+    BiitTableModule,
+    UserFormModule
   ]
 })
 export class BiitUserListModule { }

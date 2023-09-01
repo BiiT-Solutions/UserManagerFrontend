@@ -1,0 +1,14 @@
+{
+  "name": "Name",
+  "lastname": "Surname",
+  "email": "Email",
+  "phone": "Phone",
+  "address": "Address",
+  "postalCode": "Postal Code",
+  "city": "City",
+  "password": "Password",
+  "repeatPassword": "Repeat Password",
+  "account": "Account",
+  "personalData": "Personal Data",
+  "save": "Save"
+}
