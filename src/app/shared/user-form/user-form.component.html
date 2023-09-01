@@ -1,5 +1,6 @@
 <biit-popup
-            title="Create User"
+            title="{{'form.newUser' | transloco}}"
+            (onClosed)="onClosed.emit()"
             closable sixty-view
 >
   <div class="form">

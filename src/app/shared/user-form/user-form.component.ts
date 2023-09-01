@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE} from "@ngneat/transloco";
 import {Type} from "biit-ui/inputs";
@@ -17,6 +17,7 @@ import {Type} from "biit-ui/inputs";
 })
 export class UserFormComponent {
   @Input() user: User;
+  @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
 
   protected pwdVerification: string;
   protected readonly Type = Type;

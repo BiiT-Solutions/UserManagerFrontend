@@ -5,5 +5,8 @@
   (onAddAction)="onAdd()"
   selectable
 ></biit-table>
-<biit-user-form *ngIf="target" [user]="target">
+<biit-user-form *ngIf="target"
+                [user]="target"
+                (onClosed)="this.target = null"
+>
 </biit-user-form>

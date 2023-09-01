@@ -10,5 +10,6 @@
   "repeatPassword": "Repita contraseña",
   "account": "Cuenta",
   "personalData": "Datos personales",
-  "save": "Guardar"
+  "save": "Guardar",
+  "newUser": "Nuevo Usuario"
 }
