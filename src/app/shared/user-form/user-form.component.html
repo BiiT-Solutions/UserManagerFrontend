@@ -8,30 +8,35 @@
       <biit-tab name="{{'form.account' | transloco}}">
         <div class="tab-row-single">
           <biit-input-text
-            placeholder="{{'form.email' | transloco}}"
-            [(ngModel)]="user.email"
+            placeholder="{{'form.username' | transloco}} ⃰"
+            [(ngModel)]="user.username"
+            error="{{errors | mapGet: UserFormValidationFields.USERNAME_MANDATORY}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.name' | transloco}}"
+            placeholder="{{'form.name' | transloco}} ⃰"
             [(ngModel)]="user.name"
+            error="{{errors | mapGet: UserFormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.lastname' | transloco}}"
+            placeholder="{{'form.lastname' | transloco}} ⃰"
             [(ngModel)]="user.lastname"
+            error="{{errors | mapGet: UserFormValidationFields.LASTNAME_MANDATORY}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.password' | transloco}}"
+            placeholder="{{'form.password' | transloco}} ⃰"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
+            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.repeatPassword' | transloco}}"
+            placeholder="{{'form.repeatPassword' | transloco}} ⃰"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
+            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
       </biit-tab>
@@ -43,17 +48,29 @@
         </div>
         <div class="tab-row">
           <biit-input-text
+            placeholder="{{'form.city' | transloco}}"
+            [(ngModel)]="user.city"
+          ></biit-input-text>
+          <biit-input-text
             placeholder="{{'form.postalCode' | transloco}}"
           ></biit-input-text>
+        </div>
+        <div class="tab-row">
           <biit-input-text
             placeholder="{{'form.phone' | transloco}}"
             [(ngModel)]="user.phone"
+            error="{{errors | mapGet: [UserFormValidationFields.PHONE_INVALID]}}"
+          ></biit-input-text>
+          <biit-input-text
+            placeholder="{{'form.email' | transloco}}"
+            [(ngModel)]="user.email"
+            error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
     </biit-tab-group>
     <div class="form-bottom">
-      <button biit-button primary style="display: block">
+      <button biit-button primary style="display: block" (click)="onSave()">
         {{'form.save' | transloco}}
       </button>
     </div>

@@ -7,6 +7,7 @@ import {BiitInputTextModule} from "biit-ui/inputs";
 import {FormsModule} from "@angular/forms";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitButtonModule} from "biit-ui/button";
+import {UtilsModule} from "../utils/utils.module";
 
 
 
@@ -24,7 +25,8 @@ import {BiitButtonModule} from "biit-ui/button";
     BiitInputTextModule,
     FormsModule,
     TranslocoRootModule,
-    BiitButtonModule
+    BiitButtonModule,
+    UtilsModule
   ]
 })
 export class UserFormModule { }
