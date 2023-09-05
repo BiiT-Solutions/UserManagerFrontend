@@ -54,7 +54,7 @@ export class BiitUserListComponent implements OnInit {
         new BiitTableColumn("name", name, undefined, undefined, true),
         new BiitTableColumn("lastname", lastname, undefined, undefined, true),
         new BiitTableColumn("email", email, undefined, undefined, true),
-        new BiitTableColumn("phone", phone, undefined, undefined, true),
+        new BiitTableColumn("phone", phone, undefined, undefined, false),
         new BiitTableColumn("accountLocked", accountLocked, 200, BiitTableColumnFormat.BOOLEAN, true),
         new BiitTableColumn("accountBlocked", accountBlocked, 200, BiitTableColumnFormat.BOOLEAN, true),
         new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),

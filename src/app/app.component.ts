@@ -1,10 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserManagerRootService} from "user-manager-structure-lib";
 import {Environment} from "../environments/environment";
-import {BiitIconService} from "biit-ui/icon";
 import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
 import {AvailableLangs, TranslocoService} from "@ngneat/transloco";
-import {completeIconSet} from "biit-icons-collection";
 
 @Component({
   selector: 'app-root',

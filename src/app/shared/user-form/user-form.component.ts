@@ -47,7 +47,6 @@ export class UserFormComponent {
           this.onSaved.emit(User.clone(user));
         },
         error: (error: any): void => {
-          debugger
           this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
         }
       }

@@ -1,0 +1,9 @@
+$main-black: #262626;
+.table-view {
+  margin: 2rem;
+  padding: 2rem;
+  border: solid 0.2rem $main-black;
+  background: white;
+  height: calc(100% - 20rem);
+  min-height: 20rem;
+}

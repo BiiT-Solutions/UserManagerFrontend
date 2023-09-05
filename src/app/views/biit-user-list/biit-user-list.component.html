@@ -1,10 +1,12 @@
-<biit-table
-  [columns]="columns"
-  [defaultPageSize]="10"
-  [data]="data"
-  (onAddAction)="onAdd()"
-  selectable
-></biit-table>
+<div class="table-view">
+  <biit-table
+    [columns]="columns"
+    [defaultPageSize]="10"
+    [data]="data"
+    (onAddAction)="onAdd()"
+    selectable
+  ></biit-table>
+</div>
 <biit-user-form *ngIf="target"
                 [user]="target"
                 (onClosed)="this.target = null"
