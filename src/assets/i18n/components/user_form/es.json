@@ -6,6 +6,7 @@
   "address": "Dirección",
   "postalCode": "Código postal",
   "city": "Localidad",
+  "country": "País",
   "password": "Contraseña",
   "repeatPassword": "Repita contraseña",
   "account": "Cuenta",

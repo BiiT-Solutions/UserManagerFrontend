@@ -1,8 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserManagerRootService} from "user-manager-structure-lib";
 import {Environment} from "../environments/environment";
 import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
 import {AvailableLangs, TranslocoService} from "@ngneat/transloco";
+import {SessionService} from "./services/session.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import {AvailableLangs, TranslocoService} from "@ngneat/transloco";
 })
 export class AppComponent {
   constructor(userManagerRootService: UserManagerRootService,
-              biitSnackbarService: BiitSnackbarService, private translocoService: TranslocoService) {
+              biitSnackbarService: BiitSnackbarService,
+              private router: Router,
+              private translocoService: TranslocoService) {
     this.setLanguage();
     userManagerRootService.serverUrl = new URL(`${Environment.ROOT_URL}/${Environment.USER_MANAGER_PATH}`);
     biitSnackbarService.setPosition(BiitSnackbarVerticalPosition.TOP, BiitSnackbarHorizontalPosition.CENTER);
@@ -24,5 +28,11 @@ export class AppComponent {
     if (language) {
       this.translocoService.setActiveLang(language);
     }
+  }
+
+  protected readonly SessionService = SessionService;
+
+  logout() {
+    this.router.navigate(['/login'], {queryParams: {logout: true}});
   }
 }

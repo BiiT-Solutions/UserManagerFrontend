@@ -39,7 +39,7 @@ export class BiitLoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.managePathQueries();
-    if (!this.sessionService.isTokenExpired()) {
+    if (!SessionService.isTokenExpired()) {
       this.router.navigate([Constants.PATHS.PORTAL]);
     } else {
       this.waiting = false;

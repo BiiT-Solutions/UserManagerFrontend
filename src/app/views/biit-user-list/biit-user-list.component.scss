@@ -1,3 +1,4 @@
+$space: 1em;
 $main-black: #262626;
 .table-view {
   margin: 2rem;
@@ -6,4 +7,22 @@ $main-black: #262626;
   background: white;
   height: calc(100% - 20rem);
   min-height: 20rem;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 1rem;
+  gap: $space;
 }

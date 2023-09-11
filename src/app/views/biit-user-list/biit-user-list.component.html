@@ -1,14 +1,32 @@
+<div style="visibility: hidden">
+  <!--This is a workaround to load transloco and avoid issues loading translations-->
+  {{'users.empty' | transloco}}
+</div>
 <div class="table-view">
-  <biit-table
+  <biit-table *ngIf="columns.length"
     [columns]="columns"
     [defaultPageSize]="10"
     [data]="data"
     (onAddAction)="onAdd()"
+    (onDeleteAction)="onDelete($event, false)"
     selectable
   ></biit-table>
 </div>
+
 <biit-user-form *ngIf="target"
                 [user]="target"
                 (onClosed)="this.target = null"
 >
 </biit-user-form>
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'users.confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary>{{'users.cancel' | transloco}}</button>
+      <button biit-button primary>{{'users.delete' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>

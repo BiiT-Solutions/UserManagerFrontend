@@ -5,5 +5,5 @@
   "423": "Has alcanzado el número máximo de intentos. Por favor, pruebe de nuevo más tarde.",
   "500": "Lo lamentamos, pero parece que existe algún problema con nuestros servicios. Inténtalo de nuevo más tarde.",
   "expired": "Su sesión ha caducado.",
-  "logout": "Tu cuenta se ha cerrado correctamente."
+  "logout": "Su sessión se ha cerrado correctamente."
 }

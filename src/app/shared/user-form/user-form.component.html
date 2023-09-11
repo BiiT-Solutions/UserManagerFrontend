@@ -42,9 +42,11 @@
       </biit-tab>
       <biit-tab name="{{'form.personalData' | transloco}}">
         <div>
-          <biit-input-text
+          <biit-textarea
+            [(ngModel)]="user.address"
             placeholder="{{'form.address' | transloco}}"
-          ></biit-input-text>
+            style="display: block"
+          ></biit-textarea>
         </div>
         <div class="tab-row">
           <biit-input-text
@@ -53,6 +55,12 @@
           ></biit-input-text>
           <biit-input-text
             placeholder="{{'form.postalCode' | transloco}}"
+          ></biit-input-text>
+        </div>
+        <div class="tab-row-single">
+          <biit-input-text
+            placeholder="{{'form.country' | transloco}}"
+            [(ngModel)]="user.country"
           ></biit-input-text>
         </div>
         <div class="tab-row">
