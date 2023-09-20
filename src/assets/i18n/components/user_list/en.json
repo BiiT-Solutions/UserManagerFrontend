@@ -1,0 +1,20 @@
+{
+  "empty" : " ",
+  "id": "Id",
+  "name": "Name",
+  "lastname": "Last Name",
+  "email": "Email",
+  "phone": "Phone",
+  "accountLocked": "Locked",
+  "accountBlocked": "Blocked",
+  "createdBy": "Created By",
+  "createdAt": "Created At",
+  "updatedBy": "Updated At",
+  "updatedAt": "Updated At",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "confirm_delete": "Are you sure you want to proceed with deleting?",
+  "you_cannot_delete_yourself": "You can not delete your own account",
+  "request_completed_successfully": "Your request has been completed successfully",
+  "request_unsuccessful": "Sorry, We couldn't carry out your complete request."
+}

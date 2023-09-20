@@ -1,0 +1,20 @@
+{
+  "empty" : " ",
+  "id": "Id",
+  "name": "Nombre",
+  "lastname": "Apellidos",
+  "email": "Correo",
+  "phone": "Teléfono",
+  "accountLocked": "Suspendido",
+  "accountBlocked": "Bloqueado",
+  "createdBy": "Creado por",
+  "createdAt": "Creado el",
+  "updatedBy": "Actualizado por",
+  "updatedAt": "Actualizado el",
+  "delete": "Eliminar",
+  "cancel": "Cancelar",
+  "confirm_delete": "¿Está seguro que desea continuar con la eliminación?",
+  "you_cannot_delete_yourself": "No puede eliminar su propia cuenta",
+  "request_completed_successfully": "Su solicitud se ha completado correctamente",
+  "request_unsuccessful": "Lo sentimos, no hemos podido completar su solicitud"
+}

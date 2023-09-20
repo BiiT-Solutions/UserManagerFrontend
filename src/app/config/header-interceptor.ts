@@ -8,15 +8,10 @@ import {Router} from "@angular/router";
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
-  constructor(private sessionService: SessionService, private router: Router) {  }
+  constructor() {  }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = this.sessionService.getToken();
-    if (!authToken) {
-      this.router.navigate(['/login']);
-      return null;
-    }
     const request: HttpRequest<any> = req.clone({
-      headers: req.headers.append(Constants.HEADERS.AUTHORIZATION, `Bearer ${this.sessionService.getToken()}`)
+      headers: req.headers.append(Constants.HEADERS.AUTHORIZATION, `Bearer ${SessionService.getToken()}`)
     });
     return next.handle(request);
   }

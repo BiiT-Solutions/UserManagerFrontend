@@ -11,7 +11,7 @@ export class AuthGuardService {
   constructor(private router: Router, private sessionService: SessionService) { }
 
   canActivate(): boolean {
-    if (!this.sessionService.isTokenExpired()) {
+    if (!SessionService.isTokenExpired()) {
       return true;
     }
     const queryParams: {[key: string]: string} = {};
