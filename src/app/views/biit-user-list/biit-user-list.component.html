@@ -9,6 +9,7 @@
     [data]="data"
     (onAddAction)="onAdd()"
     (onDeleteAction)="onDelete($event, false)"
+    [loading]="loading"
     selectable
   ></biit-table>
 </div>
@@ -16,6 +17,7 @@
 <biit-user-form *ngIf="target"
                 [user]="target"
                 (onClosed)="this.target = null"
+                (onSaved)="onSaved($event)"
 >
 </biit-user-form>
 <biit-popup *ngIf="confirm === 'DELETE'"
@@ -24,8 +26,8 @@
   <div class="vertical">
     <div>{{'users.confirm_delete' | transloco}}</div>
     <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary>{{'users.cancel' | transloco}}</button>
-      <button biit-button primary>{{'users.delete' | transloco}}</button>
+      <button biit-button secondary (click)="confirm = null">{{'users.cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selected, true)">{{'users.delete' | transloco}}</button>
     </div>
   </div>
 

@@ -32,6 +32,8 @@ export class BiitUserListComponent implements OnInit {
 
   protected target: User;
   protected confirm: null | 'DELETE';
+  protected selected: User[] = [];
+  protected loading: boolean = false;
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
@@ -76,10 +78,15 @@ export class BiitUserListComponent implements OnInit {
   }
 
   private loadData(): void {
+    this.loading = true;
     this.userService.getAll().subscribe( {
       next: (users: User[]): void => {
         this.users = users.map(user => User.clone(user));
         this.nextData();
+        this.loading = false;
+      }, error: (): void => {
+        this.loading = false;
+        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
       }
     });
   }
@@ -95,7 +102,7 @@ export class BiitUserListComponent implements OnInit {
     this.target = new User();
   }
 
-  onDelete(users: User[], confirmed: boolean): void {
+  protected onDelete(users: User[], confirmed: boolean): void {
     if (users.some(user => user.email === SessionService.getUser().email)) {
       this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
         .subscribe(translation => {
@@ -105,6 +112,7 @@ export class BiitUserListComponent implements OnInit {
     }
     if (!confirmed) {
       this.confirm = 'DELETE';
+      this.selected = users;
     } else {
       this.confirm = null;
       combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
@@ -123,5 +131,11 @@ export class BiitUserListComponent implements OnInit {
             );
         }});
     }
+  }
+
+  protected onSaved(user: User): void {
+    this.users.push(user);
+    this.data.data.push(user);
+    this.target = null;
   }
 }
