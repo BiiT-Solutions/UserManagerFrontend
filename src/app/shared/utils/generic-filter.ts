@@ -1,5 +1,3 @@
-import {isNumber} from "@ngneat/transloco";
-
 export class GenericFilter {
   public static filter<T>(object: T, value: string, includes: boolean = false, caseSensitive: boolean = false, params?: string[]): boolean {
     const formattedValue: string = caseSensitive ? value : value?.toLowerCase();

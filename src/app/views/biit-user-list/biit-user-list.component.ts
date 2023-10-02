@@ -28,6 +28,7 @@ export class BiitUserListComponent implements OnInit {
   protected columns: BiitTableColumn[] = [];
   protected pageSize: number = BiitUserListComponent.DEFAULT_PAGE_SIZE;
   protected page: number = BiitUserListComponent.DEFAULT_PAGE_SIZE;
+  protected pageSizes: number[] = [10, 25, 50, 100];
   protected users: User[];
   protected data: BiitTableData<User>;
 
