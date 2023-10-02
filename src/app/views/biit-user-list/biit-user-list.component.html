@@ -8,7 +8,9 @@
     [defaultPageSize]="10"
     [data]="data"
     (onAddAction)="onAdd()"
+    (onEditAction)="onEdit($event)"
     (onDeleteAction)="onDelete($event, false)"
+    (onUpdate)="onUpdatingTask($event)"
     [loading]="loading"
     selectable
   ></biit-table>

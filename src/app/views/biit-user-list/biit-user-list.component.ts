@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData} from "biit-ui/table";
+import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
 import {UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {SessionService} from "../../services/session.service";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {GenericFilter} from "../../shared/utils/generic-filter";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -22,7 +23,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 export class BiitUserListComponent implements OnInit {
 
   private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 0;
+  private static readonly DEFAULT_PAGE: number = 1;
 
   protected columns: BiitTableColumn[] = [];
   protected pageSize: number = BiitUserListComponent.DEFAULT_PAGE_SIZE;
@@ -93,8 +94,8 @@ export class BiitUserListComponent implements OnInit {
 
 
   private nextData() {
-    if (this.users.length > (this.page * this.pageSize)) {
-      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize), this.users.length);
+    if (this.users.length > (this.page * this.pageSize - this.pageSize)) {
+      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
     }
   }
 
@@ -134,8 +135,30 @@ export class BiitUserListComponent implements OnInit {
   }
 
   protected onSaved(user: User): void {
-    this.users.push(user);
-    this.data.data.push(user);
+    this.loadData();
     this.target = null;
+  }
+
+  onEdit(user: User[]): void {
+    if (user && user.length === 1) {
+      this.target = user[0];
+    } else {
+      this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
+        translation => {
+          this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
+        }
+      );
+    }
+  }
+
+  protected onUpdatingTask(tableResponse: BiitTableResponse): void {
+    this.pageSize = tableResponse.pageSize;
+    this.page = tableResponse.currentPage;
+    if (tableResponse.search && tableResponse.search.length) {
+      const users: User[] = this.users.filter(user => GenericFilter.filter(user, tableResponse.search, true));
+      this.data = new BiitTableData(users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), users.length);
+    } else {
+      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
+    }
   }
 }
