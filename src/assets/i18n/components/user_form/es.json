@@ -13,6 +13,7 @@
   "personalData": "Datos personales",
   "save": "Guardar",
   "newUser": "Nuevo Usuario",
+  "editUser": "Editar Usuario",
   "username": "Nombre de usuario",
   "username_mandatory": "El nombre de usuario es obligatorio",
   "name_mandatory": "El nombre es obligatorio",

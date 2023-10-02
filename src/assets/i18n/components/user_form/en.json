@@ -13,6 +13,7 @@
   "personalData": "Personal Data",
   "save": "Save",
   "newUser": "New User",
+  "editUser": "Edit User",
   "username": "Username",
   "username_mandatory": "Username is mandatory",
   "name_mandatory": "Name is mandatory",

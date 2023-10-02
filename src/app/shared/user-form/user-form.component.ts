@@ -33,7 +33,7 @@ export class UserFormComponent {
 
 
   constructor(private userService: UserService,
-              private transloco: TranslocoService,
+              protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
               ) { }
   protected onSave(): void {

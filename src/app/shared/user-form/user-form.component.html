@@ -1,5 +1,5 @@
 <biit-popup
-            title="{{'form.newUser' | transloco}}"
+            [title]="user.id ? transloco.translate('form.editUser') : transloco.translate('form.newUser')"
             (onClosed)="onClosed.emit()"
             closable sixty-view
 >

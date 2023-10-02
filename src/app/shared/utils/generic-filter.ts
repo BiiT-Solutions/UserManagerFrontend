@@ -3,7 +3,7 @@ export class GenericFilter {
     const formattedValue: string = caseSensitive ? value : value?.toLowerCase();
 
     for (let param in object) {
-      if (params && params.includes(param)) continue
+      if (params && !params.includes(param)) continue
       let paramValue: unknown = object[param];
       if (paramValue instanceof Array) {
         if ((paramValue as Array<any>).some((item: any) => {
@@ -29,8 +29,14 @@ export class GenericFilter {
         }
         continue;
       }
-      if(object[param] === value) {
-        return true;
+      if (Object.keys(object).length === 0) {
+        if(object[param] === value) {
+          return true;
+        }
+      } else {
+        if (GenericFilter.filter(paramValue, value, includes, caseSensitive)) {
+          return true;
+        }
       }
     }
     return false;
