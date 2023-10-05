@@ -6,6 +6,8 @@ import {UserService} from "user-manager-structure-lib";
 import {UserFormValidationFields} from "../validations/user-form/user-form-validation-fields";
 import {TypeValidations} from "../utils/type-validations";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {generate, Observable} from "rxjs";
+import {PwdGenerator} from "../utils/pwd-generator";
 
 @Component({
   selector: 'biit-user-form',
@@ -26,6 +28,7 @@ export class UserFormComponent {
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
   protected pwdVerification: string;
+  protected oldPassword: string;
   protected readonly Type = Type;
 
   protected errors: Map<UserFormValidationFields, string> = new Map<UserFormValidationFields, string>();
@@ -41,7 +44,8 @@ export class UserFormComponent {
       this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
       return;
     }
-    this.userService.create(this.user).subscribe(
+    const observable: Observable<User> = this.user.id ? this.userService.update(this.user) : this.userService.create(this.user);
+    observable.subscribe(
       {
         next: (user: User): void => {
           this.onSaved.emit(User.clone(user));
@@ -67,13 +71,24 @@ export class UserFormComponent {
       verdict = false;
       this.errors.set(UserFormValidationFields.LASTNAME_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.LASTNAME_MANDATORY.toString()}`));
     }
-    if (!this.user.password) {
-      verdict = false;
-      this.errors.set(UserFormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MANDATORY.toString()}`));
-    }
-    if (this.pwdVerification !== this.user.password) {
-      verdict = false;
-      this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
+    if (!this.user.id) {
+      if (!this.user.password) {
+        verdict = false;
+        this.errors.set(UserFormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MANDATORY.toString()}`));
+      }
+      if (this.pwdVerification !== this.user.password) {
+        verdict = false;
+        this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
+      }
+    } else  {
+      if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
+        verdict = false;
+        this.errors.set(UserFormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
+      }
+      if (this.pwdVerification !== this.user.password) {
+        verdict = false;
+        this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
+      }
     }
     if (!this.user.email) {
       verdict = false;
@@ -90,5 +105,8 @@ export class UserFormComponent {
     }
     return verdict;
   }
-
+  protected generatePassword(): void {
+    this.user.password = PwdGenerator.generate();
+    this.pwdVerification = this.user.password;
+  }
 }

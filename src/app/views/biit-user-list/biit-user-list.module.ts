@@ -5,7 +5,7 @@ import {BiitTableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {UserFormModule} from "../../shared/user-form/user-form.module";
 import {BiitPopupModule} from "biit-ui/popup";
-import {BiitButtonModule} from "biit-ui/button";
+import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 
 
 
@@ -22,7 +22,8 @@ import {BiitButtonModule} from "biit-ui/button";
     BiitTableModule,
     UserFormModule,
     BiitPopupModule,
-    BiitButtonModule
+    BiitButtonModule,
+    BiitIconButtonModule
   ]
 })
 export class BiitUserListModule { }

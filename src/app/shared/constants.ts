@@ -17,4 +17,12 @@ export class Constants {
     public static readonly AUTHORIZATION_RESPONSE: string = 'authorization';
     public static readonly EXPIRES: string = 'expires';
   }
+
+  public static readonly PASSWORDS = class {
+    public static readonly PASSWD_REGEX:RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    public static readonly MIN_LENGTH = 12
+    public static readonly MAX_LENGTH = 25
+  }
+
+
 }

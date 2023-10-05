@@ -2,6 +2,7 @@ export enum UserFormValidationFields {
   USERNAME_MANDATORY = 'username_mandatory',
   NAME_MANDATORY = 'name_mandatory',
   LASTNAME_MANDATORY = 'lastname_mandatory',
+  OLD_PASSWORD_MANDATORY = 'old_password_mandatory',
   PASSWORD_MANDATORY = 'password_mandatory',
   PASSWORD_MISMATCH = 'password_mismatch',
   EMAIL_MANDATORY = 'email_mandatory',

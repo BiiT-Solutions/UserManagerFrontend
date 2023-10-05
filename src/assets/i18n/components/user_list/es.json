@@ -11,6 +11,8 @@
   "createdAt": "Creado el",
   "updatedBy": "Actualizado por",
   "updatedAt": "Actualizado el",
+  "add": "Añadir",
+  "edit": "Modificar",
   "delete": "Eliminar",
   "cancel": "Cancelar",
   "confirm_delete": "¿Está seguro que desea continuar con la eliminación?",

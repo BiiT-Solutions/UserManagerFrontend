@@ -11,6 +11,8 @@
   "createdAt": "Created At",
   "updatedBy": "Updated At",
   "updatedAt": "Updated At",
+  "add": "Add",
+  "edit": "Edit",
   "delete": "Delete",
   "cancel": "Cancel",
   "confirm_delete": "Are you sure you want to proceed with deleting?",
