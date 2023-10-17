@@ -2,16 +2,25 @@ import {Component, OnInit} from '@angular/core';
 import {UserManagerRootService} from "user-manager-structure-lib";
 import {Environment} from "../environments/environment";
 import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
-import {AvailableLangs, TranslocoService} from "@ngneat/transloco";
+import {AvailableLangs, TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {SessionService} from "./services/session.service";
-import {Router} from "@angular/router";
+import {Route, Router} from "@angular/router";
+import * as path from "path";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      multi:true,
+      useValue: {scope: 'components/main', alias: 'main'}
+    }
+  ]
 })
 export class AppComponent {
+  protected menu: Route[]= [];
   constructor(userManagerRootService: UserManagerRootService,
               biitSnackbarService: BiitSnackbarService,
               private router: Router,
@@ -19,6 +28,17 @@ export class AppComponent {
     this.setLanguage();
     userManagerRootService.serverUrl = new URL(`${Environment.ROOT_URL}/${Environment.USER_MANAGER_PATH}`);
     biitSnackbarService.setPosition(BiitSnackbarVerticalPosition.TOP, BiitSnackbarHorizontalPosition.CENTER);
+    this.setMenu();
+  }
+
+  private setMenu(): void {
+    this.menu = [];
+    this.translocoService.selectTranslate('users', {},  {scope: 'components/main'}).subscribe(msg => {
+      this.menu.push({path: 'users', title: msg});
+    });
+    this.translocoService.selectTranslate('roles', {},  {scope: 'components/main'}).subscribe(msg => {
+      this.menu.push({path: 'roles', title: msg});
+    });
   }
 
   private setLanguage(): void {

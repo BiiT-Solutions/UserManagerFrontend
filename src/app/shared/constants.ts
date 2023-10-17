@@ -6,7 +6,7 @@ export class Constants {
    }
 
   public static readonly PATHS = class {
-     public static readonly PORTAL: string = '/portal';
+     public static readonly PORTAL: string = '/users';
     public static readonly QUERY = class {
       public static readonly EXPIRED: string = 'expired';
       public static readonly LOGOUT: string = 'logout';

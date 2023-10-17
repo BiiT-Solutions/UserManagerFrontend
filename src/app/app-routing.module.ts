@@ -14,8 +14,13 @@ const routes: Routes = [
     loadChildren: () => login
   },
   {
-    path: 'portal',
+    path: 'users',
     loadChildren: () => import('./views/portal/portal.module').then(m => m.PortalModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'roles',
+    loadChildren: () => import('./views/roles-list/roles-list.module').then(m => m.RolesListModule),
     canActivate: [AuthGuard]
   },
   {
