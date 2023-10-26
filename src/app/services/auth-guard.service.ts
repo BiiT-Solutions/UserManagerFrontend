@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 import {Constants} from "../shared/constants";
-import {SessionService} from "./session.service";
+import {SessionService} from "user-manager-structure-lib";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class AuthGuardService {
   constructor(private router: Router, private sessionService: SessionService) { }
 
   canActivate(): boolean {
-    if (!SessionService.isTokenExpired()) {
+    if (!this.sessionService.isTokenExpired()) {
       return true;
     }
     const queryParams: {[key: string]: string} = {};

@@ -1,8 +1,8 @@
 <biit-snackbar></biit-snackbar>
-<div class="top-menu" *ngIf="SessionService.isLoggedIn">
+<div class="top-menu" *ngIf="sessionService.isLoggedIn">
   <biit-nav-user
     style="display: block"
-    [title]="SessionService.getUser()?.name + ' ' + SessionService.getUser()?.lastname"
+    [title]="sessionService.getUser()?.name + ' ' + sessionService.getUser()?.lastname"
     [left-align]="true"
     (click)="logout()"
   ></biit-nav-user>

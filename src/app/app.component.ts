@@ -1,11 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {UserManagerRootService} from "user-manager-structure-lib";
+import {Component} from '@angular/core';
+import {SessionService, UserManagerRootService} from "user-manager-structure-lib";
 import {Environment} from "../environments/environment";
 import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
 import {AvailableLangs, TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {SessionService} from "./services/session.service";
 import {Route, Router} from "@angular/router";
-import * as path from "path";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +21,7 @@ export class AppComponent {
   protected menu: Route[]= [];
   constructor(userManagerRootService: UserManagerRootService,
               biitSnackbarService: BiitSnackbarService,
+              protected sessionService: SessionService,
               private router: Router,
               private translocoService: TranslocoService) {
     this.setLanguage();
@@ -49,8 +48,6 @@ export class AppComponent {
       this.translocoService.setActiveLang(language);
     }
   }
-
-  protected readonly SessionService = SessionService;
 
   logout() {
     this.router.navigate(['/login'], {queryParams: {logout: true}});

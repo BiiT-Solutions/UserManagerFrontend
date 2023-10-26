@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {UserService} from "user-manager-structure-lib";
+import {SessionService, UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {SessionService} from "../../services/session.service";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
 
@@ -39,6 +38,7 @@ export class BiitUserListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
+              private sessionService: SessionService,
               private transloco: TranslocoService) {
   }
 
@@ -105,7 +105,7 @@ export class BiitUserListComponent implements OnInit {
   }
 
   protected onDelete(users: User[], confirmed: boolean): void {
-    if (users.some(user => user.email === SessionService.getUser().email)) {
+    if (users.some(user => user.email === this.sessionService.getUser().email)) {
       this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
         .subscribe(translation => {
           this.biitSnackbarService.showNotification(translation, NotificationType.WARNING, null, 5);

@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BiitLogin} from "biit-ui/models";
-import {AuthService} from "user-manager-structure-lib";
+import {AuthService, SessionService} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
 import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitIconService} from "biit-ui/icon";
 import {completeIconSet} from "biit-icons-collection";
-import {SessionService} from "../../services/session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginRequest, User} from "authorization-services-lib";
 
@@ -39,7 +38,7 @@ export class BiitLoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.managePathQueries();
-    if (!SessionService.isTokenExpired()) {
+    if (!this.sessionService.isTokenExpired()) {
       this.router.navigate([Constants.PATHS.PORTAL]);
     } else {
       this.waiting = false;

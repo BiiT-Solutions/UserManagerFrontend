@@ -2,16 +2,15 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {Observable} from "rxjs";
 import {Constants} from "../shared/constants";
 import {Injectable} from "@angular/core";
-import {SessionService} from "../services/session.service";
-import {Router} from "@angular/router";
+import {SessionService} from "user-manager-structure-lib";
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
-  constructor() {  }
+  constructor(private sessionService: SessionService) {  }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const request: HttpRequest<any> = req.clone({
-      headers: req.headers.append(Constants.HEADERS.AUTHORIZATION, `Bearer ${SessionService.getToken()}`)
+      headers: req.headers.append(Constants.HEADERS.AUTHORIZATION, `Bearer ${this.sessionService.getToken()}`)
     });
     return next.handle(request);
   }
