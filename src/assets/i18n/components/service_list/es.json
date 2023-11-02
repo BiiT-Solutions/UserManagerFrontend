@@ -1,0 +1,15 @@
+{
+  "empty" : " ",
+  "id": "Id",
+  "description": "Descripción",
+  "createdBy": "Creado por",
+  "createdAt": "Fecha de creación",
+  "updatedBy": "Actualizado por",
+  "updatedAt": "Fecha de actualización",
+  "add": "Añadir",
+  "edit": "Modificar",
+  "delete": "Eliminar",
+  "cancel": "Cancelar",
+  "confirm_delete": "¿Está seguro que desea continuar con la eliminación?",
+  "request_unsuccessful": "Lo sentimos, se ha producido un error al obtener los servicios."
+}

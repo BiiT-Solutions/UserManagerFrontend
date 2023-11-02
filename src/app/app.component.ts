@@ -33,8 +33,6 @@ export class AppComponent {
     biitIconService.registerIcons(completeIconSet);
   }
 
-
-
   private setLanguage(): void {
     const clientLanguages: ReadonlyArray<string>= navigator.languages;
     const languages: AvailableLangs = this.translocoService.getAvailableLangs();
