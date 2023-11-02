@@ -1,0 +1,11 @@
+<div id="navbar">
+  <div class="left">
+    <biit-nav-menu [routes]="routes"
+    ></biit-nav-menu>
+  </div>
+  <div class="right">
+    <biit-nav-user [title]="sessionService.getUser()?.name + ' ' + sessionService.getUser()?.lastname"
+                   (click)="router.navigateByUrl('/login?logout')"
+    ></biit-nav-user>
+  </div>
+</div>

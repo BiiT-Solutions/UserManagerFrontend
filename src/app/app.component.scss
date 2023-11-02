@@ -1,4 +1,14 @@
-.top-menu {
-  background: white;
-  display: flex;
+:host {
+  display: block;
+  height: 100%
+}
+
+biit-navbar {
+  position: sticky;
+  width: 100%;
+  z-index: 1;
+}
+
+.hidden {
+  visibility: hidden;
 }

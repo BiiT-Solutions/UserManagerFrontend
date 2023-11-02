@@ -7,6 +7,13 @@ body { margin: 0;
   background-color: $background;
 }
 
+app-root > router-outlet + * {
+  display: block;
+  width:100%;
+  height: calc(100% - 2.5rem);
+  overflow-y: auto;
+}
+
 biit-snackbar {
   z-index: 1000;
   position: absolute;

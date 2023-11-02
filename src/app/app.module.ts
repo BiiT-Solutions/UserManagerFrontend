@@ -13,6 +13,7 @@ import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
 import localeNL from '@angular/common/locales/nl';
 import {BiitNavMenuModule, BiitNavUserModule} from "biit-ui/navigation";
+import {BiitNavbarModule} from "./navigation/biit-navbar/biit-navbar.module";
 
 registerLocaleData(localeEn, 'en')
 registerLocaleData(localeEs, 'es');
@@ -30,7 +31,8 @@ registerLocaleData(localeNL, 'nl');
     TranslocoRootModule,
     BiitSnackbarModule,
     BiitNavUserModule,
-    BiitNavMenuModule
+    BiitNavMenuModule,
+    BiitNavbarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}

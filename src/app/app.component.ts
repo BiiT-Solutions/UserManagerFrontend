@@ -31,21 +31,9 @@ export class AppComponent {
     userManagerRootService.serverUrl = new URL(`${Environment.ROOT_URL}/${Environment.USER_MANAGER_PATH}`);
     biitSnackbarService.setPosition(BiitSnackbarVerticalPosition.TOP, BiitSnackbarHorizontalPosition.CENTER);
     biitIconService.registerIcons(completeIconSet);
-    this.setMenu();
   }
 
-  private setMenu(): void {
-    this.menu = [];
-    this.translocoService.selectTranslate('users', {},  {scope: 'components/main'}).subscribe(msg => {
-      this.menu.push({path: 'users', title: msg});
-    });
-    this.translocoService.selectTranslate('roles', {},  {scope: 'components/main'}).subscribe(msg => {
-      this.menu.push({path: 'roles', title: msg});
-    });
-    this.translocoService.selectTranslate('applications', {},  {scope: 'components/main'}).subscribe(msg => {
-      this.menu.push({path: 'applications', title: msg});
-    });
-  }
+
 
   private setLanguage(): void {
     const clientLanguages: ReadonlyArray<string>= navigator.languages;

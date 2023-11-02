@@ -3,6 +3,8 @@ export class Constants {
   public static readonly PATHS = class {
     public static readonly USERS: string = '/users';
     public static readonly ROLES: string = '/roles';
+    public static readonly APPLICATIONS: string = '/applications';
+
     public static readonly QUERY = class {
       public static readonly EXPIRED: string = 'expired';
       public static readonly LOGOUT: string = 'logout';
