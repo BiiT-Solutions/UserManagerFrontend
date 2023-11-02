@@ -1,14 +1,14 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {PortalComponent} from "./portal.component";
+import {BiitUserListComponent} from "./biit-user-list.component";
 const routes: Routes = [
   {
     path: '',
-    component: PortalComponent
+    component: BiitUserListComponent
   }
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PortalRoutingModule { }
+export class BiitUserListRoutingModule { }

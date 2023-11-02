@@ -39,7 +39,7 @@ export class BiitLoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.managePathQueries();
     if (!this.sessionService.isTokenExpired()) {
-      this.router.navigate([Constants.PATHS.PORTAL]);
+      this.router.navigate([Constants.PATHS.USERS]);
     } else {
       this.waiting = false;
     }
@@ -53,7 +53,7 @@ export class BiitLoginPageComponent implements OnInit {
         const expiration: number = +response.headers.get(Constants.HEADERS.EXPIRES);
         this.sessionService.setToken(token, expiration, login.remember, true);
         this.sessionService.setUser(User.clone(response.body));
-        this.router.navigate([Constants.PATHS.PORTAL]);
+        this.router.navigate([Constants.PATHS.USERS]);
         this.waiting = false;
       },
       error: (response: HttpResponse<void>) => {

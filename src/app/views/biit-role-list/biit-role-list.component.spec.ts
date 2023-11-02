@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RolesListComponent } from './roles-list.component';
+import { RolesListComponent } from './biit-role-list.component';
 
 describe('RolesListComponent', () => {
   let component: RolesListComponent;

@@ -6,8 +6,7 @@ import {TranslocoRootModule} from "biit-ui/i18n";
 import {UserFormModule} from "../../shared/user-form/user-form.module";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
-
-
+import {BiitUserListRoutingModule} from "./biit-user-list-routing.module";
 
 @NgModule({
   declarations: [
@@ -19,6 +18,7 @@ import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
   imports: [
     CommonModule,
     TranslocoRootModule,
+    BiitUserListRoutingModule,
     BiitTableModule,
     UserFormModule,
     BiitPopupModule,

@@ -15,12 +15,12 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./views/portal/portal.module').then(m => m.PortalModule),
+    loadChildren: () => import('./views/biit-user-list/biit-user-list.module').then(m => m.BiitUserListModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'roles',
-    loadChildren: () => import('./views/roles-list/roles-list.module').then(m => m.RolesListModule),
+    loadChildren: () => import('./views/biit-role-list/biit-role-list.module').then(m => m.BiitRoleListModule),
     canActivate: [AuthGuard]
   },
   {

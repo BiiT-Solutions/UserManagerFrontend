@@ -4,6 +4,8 @@ import {Environment} from "../environments/environment";
 import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
 import {AvailableLangs, TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Route, Router} from "@angular/router";
+import {completeIconSet} from "biit-icons-collection";
+import {BiitIconService} from "biit-ui/icon";
 
 @Component({
   selector: 'app-root',
@@ -21,12 +23,14 @@ export class AppComponent {
   protected menu: Route[]= [];
   constructor(userManagerRootService: UserManagerRootService,
               biitSnackbarService: BiitSnackbarService,
+              biitIconService: BiitIconService,
               protected sessionService: SessionService,
               private router: Router,
               private translocoService: TranslocoService) {
     this.setLanguage();
     userManagerRootService.serverUrl = new URL(`${Environment.ROOT_URL}/${Environment.USER_MANAGER_PATH}`);
     biitSnackbarService.setPosition(BiitSnackbarVerticalPosition.TOP, BiitSnackbarHorizontalPosition.CENTER);
+    biitIconService.registerIcons(completeIconSet);
     this.setMenu();
   }
 

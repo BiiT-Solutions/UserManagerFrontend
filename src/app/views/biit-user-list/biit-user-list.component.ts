@@ -6,6 +6,8 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
+import {BiitIconService} from "biit-ui/icon";
+import {completeIconSet} from "biit-icons-collection";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -38,8 +40,10 @@ export class BiitUserListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
+              private biitIconService: BiitIconService,
               private sessionService: SessionService,
               private transloco: TranslocoService) {
+    biitIconService.registerIcons(completeIconSet);
   }
 
   ngOnInit(): void {
