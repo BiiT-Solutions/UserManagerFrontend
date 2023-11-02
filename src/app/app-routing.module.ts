@@ -29,6 +29,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'services',
+    loadChildren: () => import('./views/biit-service-list/biit-service-list.module').then(m => m.BiitServiceListModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     loadChildren: () => login
   }

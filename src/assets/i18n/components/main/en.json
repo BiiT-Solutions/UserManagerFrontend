@@ -1,5 +1,6 @@
 {
   "users" : "Users",
   "roles" : "Roles",
+  "services" : "Services",
   "applications": "Applications"
 }

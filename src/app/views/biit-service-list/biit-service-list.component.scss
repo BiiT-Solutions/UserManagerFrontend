@@ -1,0 +1,28 @@
+$space: 1em;
+$main-black: #262626;
+.table-view {
+  margin: 2rem;
+  padding: 2rem;
+  border: solid 0.2rem $main-black;
+  background: white;
+  height: calc(100% - 20rem);
+  min-height: 20rem;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1rem;
+  gap: $space;
+}

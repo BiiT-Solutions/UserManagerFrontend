@@ -45,6 +45,9 @@ export class AppComponent {
     this.translocoService.selectTranslate('applications', {},  {scope: 'components/main'}).subscribe(msg => {
       this.menu.push({path: 'applications', title: msg});
     });
+    this.translocoService.selectTranslate('services', {},  {scope: 'components/main'}).subscribe(msg => {
+      this.menu.push({path: 'services', title: msg});
+    });
   }
 
   private setLanguage(): void {
