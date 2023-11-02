@@ -1,0 +1,17 @@
+{
+  "empty" : " ",
+  "id": "Id",
+  "description": "Descripción",
+  "createdBy": "Creado por",
+  "createdAt": "Fecha de creación",
+  "updatedBy": "Actualizado por",
+  "updatedAt": "Fecha de actualización",
+  "add": "Añadir",
+  "edit": "Modificar",
+  "delete": "Eliminar",
+  "cancel": "Cancelar",
+  "confirm_delete": "¿Está seguro que desea continuar con la eliminación?",
+  "request_completed_successfully": "Su solicitud se ha completado correctamente.",
+  "request_unsuccessful": "Lo sentimos, no hemos podido completar su solicitud.",
+  "bad_implementation": "Ups, esto es embarazoso. Lamentamos lo que parece ser un error en nuestro código. Por favor, reportanos el siguiente código: ${CODE}"
+}

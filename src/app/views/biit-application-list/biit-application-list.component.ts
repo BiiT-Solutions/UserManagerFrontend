@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {Role, RoleService, SessionService} from "user-manager-structure-lib";
+import {Application, ApplicationService, SessionService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
@@ -8,35 +8,35 @@ import {completeIconSet} from "biit-icons-collection";
 import {BiitIconService} from "biit-ui/icon";
 
 @Component({
-  selector: 'app-biit-role-list',
-  templateUrl: './biit-role-list.component.html',
-  styleUrls: ['./biit-role-list.component.scss'],
+  selector: 'app-biit-application-list',
+  templateUrl: './biit-application-list.component.html',
+  styleUrls: ['./biit-application-list.component.scss'],
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/role_list', alias: 'roles'}
+      useValue: {scope: 'components/application_list', alias: 'applications'}
     }
   ]
 })
-export class BiitRoleListComponent {
+export class BiitApplicationListComponent {
 
   private static readonly DEFAULT_PAGE_SIZE: number = 10;
   private static readonly DEFAULT_PAGE: number = 1;
 
   protected columns: BiitTableColumn[] = [];
-  protected pageSize: number = BiitRoleListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = BiitRoleListComponent.DEFAULT_PAGE_SIZE;
+  protected pageSize: number = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
+  protected page: number = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
   protected pageSizes: number[] = [10, 25, 50, 100];
-  protected roles: Role[];
-  protected data: BiitTableData<Role>;
+  protected applications: Application[];
+  protected data: BiitTableData<Application>;
 
-  protected target: Role;
+  protected target: Application;
   protected confirm: null | 'DELETE';
-  protected selected: Role[] = [];
+  protected selected: Application[] = [];
   protected loading: boolean = false;
 
-  constructor(private roleService: RoleService,
+  constructor(private applicationService: ApplicationService,
               private biitSnackbarService: BiitSnackbarService,
               private biitIconService: BiitIconService,
               private sessionService: SessionService,
@@ -47,12 +47,12 @@ export class BiitRoleListComponent {
   ngOnInit(): void {
     combineLatest(
       [
-        this.transloco.selectTranslate('id', {}, {scope: 'components/role_list', alias: 'roles'}),
-        this.transloco.selectTranslate('description', {}, {scope: 'components/role_list', alias: 'roles'}),
-        this.transloco.selectTranslate('createdBy', {}, {scope: 'components/role_list', alias: 'roles'}),
-        this.transloco.selectTranslate('createdAt', {}, {scope: 'components/role_list', alias: 'roles'}),
-        this.transloco.selectTranslate('updatedBy', {}, {scope: 'components/role_list', alias: 'roles'}),
-        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/role_list', alias: 'roles'}),
+        this.transloco.selectTranslate('id', {}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('description', {}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('createdBy', {}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('createdAt', {}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('updatedBy', {}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/application_list', alias: 'roles'}),
       ]
     ).subscribe(([id, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
@@ -63,8 +63,8 @@ export class BiitRoleListComponent {
         new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, true),
         new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, true),
       ];
-      this.pageSize = BiitRoleListComponent.DEFAULT_PAGE_SIZE;
-      this.page = BiitRoleListComponent.DEFAULT_PAGE;
+      this.pageSize = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
+      this.page = BiitApplicationListComponent.DEFAULT_PAGE;
       this.loadData();
     });
 
@@ -73,9 +73,9 @@ export class BiitRoleListComponent {
 
   private loadData(): void {
     this.loading = true;
-    this.roleService.getAll().subscribe( {
-      next: (roles: Role[]): void => {
-        this.roles = roles.map(role => Role.clone(role));
+    this.applicationService.getAll().subscribe( {
+      next: (applications: Application[]): void => {
+        this.applications = applications.map(application => Application.clone(application));
         this.nextData();
         this.loading = false;
       }, error: (): void => {
@@ -86,16 +86,16 @@ export class BiitRoleListComponent {
   }
 
   private nextData() {
-    if (this.roles.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
+    if (this.applications.length > (this.page * this.pageSize - this.pageSize)) {
+      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
     }
   }
 
   protected onAdd(): void {
-    this.target = new Role();
+    this.target = new Application();
   }
 
-  protected onDelete(roles: Role[], confirmed: boolean): void {
+  protected onDelete(applications: Application[], confirmed: boolean): void {
   //   if (users.some(user => user.email === this.sessionService.getUser().email)) {
   //     this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
   //       .subscribe(translation => {
@@ -126,12 +126,12 @@ export class BiitRoleListComponent {
   //   }
   }
 
-  protected onSaved(role: Role): void {
+  protected onSaved(role: Application): void {
   //   this.loadData();
   //   this.target = null;
   }
 
-  onEdit(roles: Role[]): void {
+  onEdit(roles: Application[]): void {
   //   if (user && user.length === 1) {
   //     this.target = user[0];
   //   } else {
@@ -143,7 +143,7 @@ export class BiitRoleListComponent {
   //   }
   }
 
-  protected onUpdatingTask(tableResponse: BiitTableResponse): void {
+  protected onUpdatingApplication(tableResponse: BiitTableResponse): void {
   //   this.pageSize = tableResponse.pageSize;
   //   this.page = tableResponse.currentPage;
   //   if (tableResponse.search && tableResponse.search.length) {

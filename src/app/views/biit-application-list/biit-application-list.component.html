@@ -1,0 +1,30 @@
+<div style="visibility: hidden">
+  <!--This is a workaround to load transloco and avoid issues loading translations-->
+  {{'roles.empty' | transloco}}
+</div>
+<div class="table-view">
+  <biit-table #table *ngIf="columns.length"
+              [columns]="columns"
+              [defaultPageSize]="10"
+              [data]="data"
+              [pageSizes]="pageSizes"
+              (onUpdate)="onUpdatingApplication($event)"
+              [loading]="loading"
+              selectable
+  >
+    <button biit-icon icon="plus"
+            title="{{'applications.add' | transloco}}"
+            (click)="onAdd()"
+    ></button>
+    <button biit-icon icon="minus"
+            title="{{'applications.delete' | transloco}}"
+            (click)="onDelete(table.getSelectedRows(), false)"
+            [disabled]="!table.getSelectedRows().length"
+    ></button>
+    <button biit-icon icon="edit"
+            title="{{'applications.edit' | transloco}}"
+            (click)="onEdit(table.getSelectedRows())"
+            [disabled]="table.getSelectedRows().length !== 1"
+    ></button>
+  </biit-table>
+</div>
