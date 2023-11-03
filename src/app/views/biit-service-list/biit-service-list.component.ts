@@ -28,9 +28,10 @@ export class BiitServiceListComponent implements OnInit {
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected pageSize: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
   protected page: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
+  protected service: BackendService;
 
   constructor(private biitSnackbarService: BiitSnackbarService,
-              private transloco: TranslocoService,
+              protected transloco: TranslocoService,
               private backendService: BackendServiceService) {
   }
 
@@ -86,7 +87,7 @@ export class BiitServiceListComponent implements OnInit {
   }
 
   onAdd() {
-
+    this.service = new BackendService();
   }
 
   onDelete(selectedRows: BackendService[], confirmed: boolean) {

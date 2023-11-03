@@ -5,6 +5,7 @@ import {BiitServiceListRoutingModule} from "./biit-service-list-routing.module";
 import {BiitIconButtonModule} from "biit-ui/button";
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
+import {BiitPopupModule} from "biit-ui/popup";
 
 
 
@@ -17,7 +18,8 @@ import {TranslocoModule} from "@ngneat/transloco";
         BiitServiceListRoutingModule,
         BiitIconButtonModule,
         BiitTableModule,
-        TranslocoModule
+        TranslocoModule,
+        BiitPopupModule
     ]
 })
 export class BiitServiceListModule { }

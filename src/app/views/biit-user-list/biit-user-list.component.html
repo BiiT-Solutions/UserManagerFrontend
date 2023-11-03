@@ -1,8 +1,5 @@
-<!--This is a workaround to load transloco and avoid issues loading translations-->
-<!--<div style="visibility: hidden">
-  {{'users.empty' | transloco}}
-</div>-->
-<div class="table-view">
+<!-- data-transloco helps to load translations file before asking for it. It thrown missing translation key-->
+<div class="table-view" data-transloco="{{'services.empty' | transloco}}">
   <biit-table #table *ngIf="columns.length"
     [columns]="columns"
     [defaultPageSize]="10"
