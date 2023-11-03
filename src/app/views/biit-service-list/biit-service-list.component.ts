@@ -3,7 +3,8 @@ import {BackendService, BackendServiceService} from "user-manager-structure-lib"
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {combineLatest} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
+import {UserFormValidationFields} from "../../shared/validations/user-form/user-form-validation-fields";
 
 @Component({
   selector: 'app-biit-service-list',
@@ -29,6 +30,9 @@ export class BiitServiceListComponent implements OnInit {
   protected pageSize: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
   protected page: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
   protected service: BackendService;
+  protected mode: 'EDIT' | 'NEW' = 'NEW';
+  protected confirm: null | 'DELETE';
+  protected selected: BackendService[];
 
   constructor(private biitSnackbarService: BiitSnackbarService,
               protected transloco: TranslocoService,
@@ -88,13 +92,54 @@ export class BiitServiceListComponent implements OnInit {
 
   onAdd() {
     this.service = new BackendService();
+    this.mode = 'NEW';
   }
 
-  onDelete(selectedRows: BackendService[], confirmed: boolean) {
-
+  onDelete(services: BackendService[], confirmed: boolean) {
+    if (!confirmed) {
+      this.confirm = 'DELETE';
+      this.selected = services;
+    } else {
+      this.confirm = null;
+      combineLatest(services.map(service => this.backendService.deleteById(service.id)))
+        .subscribe({next: (): void => {
+            this.loadServices();
+            this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'users'}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+            );
+          }, error: (): void => {
+            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'users'}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+            );
+          }});
+    }
   }
 
   onEdit(selectedRows: BackendService[]) {
-
+    if (selectedRows && selectedRows.length === 1) {
+      this.service = selectedRows[0];
+      this.mode = 'EDIT';
+    }
   }
+
+  protected readonly UserFormValidationFields = UserFormValidationFields;
+
+  onSave(): void {
+    const request: Observable<BackendService> = this.mode === "NEW" ? this.backendService.create(this.service) :
+      this.backendService.update(this.service);
+
+    request.subscribe({
+      next: (service: BackendService): void => {
+        this.loadServices();
+      }, error: (error: any): void => {
+        this.biitSnackbarService.showNotification('error_saving', NotificationType.ERROR, null, 5);
+        console.error(error);
+      }
+    });
+  }
+
 }

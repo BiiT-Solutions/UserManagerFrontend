@@ -32,3 +32,21 @@ $main-black: #262626;
   margin: 1rem;
   gap: $space;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+}
+.description {
+  height: 20vh;
+  display: block
+}
+.form-bottom {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  button {
+    align-self: end;
+  };
+}

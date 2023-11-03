@@ -6,8 +6,6 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
-import {BiitIconService} from "biit-ui/icon";
-import {completeIconSet} from "biit-icons-collection";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -40,10 +38,8 @@ export class BiitUserListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
-              private biitIconService: BiitIconService,
               private sessionService: SessionService,
               private transloco: TranslocoService) {
-    biitIconService.registerIcons(completeIconSet);
   }
 
   ngOnInit(): void {
@@ -110,7 +106,7 @@ export class BiitUserListComponent implements OnInit {
 
   protected onDelete(users: User[], confirmed: boolean): void {
     if (users.some(user => user.email === this.sessionService.getUser().email)) {
-      this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
+      this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: '', alias: 'users'})
         .subscribe(translation => {
           this.biitSnackbarService.showNotification(translation, NotificationType.WARNING, null, 5);
         });
@@ -124,13 +120,13 @@ export class BiitUserListComponent implements OnInit {
       combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
         .subscribe({next: (): void => {
           this.loadData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
+          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'users'}).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
         }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
+            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'users'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }

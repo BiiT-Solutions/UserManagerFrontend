@@ -1,4 +1,4 @@
-<!-- data-transloco helps to load translations file before asking for it. It thrown missing translation key-->
+<!-- data-transloco helps to load translations file before asking for it. It throws missing translation key-->
 <div class="table-view" slot="{{'empty' | transloco}}">
   <biit-table #table *ngIf="columns.length"
     [columns]="columns"
@@ -36,7 +36,7 @@
             dark-bg no-header
 >
   <div class="vertical">
-    <div>{{'users.confirm_delete' | transloco}}</div>
+    <div>{{'confirm_delete' | transloco}}</div>
     <div class="flex-grow horizontal buttons-row">
       <button biit-button secondary (click)="confirm = null">{{'users.cancel' | transloco}}</button>
       <button biit-button primary (click)="onDelete(selected, true)">{{'users.delete' | transloco}}</button>
