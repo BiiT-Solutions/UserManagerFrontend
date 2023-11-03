@@ -1,16 +1,18 @@
 {
   "name": "user-manager-ui",
-  "version": "0.0.0",
+  "version": "0.1.7",
   "scripts": {
     "ng": "ng",
     "start": "npm run prepare:translations && ng serve",
-    "build": "npm run prepare:translations && ng build --output-hashing=all",
-    "watch": "npm run prepare:translations && ng build --watch --configuration development",
+    "build": "npm run prepare:translations && ng build --output-hashing=all --configuration docker --base-href /user-manager-system/",
+    "watch": "npm run prepare:translations && ng build --watch --configuration docker",
     "clean:translations": "del-cli --force ./src/assets/i18n/biit-ui/",
     "prepare:translations": "npm run clean:translations && cpx \"./node_modules/biit-ui/assets/i18n/**/*.json\" \"./src/assets/i18n/biit-ui/\"",
+    "prepare:docs": "cpx ./README.md ./dist/user-manager-ui && echo \"{\\\"name\\\": \\\"`node -e \"console.log(require('./package.json').name);\"\n`\\\", \\\"version\\\": \\\"`node -e \"console.log(require('./package.json').version);\"\n`\\\"}\" > ./dist/user-manager-ui/package.json",
+    "prepare:publication": "npm run build && npm run prepare:docs",
+    "publish": "npm run prepare:publication && npm publish ./dist/user-manager-ui",
     "test": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "v15-lts",
     "@angular/cdk": "v15-lts",
