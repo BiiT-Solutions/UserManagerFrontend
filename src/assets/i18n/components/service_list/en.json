@@ -1,5 +1,4 @@
 {
-  "empty" : " ",
   "id": "Id",
   "description": "Description",
   "createdBy": "Created By",
@@ -11,5 +10,7 @@
   "delete": "Delete",
   "cancel": "Cancel",
   "confirm_delete": "Are you sure you want to proceed with deleting?",
-  "request_unsuccessful": "Sorry, We couldn't receive the services from server."
+  "request_unsuccessful": "Sorry, We couldn't receive the services from server.",
+  "edit_service": "Edit Service",
+  "new_service": "New Service"
 }

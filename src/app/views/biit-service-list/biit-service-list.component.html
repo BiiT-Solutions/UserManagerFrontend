@@ -1,8 +1,5 @@
-<!--This is a workaround to load transloco and avoid issues loading translations-->
-<!--<div style="visibility: hidden">
-  {{'users.empty' | transloco}}
-</div>-->
-<div class="table-view">
+<!-- data-transloco helps to load translations file before asking for it. It thrown missing translation key-->
+<div class="table-view" slot="{{'empty' | transloco}}" >
     <biit-table #table *ngIf="columns.length"
                 [columns]="columns"
                 [defaultPageSize]="10"
@@ -13,18 +10,26 @@
                 selectable
     >
         <button biit-icon icon="plus"
-                title="{{'applications.add' | transloco}}"
+                title="{{'services.add' | transloco}}"
                 (click)="onAdd()"
         ></button>
         <button biit-icon icon="minus"
-                title="{{'applications.delete' | transloco}}"
+                title="{{'services.delete' | transloco}}"
                 (click)="onDelete(table.getSelectedRows(), false)"
                 [disabled]="!table.getSelectedRows().length"
         ></button>
         <button biit-icon icon="edit"
-                title="{{'applications.edit' | transloco}}"
+                title="{{'services.edit' | transloco}}"
                 (click)="onEdit(table.getSelectedRows())"
                 [disabled]="table.getSelectedRows().length !== 1"
         ></button>
     </biit-table>
 </div>
+
+<biit-popup *ngIf="service"
+  [title]="service.id ? ('services.edit_service' | transloco) : ('services.new_service' | transloco)"
+  (onClosed)="service = null"
+  closable sixty-view
+>
+  sss
+</biit-popup>
