@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
 import {Role, RoleService, SessionService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {completeIconSet} from "biit-icons-collection";
 import {BiitIconService} from "biit-ui/icon";
 
 @Component({
@@ -38,10 +37,7 @@ export class BiitRoleListComponent {
 
   constructor(private roleService: RoleService,
               private biitSnackbarService: BiitSnackbarService,
-              private biitIconService: BiitIconService,
-              private sessionService: SessionService,
               private transloco: TranslocoService) {
-    biitIconService.registerIcons(completeIconSet);
   }
 
   ngOnInit(): void {

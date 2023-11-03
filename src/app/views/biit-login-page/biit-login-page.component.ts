@@ -5,8 +5,6 @@ import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
 import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitIconService} from "biit-ui/icon";
-import {completeIconSet} from "biit-icons-collection";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginRequest, User} from "authorization-services-lib";
 
@@ -29,11 +27,9 @@ export class BiitLoginPageComponent implements OnInit {
   constructor(private authService: AuthService,
               private sessionService: SessionService,
               private biitSnackbarService: BiitSnackbarService,
-              biitIconService: BiitIconService,
               private activateRoute: ActivatedRoute,
               private router: Router,
               private translocoService: TranslocoService) {
-    biitIconService.registerIcons(completeIconSet);
   }
 
   ngOnInit(): void {

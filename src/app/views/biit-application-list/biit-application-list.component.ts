@@ -38,10 +38,7 @@ export class BiitApplicationListComponent {
 
   constructor(private applicationService: ApplicationService,
               private biitSnackbarService: BiitSnackbarService,
-              private biitIconService: BiitIconService,
-              private sessionService: SessionService,
               private transloco: TranslocoService) {
-    biitIconService.registerIcons(completeIconSet);
   }
 
   ngOnInit(): void {
