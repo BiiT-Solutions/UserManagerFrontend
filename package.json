@@ -13,7 +13,6 @@
     "publish": "npm run prepare:publication && npm publish ./dist/user-manager-ui",
     "test": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "v15-lts",
     "@angular/cdk": "v15-lts",
