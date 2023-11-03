@@ -1,4 +1,4 @@
-<!-- data-transloco helps to load translations file before asking for it. It thrown missing translation key-->
+<!-- data-transloco helps to load translations file before asking for it. It throws missing translation key-->
 <div class="table-view" slot="{{'empty' | transloco}}" >
     <biit-table #table *ngIf="columns.length"
                 [columns]="columns"
@@ -10,16 +10,16 @@
                 selectable
     >
         <button biit-icon icon="plus"
-                title="{{'services.add' | transloco}}"
+                title="{{'add' | transloco}}"
                 (click)="onAdd()"
         ></button>
         <button biit-icon icon="minus"
-                title="{{'services.delete' | transloco}}"
+                title="{{'delete' | transloco}}"
                 (click)="onDelete(table.getSelectedRows(), false)"
                 [disabled]="!table.getSelectedRows().length"
         ></button>
         <button biit-icon icon="edit"
-                title="{{'services.edit' | transloco}}"
+                title="{{'edit' | transloco}}"
                 (click)="onEdit(table.getSelectedRows())"
                 [disabled]="table.getSelectedRows().length !== 1"
         ></button>
@@ -27,9 +27,39 @@
 </div>
 
 <biit-popup *ngIf="service"
-  [title]="service.id ? ('services.edit_service' | transloco) : ('services.new_service' | transloco)"
+  [title]="mode === 'EDIT' ? ('services.edit_service' | transloco) : ('services.new_service' | transloco)"
   (onClosed)="service = null"
   closable sixty-view
 >
-  sss
+  <div class="form">
+    <biit-input-text style="width: 100%"
+                     placeholder="{{'services.service_name' | transloco}}"
+                     [(ngModel)]="service.id"
+                     [required] = "true"
+    ></biit-input-text>
+    <biit-textarea
+      [(ngModel)]="service.description"
+      placeholder="{{'services.description' | transloco}}"
+      class="description"
+    ></biit-textarea>
+    <div class="form-bottom">
+      <button biit-button primary style="display: block" (click)="onSave()">
+        {{'services.save' | transloco}}
+      </button>
+    </div>
+  </div>
+
+</biit-popup>
+
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selected, true)">{{'delete' | transloco}}</button>
+    </div>
+  </div>
+
 </biit-popup>

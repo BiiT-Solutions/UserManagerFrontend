@@ -5,12 +5,9 @@
   "createdAt": "Created At",
   "updatedBy": "Updated By",
   "updatedAt": "Updated At",
-  "add": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "cancel": "Cancel",
-  "confirm_delete": "Are you sure you want to proceed with deleting?",
-  "request_unsuccessful": "Sorry, We couldn't receive the services from server.",
   "edit_service": "Edit Service",
-  "new_service": "New Service"
+  "new_service": "New Service",
+  "service_name": "Service Name",
+  "save": "Save",
+  "error_saving": "Sorry, We couldn't save the service."
 }

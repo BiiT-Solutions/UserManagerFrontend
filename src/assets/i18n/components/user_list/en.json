@@ -13,10 +13,5 @@
   "add": "Add",
   "edit": "Edit",
   "delete": "Delete",
-  "cancel": "Cancel",
-  "confirm_delete": "Are you sure you want to proceed with deleting?",
-  "you_cannot_delete_yourself": "You can not delete your own account",
-  "request_completed_successfully": "Your request has been completed successfully",
-  "request_unsuccessful": "Sorry, We couldn't carry out your complete request.",
-  "bad_implementation": "Well, this is embarrassing. We sorry, but it looks it is a bug in our code. Please report us the next issue code: ${CODE}"
+  "cancel": "Cancel"
 }
