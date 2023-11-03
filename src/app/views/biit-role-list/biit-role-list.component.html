@@ -1,5 +1,5 @@
 <!-- data-transloco helps to load translations file before asking for it. It thrown missing translation key-->
-<div class="table-view" data-transloco="{{'services.empty' | transloco}}">
+<div class="table-view" slot="{{'services.empty' | transloco}}">
   <biit-table #table *ngIf="columns.length"
               [columns]="columns"
               [defaultPageSize]="10"
