@@ -8,5 +8,13 @@
   "you_cannot_delete_yourself": "No puede eliminar su propia cuenta",
   "request_completed_successfully": "Su solicitud se ha completado correctamente",
   "request_unsuccessful": "Lo sentimos, no hemos podido completar su solicitud",
-  "bad_implementation": "Ups, esto es embarazoso. Lamentamos lo que parece ser un error en nuestro código. Por favor, reportanos el siguiente código: ${CODE}"
+  "bad_implementation": "Ups, esto es embarazoso. Lamentamos lo que parece ser un error en nuestro código. Por favor, reportanos el siguiente código: ${CODE}",
+  "name": "Nombre",
+  "description": "Descripción",
+  "save": "Guardar",
+  "username": "Nombre de usuario",
+  "lastname": "Apellido",
+  "password": "Contraseña",
+  "repeatPassword": "Repetir Contraseña",
+  "email": "Email"
 }
