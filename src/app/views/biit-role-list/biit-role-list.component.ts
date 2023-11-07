@@ -33,7 +33,6 @@ export class BiitRoleListComponent {
 
   protected target: Role;
   protected popup: RoleFormType;
-  // protected popup: string;
   protected confirm: null | 'DELETE';
   protected selected: Role[] = [];
   protected loading: boolean = false;
@@ -92,7 +91,6 @@ export class BiitRoleListComponent {
 
   protected onAdd(): void {
     this.target = new Role();
-    // this.popup = 'create';
     this.popup = RoleFormType.CREATE;
   }
 
@@ -129,10 +127,9 @@ export class BiitRoleListComponent {
   onEdit(roles: Role[]): void {
     if (roles && roles.length === 1) {
       this.target = Role.clone(roles[0]);
-      // this.popup = 'edit';
       this.popup = RoleFormType.EDIT;
     } else {
-      this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
+      this.transloco.selectTranslate('bad_implementation', {}, {scope: '', alias: ''}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
           }
@@ -140,7 +137,7 @@ export class BiitRoleListComponent {
     }
   }
 
-  protected onUpdatingTask(tableResponse: BiitTableResponse): void {
+  protected onUpdatingRole(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {

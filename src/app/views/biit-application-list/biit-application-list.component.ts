@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {Application, ApplicationService, SessionService} from "user-manager-structure-lib";
+import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {completeIconSet} from "biit-icons-collection";
-import {BiitIconService} from "biit-ui/icon";
+import {ApplicationFormType} from "../../shared/application-form/application-form.component";
+import {GenericFilter} from "../../shared/utils/generic-filter";
 
 @Component({
   selector: 'app-biit-application-list',
@@ -32,6 +32,7 @@ export class BiitApplicationListComponent {
   protected data: BiitTableData<Application>;
 
   protected target: Application;
+  protected popup: ApplicationFormType;
   protected confirm: null | 'DELETE';
   protected selected: Application[] = [];
   protected loading: boolean = false;
@@ -90,64 +91,60 @@ export class BiitApplicationListComponent {
 
   protected onAdd(): void {
     this.target = new Application();
+    this.popup = ApplicationFormType.CREATE;
   }
 
   protected onDelete(applications: Application[], confirmed: boolean): void {
-  //   if (users.some(user => user.email === this.sessionService.getUser().email)) {
-  //     this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
-  //       .subscribe(translation => {
-  //         this.biitSnackbarService.showNotification(translation, NotificationType.WARNING, null, 5);
-  //       });
-  //     return;
-  //   }
-  //   if (!confirmed) {
-  //     this.confirm = 'DELETE';
-  //     this.selected = users;
-  //   } else {
-  //     this.confirm = null;
-  //     combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
-  //       .subscribe({next: (): void => {
-  //           this.loadData();
-  //           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //             translation => {
-  //               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
-  //             }
-  //           );
-  //         }, error: (): void => {
-  //           this.transloco.selectTranslate('request_unsuccessful', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //             translation => {
-  //               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
-  //             }
-  //           );
-  //         }});
-  //   }
+    if (!confirmed) {
+      this.confirm = 'DELETE';
+      this.selected = applications;
+    } else {
+      this.confirm = null;
+      combineLatest(applications.map(application => this.applicationService.deleteById(application.id)))
+        .subscribe({next: (): void => {
+            this.loadData();
+            this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'applications'}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+            );
+          }, error: (): void => {
+            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'applications'}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+            );
+          }});
+    }
   }
 
-  protected onSaved(role: Application): void {
-  //   this.loadData();
-  //   this.target = null;
+  protected onSaved(application: Application): void {
+    this.loadData();
+    this.target = null;
+    this.popup = null;
   }
 
-  onEdit(roles: Application[]): void {
-  //   if (user && user.length === 1) {
-  //     this.target = user[0];
-  //   } else {
-  //     this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //       translation => {
-  //         this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
-  //       }
-  //     );
-  //   }
+  onEdit(applications: Application[]): void {
+    if (applications && applications.length === 1) {
+      this.target = Application.clone(applications[0]);
+      this.popup = ApplicationFormType.EDIT;
+    } else {
+      this.transloco.selectTranslate('bad_implementation', {}, {scope: '', alias: ''}).subscribe(
+        translation => {
+          this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
+        }
+      );
+    }
   }
 
   protected onUpdatingApplication(tableResponse: BiitTableResponse): void {
-  //   this.pageSize = tableResponse.pageSize;
-  //   this.page = tableResponse.currentPage;
-  //   if (tableResponse.search && tableResponse.search.length) {
-  //     const users: User[] = this.users.filter(user => GenericFilter.filter(user, tableResponse.search, true));
-  //     this.data = new BiitTableData(users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), users.length);
-  //   } else {
-  //     this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
-  //   }
+    this.pageSize = tableResponse.pageSize;
+    this.page = tableResponse.currentPage;
+    if (tableResponse.search && tableResponse.search.length) {
+      const applications: Application[] = this.applications.filter(application => GenericFilter.filter(application, tableResponse.search, true));
+      this.data = new BiitTableData(applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), applications.length);
+    } else {
+      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
+    }
   }
 }
