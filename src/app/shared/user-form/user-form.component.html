@@ -83,7 +83,8 @@
           <biit-input-text
             placeholder="{{'email' | transloco}}"
             [(ngModel)]="user.email"
-            [disabled]="true"
+            [type]="Type.EMAIL"
+            [disabled]="user.id"
             error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
