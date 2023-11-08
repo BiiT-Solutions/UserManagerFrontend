@@ -23,22 +23,27 @@
                 (click)="onEdit(table.getSelectedRows())"
                 [disabled]="table.getSelectedRows().length !== 1"
         ></button>
+      <button biit-icon icon="linkage"
+              title="{{'assign' | transloco}}"
+              (click)="onAssign(table.getSelectedRows())"
+              [disabled]="table.getSelectedRows().length !== 1"
+      ></button>
     </biit-table>
 </div>
 
-<biit-popup *ngIf="service"
+<biit-popup *ngIf="editService"
   [title]="mode === 'EDIT' ? ('services.edit_service' | transloco) : ('services.new_service' | transloco)"
-  (onClosed)="service = null"
+  (onClosed)="editService = null"
   closable sixty-view
 >
   <div class="form">
     <biit-input-text style="width: 100%"
-                     placeholder="{{'services.service_name' | transloco}}"
-                     [(ngModel)]="service.id"
+                     placeholder="{{'name' | transloco}}"
+                     [(ngModel)]="editService.name"
                      [required] = "true"
     ></biit-input-text>
     <biit-textarea
-      [(ngModel)]="service.description"
+      [(ngModel)]="editService.description"
       placeholder="{{'services.description' | transloco}}"
       class="description"
     ></biit-textarea>
@@ -62,4 +67,12 @@
     </div>
   </div>
 
+</biit-popup>
+
+<biit-popup *ngIf="assignService"
+            [title]="assignService.name + ' ' + ('roles' | transloco)"
+            (onClosed)="assignService = null"
+            closable sixty-view
+>
+  <biit-service-role-list></biit-service-role-list>
 </biit-popup>

@@ -9,6 +9,7 @@ import {BiitPopupModule} from "biit-ui/popup";
 import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
 import {UtilsModule} from "../../shared/utils/utils.module";
 import {FormsModule} from "@angular/forms";
+import {ServiceRoleListModule} from "../../shared/service-role-list/service-role-list.module";
 
 
 
@@ -27,7 +28,8 @@ import {FormsModule} from "@angular/forms";
     UtilsModule,
     FormsModule,
     BiitTextareaModule,
-    BiitButtonModule
+    BiitButtonModule,
+    ServiceRoleListModule
   ]
 })
 export class BiitServiceListModule { }

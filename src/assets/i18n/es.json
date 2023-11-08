@@ -16,5 +16,7 @@
   "lastname": "Apellido",
   "password": "Contraseña",
   "repeatPassword": "Repetir Contraseña",
-  "email": "Email"
+  "email": "Email",
+  "assign": "Asignar",
+  "roles": "Roles"
 }
