@@ -77,7 +77,7 @@ export class BiitServiceListComponent implements OnInit {
       }, complete: (): void => {
           this.loading = false;
       }
-    })
+    });
   }
 
   private nextData() {
@@ -87,9 +87,6 @@ export class BiitServiceListComponent implements OnInit {
     }
   }
 
-  onUpdatingService(service: BiitTableResponse): void {
-
-  }
 
   onAdd() {
     this.editService = new BackendService();

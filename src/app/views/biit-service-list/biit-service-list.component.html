@@ -5,7 +5,6 @@
                 [defaultPageSize]="10"
                 [data]="data"
                 [pageSizes]="pageSizes"
-                (onUpdate)="onUpdatingService($event)"
                 [loading]="loading"
                 selectable
     >
@@ -74,5 +73,5 @@
             (onClosed)="assignService = null"
             closable sixty-view
 >
-  <biit-service-role-list></biit-service-role-list>
+  <biit-service-role-list [service]="assignService"></biit-service-role-list>
 </biit-popup>
