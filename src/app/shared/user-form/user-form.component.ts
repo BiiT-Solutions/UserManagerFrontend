@@ -6,7 +6,7 @@ import {UserService} from "user-manager-structure-lib";
 import {UserFormValidationFields} from "../validations/user-form/user-form-validation-fields";
 import {TypeValidations} from "../utils/type-validations";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {generate, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {PwdGenerator} from "../utils/pwd-generator";
 
 @Component({

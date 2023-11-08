@@ -6,6 +6,8 @@ import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
+import {RoleFormModule} from "../../shared/role-form/role-form.module";
+import {UserFormModule} from "../../shared/user-form/user-form.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {BiitPopupModule} from "biit-ui/popup";
     BiitTableModule,
     BiitPopupModule,
     BiitButtonModule,
-    BiitIconButtonModule
+    BiitIconButtonModule,
+    RoleFormModule,
+    UserFormModule
   ]
 })
 export class BiitRoleListModule { }

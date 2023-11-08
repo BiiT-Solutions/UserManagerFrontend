@@ -29,7 +29,8 @@ export class BiitServiceListComponent implements OnInit {
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected pageSize: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
   protected page: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
-  protected service: BackendService;
+  protected editService: BackendService;
+  protected assignService: BackendService;
   protected mode: 'EDIT' | 'NEW' = 'NEW';
   protected confirm: null | 'DELETE';
   protected selected: BackendService[];
@@ -42,16 +43,16 @@ export class BiitServiceListComponent implements OnInit {
   ngOnInit(): void {
     combineLatest(
         [
-          this.transloco.selectTranslate('id', {}, {scope: 'components/service_list', alias: 'roles'}),
+          this.transloco.selectTranslate('name', {}),
           this.transloco.selectTranslate('description', {}, {scope: 'components/service_list', alias: 'roles'}),
           this.transloco.selectTranslate('createdBy', {}, {scope: 'components/service_list', alias: 'roles'}),
           this.transloco.selectTranslate('createdAt', {}, {scope: 'components/service_list', alias: 'roles'}),
           this.transloco.selectTranslate('updatedBy', {}, {scope: 'components/service_list', alias: 'roles'}),
           this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/service_list', alias: 'roles'}),
         ]
-    ).subscribe(([id, description, createdBy, createdAt, updatedBy, updatedAt]) => {
+    ).subscribe(([name, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("id", id, undefined, undefined, true),
+        new BiitTableColumn("name", name, undefined, undefined, true),
         new BiitTableColumn("description", description, undefined, undefined, true),
         new BiitTableColumn("createdBy", createdBy, undefined, undefined, true),
         new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
@@ -91,7 +92,7 @@ export class BiitServiceListComponent implements OnInit {
   }
 
   onAdd() {
-    this.service = new BackendService();
+    this.editService = new BackendService();
     this.mode = 'NEW';
   }
 
@@ -121,7 +122,7 @@ export class BiitServiceListComponent implements OnInit {
 
   onEdit(selectedRows: BackendService[]) {
     if (selectedRows && selectedRows.length === 1) {
-      this.service = selectedRows[0];
+      this.editService = selectedRows[0];
       this.mode = 'EDIT';
     }
   }
@@ -129,8 +130,8 @@ export class BiitServiceListComponent implements OnInit {
   protected readonly UserFormValidationFields = UserFormValidationFields;
 
   onSave(): void {
-    const request: Observable<BackendService> = this.mode === "NEW" ? this.backendService.create(this.service) :
-      this.backendService.update(this.service);
+    const request: Observable<BackendService> = this.mode === "NEW" ? this.backendService.create(this.editService) :
+      this.backendService.update(this.editService);
 
     request.subscribe({
       next: (service: BackendService): void => {
@@ -142,4 +143,7 @@ export class BiitServiceListComponent implements OnInit {
     });
   }
 
+  protected onAssign(selectedRows: BackendService[]): void {
+    this.assignService = selectedRows[0];
+  }
 }

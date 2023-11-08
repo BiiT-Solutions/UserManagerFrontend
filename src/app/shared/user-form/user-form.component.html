@@ -8,7 +8,7 @@
       <biit-tab name="{{'form.account' | transloco}}">
         <div class="tab-row-single">
           <biit-input-text
-            placeholder="{{'form.username' | transloco}}"
+            placeholder="{{'username' | transloco}}"
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
             [required] = "true"
@@ -17,13 +17,13 @@
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.name' | transloco}}"
+            placeholder="{{'name' | transloco}}"
             [(ngModel)]="user.name"
             [required] = "true"
             error="{{errors | mapGet: UserFormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.lastname' | transloco}}"
+            placeholder="{{'lastname' | transloco}}"
             [(ngModel)]="user.lastname"
             [required] = "true"
             error="{{errors | mapGet: UserFormValidationFields.LASTNAME_MANDATORY}}"
@@ -31,14 +31,14 @@
         </div>
         <div class="tab-row" *ngIf="!user.id">
           <biit-input-text
-            placeholder="{{'form.password' | transloco}}"
+            placeholder="{{'password' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             [required]="true"
             error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.repeatPassword' | transloco}}"
+            placeholder="{{'repeatPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
             [required]="true"
@@ -81,14 +81,15 @@
             error="{{errors | mapGet: [UserFormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.email' | transloco}}"
+            placeholder="{{'email' | transloco}}"
             [(ngModel)]="user.email"
-            [disabled]="true"
+            [type]="Type.EMAIL"
+            [disabled]="user.id"
             error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
-      <biit-tab name="{{'form.password' | transloco}}" *ngIf="user.id">
+      <biit-tab name="{{'password' | transloco}}" *ngIf="user.id">
         <div class="tab-row-single">
           <biit-input-text
             placeholder="{{'form.currentPassword' | transloco}}"
@@ -104,7 +105,7 @@
             error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.repeatPassword' | transloco}}"
+            placeholder="{{'repeatPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
             error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MISMATCH}}"
@@ -119,7 +120,7 @@
     </biit-tab-group>
     <div class="form-bottom">
       <button biit-button primary style="display: block" (click)="onSave()">
-        {{'form.save' | transloco}}
+        {{'save' | transloco}}
       </button>
     </div>
   </div>

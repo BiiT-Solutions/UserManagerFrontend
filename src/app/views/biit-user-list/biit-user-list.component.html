@@ -10,16 +10,16 @@
     selectable
   >
     <button biit-icon icon="plus"
-            title="{{'users.add' | transloco}}"
+            title="{{'add' | transloco}}"
             (click)="onAdd()"
     ></button>
     <button biit-icon icon="minus"
-            title="{{'users.delete' | transloco}}"
+            title="{{'delete' | transloco}}"
             (click)="onDelete(table.getSelectedRows(), false)"
             [disabled]="!table.getSelectedRows().length"
     ></button>
     <button biit-icon icon="edit"
-            title="{{'users.edit' | transloco}}"
+            title="{{'edit' | transloco}}"
             (click)="onEdit(table.getSelectedRows())"
             [disabled]="table.getSelectedRows().length !== 1"
     ></button>
@@ -38,8 +38,8 @@
   <div class="vertical">
     <div>{{'confirm_delete' | transloco}}</div>
     <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="confirm = null">{{'users.cancel' | transloco}}</button>
-      <button biit-button primary (click)="onDelete(selected, true)">{{'users.delete' | transloco}}</button>
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selected, true)">{{'delete' | transloco}}</button>
     </div>
   </div>
 

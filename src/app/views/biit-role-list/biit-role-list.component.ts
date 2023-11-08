@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {Role, RoleService, SessionService} from "user-manager-structure-lib";
+import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {BiitIconService} from "biit-ui/icon";
+import {GenericFilter} from "../../shared/utils/generic-filter";
+import {RoleFormType} from "../../shared/role-form/role-form.component";
 
 @Component({
   selector: 'app-biit-role-list',
@@ -31,6 +32,7 @@ export class BiitRoleListComponent {
   protected data: BiitTableData<Role>;
 
   protected target: Role;
+  protected popup: RoleFormType;
   protected confirm: null | 'DELETE';
   protected selected: Role[] = [];
   protected loading: boolean = false;
@@ -89,64 +91,60 @@ export class BiitRoleListComponent {
 
   protected onAdd(): void {
     this.target = new Role();
+    this.popup = RoleFormType.CREATE;
   }
 
   protected onDelete(roles: Role[], confirmed: boolean): void {
-  //   if (users.some(user => user.email === this.sessionService.getUser().email)) {
-  //     this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: 'components/user_list', alias: 'users'})
-  //       .subscribe(translation => {
-  //         this.biitSnackbarService.showNotification(translation, NotificationType.WARNING, null, 5);
-  //       });
-  //     return;
-  //   }
-  //   if (!confirmed) {
-  //     this.confirm = 'DELETE';
-  //     this.selected = users;
-  //   } else {
-  //     this.confirm = null;
-  //     combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
-  //       .subscribe({next: (): void => {
-  //           this.loadData();
-  //           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //             translation => {
-  //               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
-  //             }
-  //           );
-  //         }, error: (): void => {
-  //           this.transloco.selectTranslate('request_unsuccessful', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //             translation => {
-  //               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
-  //             }
-  //           );
-  //         }});
-  //   }
+    if (!confirmed) {
+      this.confirm = 'DELETE';
+      this.selected = roles;
+    } else {
+      this.confirm = null;
+      combineLatest(roles.map(role => this.roleService.deleteById(role.id)))
+          .subscribe({next: (): void => {
+              this.loadData();
+              this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'roles'}).subscribe(
+                  translation => {
+                    this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                  }
+              );
+            }, error: (): void => {
+              this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'roles'}).subscribe(
+                  translation => {
+                    this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                  }
+              );
+            }});
+    }
   }
 
   protected onSaved(role: Role): void {
-  //   this.loadData();
-  //   this.target = null;
+    this.loadData();
+    this.target = null;
+    this.popup = null;
   }
 
   onEdit(roles: Role[]): void {
-  //   if (user && user.length === 1) {
-  //     this.target = user[0];
-  //   } else {
-  //     this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-  //       translation => {
-  //         this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
-  //       }
-  //     );
-  //   }
+    if (roles && roles.length === 1) {
+      this.target = Role.clone(roles[0]);
+      this.popup = RoleFormType.EDIT;
+    } else {
+      this.transloco.selectTranslate('bad_implementation', {}, {scope: '', alias: ''}).subscribe(
+          translation => {
+            this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
+          }
+      );
+    }
   }
 
-  protected onUpdatingTask(tableResponse: BiitTableResponse): void {
-  //   this.pageSize = tableResponse.pageSize;
-  //   this.page = tableResponse.currentPage;
-  //   if (tableResponse.search && tableResponse.search.length) {
-  //     const users: User[] = this.users.filter(user => GenericFilter.filter(user, tableResponse.search, true));
-  //     this.data = new BiitTableData(users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), users.length);
-  //   } else {
-  //     this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
-  //   }
+  protected onUpdatingRole(tableResponse: BiitTableResponse): void {
+    this.pageSize = tableResponse.pageSize;
+    this.page = tableResponse.currentPage;
+    if (tableResponse.search && tableResponse.search.length) {
+      const roles: Role[] = this.roles.filter(role => GenericFilter.filter(role, tableResponse.search, true));
+      this.data = new BiitTableData(roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), roles.length);
+    } else {
+      this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
+    }
   }
 }

@@ -25,3 +25,23 @@
     ></button>
   </biit-table>
 </div>
+
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selected, true)">{{'delete' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>
+
+<biit-application-form *ngIf="popup"
+                       [application]="target"
+                       [type]="popup"
+                       (onClosed)="this.target = null; this.popup = null;"
+                       (onSaved)="onSaved($event)"
+></biit-application-form>
