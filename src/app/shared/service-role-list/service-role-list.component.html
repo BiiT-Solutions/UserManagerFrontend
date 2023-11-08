@@ -5,6 +5,7 @@
   [data]="data"
   [pageSizes]="pageSizes"
   [loading]="loading"
+  (onUpdate)="onUpdatingItem($event)"
   selectable>
   <button biit-icon icon="plus"
           title="{{'add' | transloco}}"
@@ -25,4 +26,17 @@
       <button biit-button primary (click)="onSave()">{{'save' | transloco}}</button>
     </div>
   </div>
+</biit-popup>
+
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{'delete' | transloco}}</button>
+    </div>
+  </div>
+
 </biit-popup>

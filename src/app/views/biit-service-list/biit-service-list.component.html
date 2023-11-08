@@ -6,6 +6,7 @@
                 [data]="data"
                 [pageSizes]="pageSizes"
                 [loading]="loading"
+                (onUpdate)="onUpdatingItem($event)"
                 selectable
     >
         <button biit-icon icon="plus"

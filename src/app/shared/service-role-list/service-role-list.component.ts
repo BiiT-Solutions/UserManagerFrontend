@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData} from "biit-ui/table";
+import {BiitTableColumn, BiitTableData, BiitTableResponse} from "biit-ui/table";
 import {
   BackendService,
   BackendServiceRole,
@@ -8,6 +8,8 @@ import {
 } from "user-manager-structure-lib";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
+import {GenericFilter} from "../utils/generic-filter";
+import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 
 @Component({
   selector: 'biit-service-role-list',
@@ -31,11 +33,15 @@ export class ServiceRoleListComponent implements OnInit {
   protected data: BiitTableData<BackendServiceRole>;
   protected loading: boolean = false;
   protected role: string;
+  protected confirm: null | 'DELETE';
   private serviceRoles: BackendServiceRole[];
+  protected selectedToDelete: BackendServiceRole[];
 
   @Input() service: BackendService;
 
-  constructor(private backendServiceRoleService: BackendServiceRoleService, private transloco: TranslocoService) {
+  constructor(private backendServiceRoleService: BackendServiceRoleService,
+              private biitSnackbarService: BiitSnackbarService,
+              private transloco: TranslocoService) {
   }
   ngOnInit(): void {
     combineLatest(
@@ -78,7 +84,29 @@ export class ServiceRoleListComponent implements OnInit {
   }
 
   protected onDelete(serviceRoles: BackendServiceRole[], confirmed: boolean) {
-
+    if (!confirmed) {
+      this.selectedToDelete = serviceRoles;
+      this.confirm = 'DELETE';
+    } else {
+      this.confirm = null;
+      combineLatest(serviceRoles.map(serviceRole => this.backendServiceRoleService.delete(serviceRole.id.backendService.name, serviceRole.id.name)))
+        .subscribe({
+          next: (): void => {
+            this.loadServiceRoles();
+            this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+            );
+          }, error: (): void => {
+            this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
+              }
+            );
+          }
+      })
+    }
   }
 
   protected onSave(): void {
@@ -95,5 +123,16 @@ export class ServiceRoleListComponent implements OnInit {
         this.role = undefined;
       }
     });
+  }
+
+  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+    this.pageSize = tableResponse.pageSize;
+    this.page = tableResponse.currentPage;
+    if (tableResponse.search && tableResponse.search.length) {
+      const serviceRoles: BackendServiceRole[] = this.serviceRoles.filter(serviceRole => GenericFilter.filter(serviceRole, tableResponse.search, true));
+      this.data = new BiitTableData(serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), serviceRoles.length);
+    } else {
+      this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.serviceRoles.length);
+    }
   }
 }

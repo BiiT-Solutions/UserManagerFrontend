@@ -5,6 +5,8 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {UserFormValidationFields} from "../../shared/validations/user-form/user-form-validation-fields";
+import {User} from "authorization-services-lib";
+import {GenericFilter} from "../../shared/utils/generic-filter";
 
 @Component({
   selector: 'app-biit-service-list',
@@ -142,5 +144,15 @@ export class BiitServiceListComponent implements OnInit {
 
   protected onAssign(selectedRows: BackendService[]): void {
     this.assignService = selectedRows[0];
+  }
+  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+    this.pageSize = tableResponse.pageSize;
+    this.page = tableResponse.currentPage;
+    if (tableResponse.search && tableResponse.search.length) {
+      const services: BackendService[] = this.services.filter(service => GenericFilter.filter(service, tableResponse.search, true));
+      this.data = new BiitTableData(services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), services.length);
+    } else {
+      this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.services.length);
+    }
   }
 }
