@@ -83,7 +83,7 @@ export class ServiceRoleListComponent implements OnInit {
     this.role = '';
   }
 
-  protected onDelete(serviceRoles: BackendServiceRole[], confirmed: boolean) {
+  protected onDelete(serviceRoles: BackendServiceRole[], confirmed: boolean): void {
     if (!confirmed) {
       this.selectedToDelete = serviceRoles;
       this.confirm = 'DELETE';

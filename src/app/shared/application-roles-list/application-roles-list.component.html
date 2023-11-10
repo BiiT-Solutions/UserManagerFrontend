@@ -1,0 +1,19 @@
+<biit-table #application_roles
+            *ngIf="columns.length"
+            [columns]="columns"
+            [defaultPageSize]="10"
+            [data]="data"
+            [pageSizes]="pageSizes"
+            [loading]="loading"
+            (onUpdate)="onUpdatingItem($event)"
+            selectable>
+  <button biit-icon icon="plus"
+          title="{{'add' | transloco}}"
+          (click)="onAdd()"
+  ></button>
+  <button biit-icon icon="minus"
+          title="{{'delete' | transloco}}"
+          (click)="onDelete(application_roles.getSelectedRows(), false)"
+          [disabled]="!application_roles.getSelectedRows().length"
+  ></button>
+</biit-table>

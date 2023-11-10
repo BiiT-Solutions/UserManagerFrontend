@@ -29,6 +29,7 @@ export class BiitApplicationListComponent {
   protected page: number = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected applications: Application[];
+  protected application: Application;
   protected data: BiitTableData<Application>;
 
   protected target: Application;
@@ -134,6 +135,12 @@ export class BiitApplicationListComponent {
           this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
         }
       );
+    }
+  }
+
+  onAssign(applications: Application[]): void {
+    if (applications && applications.length) {
+      this.application = applications[0];
     }
   }
 
