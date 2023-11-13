@@ -1,15 +1,28 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Application, ApplicationRole, ApplicationRoleService, BackendServiceRole} from "user-manager-structure-lib";
+import {
+  Application,
+  ApplicationRole, ApplicationRoleId,
+  ApplicationRoleService,
+  BackendServiceRole,
+  Role, RoleService
+} from "user-manager-structure-lib";
 import {BiitTableColumn, BiitTableData, BiitTableResponse} from "biit-ui/table";
 import {combineLatest} from "rxjs";
-import {TranslocoService} from "@ngneat/transloco";
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {GenericFilter} from "../utils/generic-filter";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 
 @Component({
   selector: 'biit-application-roles-list',
   templateUrl: './application-roles-list.component.html',
-  styleUrls: ['./application-roles-list.component.scss']
+  styleUrls: ['./application-roles-list.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      multi:true,
+      useValue: {scope: 'components/application_role_list', alias: 'application_roles'}
+    }
+  ]
 })
 export class ApplicationRolesListComponent implements OnInit {
   @Input() application: Application;
@@ -24,9 +37,13 @@ export class ApplicationRolesListComponent implements OnInit {
   private roles: ApplicationRole[];
   protected selectedToDelete: ApplicationRole[];
   protected confirm: null | 'DELETE';
+  protected applicationRole: ApplicationRole;
+  protected allRoles: Role[];
+  protected availableRoles: Role[];
 
   constructor(private applicationRoleService: ApplicationRoleService,
               private biitSnackbarService: BiitSnackbarService,
+              private roleService: RoleService,
               private transloco: TranslocoService) {
   }
 
@@ -42,8 +59,17 @@ export class ApplicationRolesListComponent implements OnInit {
       this.pageSize = ApplicationRolesListComponent.DEFAULT_PAGE_SIZE;
       this.page = ApplicationRolesListComponent.DEFAULT_PAGE;
       this.loadApplicationRoles();
+      this.loadRoles();
     });
 
+  }
+
+  private loadRoles(): void {
+    this.roleService.getAll().subscribe({
+      next: roles => {
+        this.allRoles = roles.map(Role.clone);
+      }
+    })
   }
 
   private loadApplicationRoles(): void {
@@ -69,6 +95,19 @@ export class ApplicationRolesListComponent implements OnInit {
   }
 
   protected onAdd(): void {
+    const ids: string[] = this.roles.map(role => role.id.role.id);
+    this.availableRoles = this.allRoles.filter(role => !ids.includes(role.id));
+    if (this.availableRoles.length) {
+      this.applicationRole = new ApplicationRole();
+      this.applicationRole.id = new ApplicationRoleId();
+      this.applicationRole.id.application = this.application;
+    } else {
+      this.transloco.selectTranslate('no_roles_available', {},{scope: 'components/application_role_list', alias: 'roles'}).subscribe(
+        translation => {
+          this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
+        }
+      );
+    }
   }
   protected onDelete(applicationRoles: ApplicationRole[], confirmed: boolean): void {
     if (!confirmed) {
@@ -106,4 +145,31 @@ export class ApplicationRolesListComponent implements OnInit {
     }
   }
 
+  protected assignRole(): void {
+    if (!this.applicationRole.id.role) {
+      this.transloco.selectTranslate('no_role_selected', {},{scope: 'components/application_role_list', alias: 'roles'}).subscribe(
+        translation => {
+          this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
+        }
+      );
+    } else {
+      this.applicationRoleService.create(this.applicationRole).subscribe({
+        next: (): void => {
+          this.loadApplicationRoles();
+          this.applicationRole = null;
+          this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
+        }, error: (): void => {
+          this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
+            }
+          );
+        }
+      })
+    }
+  }
 }
