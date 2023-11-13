@@ -1,5 +1,5 @@
 $background: #EDEDED;
-$space: 1em;
+$space: 0.7rem;
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; font-size: 20px}
@@ -38,5 +38,8 @@ biit-snackbar {
   flex-direction: row;
   justify-content: center;
   margin-top: 1rem;
+  gap: $space;
+}
+.gap {
   gap: $space;
 }

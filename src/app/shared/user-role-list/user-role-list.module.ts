@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserRoleListComponent } from './user-role-list.component';
 import {BiitTableModule} from "biit-ui/table";
-import {BiitIconButtonModule} from "biit-ui/button";
+import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {TranslocoModule} from "@ngneat/transloco";
+import {BiitPopupModule} from "biit-ui/popup";
+import {BiitDropdownModule} from "biit-ui/inputs";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -18,7 +21,11 @@ import {TranslocoModule} from "@ngneat/transloco";
     CommonModule,
     BiitTableModule,
     BiitIconButtonModule,
-    TranslocoModule
+    TranslocoModule,
+    BiitButtonModule,
+    BiitPopupModule,
+    BiitDropdownModule,
+    FormsModule
   ]
 })
 export class UserRoleListModule { }

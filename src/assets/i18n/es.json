@@ -19,5 +19,8 @@
   "email": "Email",
   "assign": "Asignar",
   "roles": "Roles",
-  "applications": "Aplicaciones"
+  "applications": "Aplicaciones",
+  "application": "Aplicación",
+  "role": "Rol",
+  "provide_required_fields": "Por favor, proporcione todos los campos obligatorios"
 }
