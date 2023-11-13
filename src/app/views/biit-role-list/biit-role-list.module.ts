@@ -8,6 +8,8 @@ import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
 import {RoleFormModule} from "../../shared/role-form/role-form.module";
 import {UserFormModule} from "../../shared/user-form/user-form.module";
+import {ApplicationRolesListModule} from "../../shared/application-roles-list/application-roles-list.module";
+import {RoleApplicationsListModule} from "../../shared/role-applications-list/role-applications-list.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {UserFormModule} from "../../shared/user-form/user-form.module";
     BiitButtonModule,
     BiitIconButtonModule,
     RoleFormModule,
-    UserFormModule
+    UserFormModule,
+    ApplicationRolesListModule,
+    RoleApplicationsListModule
   ]
 })
 export class BiitRoleListModule { }

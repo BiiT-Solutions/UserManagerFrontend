@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
-import {Role, RoleService} from "user-manager-structure-lib";
+import {Application, Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
@@ -29,6 +29,7 @@ export class BiitRoleListComponent {
   protected page: number = BiitRoleListComponent.DEFAULT_PAGE_SIZE;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected roles: Role[];
+  protected role: Role;
   protected data: BiitTableData<Role>;
 
   protected target: Role;
@@ -134,6 +135,12 @@ export class BiitRoleListComponent {
             this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
           }
       );
+    }
+  }
+
+  onAssign(roles: Role[]): void {
+    if (roles && roles.length) {
+      this.role = roles[0];
     }
   }
 

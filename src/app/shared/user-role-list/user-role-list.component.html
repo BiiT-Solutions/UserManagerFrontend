@@ -1,0 +1,15 @@
+<biit-table #service_roles
+            *ngIf="columns.length"
+            [columns]="columns"
+            [defaultPageSize]="10"
+            [pageSizes]="pageSizes"
+            [loading]="loading"
+            selectable>
+  <button biit-icon icon="plus"
+          title="{{'add' | transloco}}"
+  ></button>
+  <button biit-icon icon="minus"
+          title="{{'delete' | transloco}}"
+          [disabled]="!service_roles.getSelectedRows().length"
+  ></button>
+</biit-table>

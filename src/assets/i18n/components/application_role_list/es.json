@@ -1,5 +1,8 @@
 {
   "assign_role": "Asignar rol",
+  "assign_application": "Asignar aplicación",
   "no_roles_available": "No hay roles disponibles para asignar.",
-  "no_role_selected": "Por favor, seleccione primero un rol."
+  "no_applications_available": "No hay aplicaciones disponibles para asignar.",
+  "no_role_selected": "Por favor, seleccione primero un rol.",
+  "no_application_selected": "Por favor, seleccione primero una aplicación."
 }

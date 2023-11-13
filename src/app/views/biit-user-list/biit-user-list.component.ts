@@ -36,6 +36,8 @@ export class BiitUserListComponent implements OnInit {
   protected selected: User[] = [];
   protected loading: boolean = false;
 
+  protected assign: User;
+
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
               private sessionService: SessionService,
@@ -161,5 +163,9 @@ export class BiitUserListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
     }
+  }
+
+  protected onAssign(selectedRows: User[]): void {
+    this.assign = selectedRows[0];
   }
 }

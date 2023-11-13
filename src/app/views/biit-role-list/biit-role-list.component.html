@@ -23,6 +23,11 @@
             (click)="onEdit(table.getSelectedRows())"
             [disabled]="table.getSelectedRows().length !== 1"
     ></button>
+    <button biit-icon icon="linkage"
+            title="{{'assign' | transloco}}"
+            (click)="onAssign(table.getSelectedRows())"
+            [disabled]="table.getSelectedRows().length !== 1"
+    ></button>
   </biit-table>
 </div>
 
@@ -45,3 +50,9 @@
                 (onClosed)="this.target = null; this.popup = null;"
                 (onSaved)="onSaved($event)"
 ></biit-role-form>
+
+<biit-popup *ngIf="role" [title]="role.id + ' ' +  ('applications' | transloco)" (onClosed)="role = null" sixty-view closable>
+  <biit-role-applications-list
+    [role]="role"
+  ></biit-role-applications-list>
+</biit-popup>

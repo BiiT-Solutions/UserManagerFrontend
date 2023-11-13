@@ -1,5 +1,8 @@
 {
   "assign_role": "Assign role",
+  "assign_application": "Assign role",
   "no_roles_available": "No roles available to assign.",
-  "no_role_selected": "Please, select a role first."
+  "no_applications_available": "No roles available to assign.",
+  "no_role_selected": "Please, select a role first.",
+  "no_application_selected": "Please, select a role first."
 }

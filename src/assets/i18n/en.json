@@ -18,5 +18,6 @@
   "repeatPassword": "Repeat Password",
   "email": "Email",
   "assign": "Assign",
-  "roles": "Roles"
+  "roles": "Roles",
+  "applications": "Applications"
 }

@@ -1,0 +1,52 @@
+<biit-table #application_roles
+            *ngIf="columns.length"
+            [columns]="columns"
+            [defaultPageSize]="10"
+            [data]="data"
+            [pageSizes]="pageSizes"
+            [loading]="loading"
+            (onUpdate)="onUpdatingItem($event)"
+            selectable>
+  <button biit-icon icon="plus"
+          title="{{'add' | transloco}}"
+          (click)="onAdd()"
+  ></button>
+  <button biit-icon icon="minus"
+          title="{{'delete' | transloco}}"
+          (click)="onDelete(application_roles.getSelectedRows(), false)"
+          [disabled]="!application_roles.getSelectedRows().length"
+  ></button>
+</biit-table>
+
+<biit-popup *ngIf="applicationRole"
+            (onClosed)="applicationRole = null"
+            title="{{'application_roles.assign_application' | transloco}}"
+            closable
+>
+  <div class="vertical" style="margin-top: 0.5rem;">
+    <biit-dropdown
+      title="{{'applications' | transloco}}"
+      [required]="true"
+      [data]="availableApplication"
+      [(ngModel)]="applicationRole.id.application"
+      [primitive]="false" label="id"></biit-dropdown>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="applicationRole = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="assignApplication()">{{'assign' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>
+
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{'delete' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>

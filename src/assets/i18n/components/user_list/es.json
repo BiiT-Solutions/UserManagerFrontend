@@ -13,5 +13,6 @@
   "add": "Añadir",
   "edit": "Modificar",
   "delete": "Eliminar",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "assign_roles": "Asignar roles"
 }
