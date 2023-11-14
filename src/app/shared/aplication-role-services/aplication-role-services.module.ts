@@ -1,22 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ApplicationRolesListComponent } from './application-roles-list.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AplicationRoleServicesComponent} from './aplication-role-services.component';
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitDropdownModule} from "biit-ui/inputs";
 import {FormsModule} from "@angular/forms";
-import {AplicationRoleServicesModule} from "../aplication-role-services/aplication-role-services.module";
-
 
 
 @NgModule({
   declarations: [
-    ApplicationRolesListComponent
+    AplicationRoleServicesComponent
   ],
   exports: [
-    ApplicationRolesListComponent
+    AplicationRoleServicesComponent
   ],
   imports: [
     CommonModule,
@@ -24,10 +22,9 @@ import {AplicationRoleServicesModule} from "../aplication-role-services/aplicati
     BiitTableModule,
     TranslocoModule,
     BiitPopupModule,
-    BiitDropdownModule,
     BiitButtonModule,
-    FormsModule,
-    AplicationRoleServicesModule
+    BiitDropdownModule,
+    FormsModule
   ]
 })
-export class ApplicationRolesListModule { }
+export class AplicationRoleServicesModule { }

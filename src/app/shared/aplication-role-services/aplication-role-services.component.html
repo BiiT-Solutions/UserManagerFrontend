@@ -16,33 +16,36 @@
           (click)="onDelete(application_roles.getSelectedRows(), false)"
           [disabled]="!application_roles.getSelectedRows().length"
   ></button>
-  <button biit-icon icon="linkage"
-          title="{{'assign' | transloco}}"
-          (click)="onAssign(application_roles.getSelectedRows())"
-          [disabled]="application_roles.getSelectedRows().length !== 1"
-  ></button>
 </biit-table>
 
-<biit-popup *ngIf="applicationRole"
-            (onClosed)="applicationRole = null"
-            title="{{'application_roles.assign_role' | transloco}}"
+<biit-popup *ngIf="applicationBackendServiceRole"
+            [title]="('application_roles.assign_to_service'|transloco)"
+            (onClosed)="applicationBackendServiceRole = null"
             closable
 >
   <div class="vertical" style="margin-top: 0.5rem;">
-    <biit-dropdown
-      title="{{'roles' | transloco}}"
-      [required]="true"
-      [data]="availableRoles"
-      [(ngModel)]="applicationRole.id.role"
-      [primitive]="false" label="id"></biit-dropdown>
+    <div class="horizontal gap">
+      <biit-dropdown
+        title="{{'service' | transloco}}"
+        [required]="true"
+        [data]="allServices"
+        [(ngModel)]="selectedService"
+        (ngModelChange)="loadServiceRoles($event)"
+        [primitive]="false" label="name"></biit-dropdown>
+      <biit-dropdown
+        title="{{'role' | transloco}}"
+        [required]="true"
+        [disabled]="!allServiceRoles || !allServiceRoles.length"
+        [data]="allServiceRoles"
+        [(ngModel)]="selectedServiceRole"
+        [primitive]="false" label="name"></biit-dropdown>
+    </div>
     <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="applicationRole = null">{{'cancel' | transloco}}</button>
+      <button biit-button secondary (click)="applicationBackendServiceRole = null">{{'cancel' | transloco}}</button>
       <button biit-button primary (click)="assignRole()">{{'assign' | transloco}}</button>
     </div>
   </div>
-
 </biit-popup>
-
 <biit-popup *ngIf="confirm === 'DELETE'"
             dark-bg no-header
 >
@@ -54,15 +57,4 @@
     </div>
   </div>
 
-</biit-popup>
-
-<biit-popup *ngIf="applicationRoleToAssign"
-            [title]="('application_roles.background_services'|transloco)"
-            (onClosed)="applicationRoleToAssign = null"
-            closable
-            sixty-view
->
-  <biit-aplication-role-services [applicationRole]="applicationRoleToAssign">
-    
-  </biit-aplication-role-services>
 </biit-popup>

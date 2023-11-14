@@ -4,5 +4,7 @@
   "no_roles_available": "No roles available to assign.",
   "no_applications_available": "No roles available to assign.",
   "no_role_selected": "Please, select a role first.",
-  "no_application_selected": "Please, select a role first."
+  "no_application_selected": "Please, select a role first.",
+  "background_services": "Background services",
+  "assign_to_service": "Assign to service"
 }

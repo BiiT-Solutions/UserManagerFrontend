@@ -22,5 +22,6 @@
   "applications": "Applications",
   "application": "Application",
   "role": "Role",
-  "provide_required_fields": "Please provide all the required fields"
+  "provide_required_fields": "Please provide all the required fields",
+  "service": "Service"
 }

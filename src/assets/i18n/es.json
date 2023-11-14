@@ -22,5 +22,6 @@
   "applications": "Aplicaciones",
   "application": "Aplicación",
   "role": "Rol",
-  "provide_required_fields": "Por favor, proporcione todos los campos obligatorios"
+  "provide_required_fields": "Por favor, proporcione todos los campos obligatorios",
+  "service": "Servicio"
 }
