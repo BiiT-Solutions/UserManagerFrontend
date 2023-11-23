@@ -1,5 +1,8 @@
 export class Constants {
 
+  public static readonly APP = class {
+    public static readonly APP_PERMISSION_NAME: string = 'USERMANAGERSYSTEM';
+  }
   public static readonly PATHS = class {
     public static readonly USERS: string = '/users';
     public static readonly ROLES: string = '/roles';
