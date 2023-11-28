@@ -29,5 +29,7 @@
   "phone_invalid": "Phone has an invalid format",
   "server_failed": "Your request failed. Please, try again later.",
   "request_failed_user_already_exists": "Your request couldn't be completed because the user already exists.",
-  "username_exists": "This user already exists"
+  "username_exists": "This user already exists",
+  "password_changed": "Password has been changed successfully.",
+  "password_change_failed": "Password was not saved. If issue persists, please contact to support"
 }

@@ -90,11 +90,11 @@
         </div>
       </biit-tab>
       <biit-tab name="{{'password' | transloco}}" *ngIf="user.id">
-        <div class="tab-row-single">
+        <div class="tab-row-single" *ngIf="!(this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)">
           <biit-input-text
             placeholder="{{'form.currentPassword' | transloco}}"
-            [(ngModel)]="user.name"
-            error="{{errors | mapGet: UserFormValidationFields.NAME_MANDATORY}}"
+            [type]="Type.PASSWORD"
+            [(ngModel)]="oldPassword"
           ></biit-input-text>
         </div>
         <div class="tab-row">

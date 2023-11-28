@@ -29,5 +29,7 @@
   "phone_invalid": "El teléfono tiene un formato no válido",
   "server_failed": "Su solicitud ha fallado. Por favor, inténtelo de nuevo más tarde.",
   "request_failed_user_already_exists": "Su solicitud no pudo completarse porque el usuario ya existe.",
-  "username_exists": "Este usuario ya existe"
+  "username_exists": "Este usuario ya existe",
+  "password_changed": "La clave de acceso ha sido cambiada correctamente.",
+  "password_change_failed": "La clave de acceso no se guardó. Si el problema persiste, póngase en contacto con el soporte técnico"
 }

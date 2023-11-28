@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {User} from "authorization-services-lib";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AppRole, PasswordRequest, User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Type} from "biit-ui/inputs";
-import {UserService} from "user-manager-structure-lib";
+import {SessionService, UserService} from "user-manager-structure-lib";
 import {UserFormValidationFields} from "../validations/user-form/user-form-validation-fields";
 import {TypeValidations} from "../utils/type-validations";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
@@ -22,7 +22,7 @@ import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
     }
   ]
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   @Input() user: User;
   @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
@@ -34,16 +34,34 @@ export class UserFormComponent {
 
   protected errors: Map<UserFormValidationFields, string> = new Map<UserFormValidationFields, string>();
   protected readonly UserFormValidationFields = UserFormValidationFields;
+  protected loggedUser: User;
 
 
   constructor(private userService: UserService,
+              protected sessionService: SessionService,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
               ) { }
+
+  ngOnInit(): void {
+        this.loggedUser = this.sessionService.getUser();
+    }
   protected onSave(): void {
     if (!this.validate()) {
       this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
       return;
+    }
+    if (this.user.id && this.user.password && this.user.password === this.pwdVerification) {
+      const passwordRequest: PasswordRequest = new PasswordRequest(this.oldPassword, this.user.password);
+      const observable: Observable<User> = this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN) ?
+        this.userService.updatePassword(this.user.username, passwordRequest) : this.userService.updateCurrentPassword(passwordRequest);
+      observable.subscribe({
+        next: (user: User): void => {
+          this.biitSnackbarService.showNotification(this.transloco.translate('form.password_changed'), NotificationType.WARNING, null, 5);
+        }, error: (error: HttpErrorResponse): void => {
+          this.biitSnackbarService.showNotification(this.transloco.translate('form.password_change_failed'), NotificationType.WARNING, null, 5);
+        }
+      })
     }
     const observable: Observable<User> = this.user.id ? this.userService.update(this.user) : this.userService.create(this.user);
     observable.subscribe(
@@ -89,9 +107,11 @@ export class UserFormComponent {
         this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     } else  {
-      if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
-        verdict = false;
-        this.errors.set(UserFormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
+      if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)) {
+        if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
+          verdict = false;
+          this.errors.set(UserFormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
+        }
       }
       if (this.pwdVerification !== this.user.password) {
         verdict = false;
@@ -117,4 +137,6 @@ export class UserFormComponent {
     this.user.password = PwdGenerator.generate();
     this.pwdVerification = this.user.password;
   }
+
+  protected readonly AppRole = AppRole;
 }

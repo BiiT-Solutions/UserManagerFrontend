@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitButtonModule} from "biit-ui/button";
 import {UtilsModule} from "../utils/utils.module";
+import {MapGetPipeModule} from "biit-ui/utils";
 
 
 
@@ -27,7 +28,8 @@ import {UtilsModule} from "../utils/utils.module";
     TranslocoRootModule,
     BiitButtonModule,
     UtilsModule,
-    BiitTextareaModule
+    BiitTextareaModule,
+    MapGetPipeModule
   ]
 })
 export class UserFormModule { }
