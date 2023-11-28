@@ -8,6 +8,7 @@ import {TypeValidations} from "../utils/type-validations";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {PwdGenerator} from "../utils/pwd-generator";
+import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 
 @Component({
   selector: 'biit-user-form',
@@ -50,8 +51,15 @@ export class UserFormComponent {
         next: (user: User): void => {
           this.onSaved.emit(User.clone(user));
         },
-        error: (error: any): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+        error: (error: HttpErrorResponse): void => {
+          switch (error.status) {
+            case HttpStatusCode.Conflict:
+              this.biitSnackbarService.showNotification(this.transloco.translate('form.request_failed_user_already_exists'), NotificationType.WARNING, null, 5);
+              this.errors.set(UserFormValidationFields.USERNAME_EXISTS, this.transloco.translate(`form.${UserFormValidationFields.USERNAME_EXISTS.toString()}`))
+              break;
+            default:
+              this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+          }
         }
       }
     );

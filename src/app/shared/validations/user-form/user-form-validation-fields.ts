@@ -1,5 +1,6 @@
 export enum UserFormValidationFields {
   USERNAME_MANDATORY = 'username_mandatory',
+  USERNAME_EXISTS = 'username_exists',
   NAME_MANDATORY = 'name_mandatory',
   LASTNAME_MANDATORY = 'lastname_mandatory',
   OLD_PASSWORD_MANDATORY = 'old_password_mandatory',

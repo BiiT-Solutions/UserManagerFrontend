@@ -12,7 +12,7 @@
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
             [required] = "true"
-            error="{{errors | mapGet: UserFormValidationFields.USERNAME_MANDATORY}}"
+            error="{{errors | mapGet: [UserFormValidationFields.USERNAME_MANDATORY, UserFormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
