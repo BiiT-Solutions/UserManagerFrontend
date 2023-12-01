@@ -39,6 +39,7 @@
 </biit-user-form>
 <biit-popup *ngIf="confirm === 'DELETE'"
             dark-bg no-header
+            slot="{{'empty' | transloco}}"
 >
   <div class="vertical">
     <div>{{'confirm_delete' | transloco}}</div>

@@ -47,29 +47,31 @@ export class BiitUserListComponent implements OnInit {
   ngOnInit(): void {
     combineLatest(
       [
-        this.transloco.selectTranslate('id', {}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('name', {}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('lastname', {}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('email', {}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('phone', {}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('id'),
+        this.transloco.selectTranslate('name'),
+        this.transloco.selectTranslate('lastname'),
+        this.transloco.selectTranslate('username'),
+        this.transloco.selectTranslate('email'),
+        this.transloco.selectTranslate('phone'),
         this.transloco.selectTranslate('accountLocked',{}, {scope: 'components/user_list', alias: 'users'}),
         this.transloco.selectTranslate('accountBlocked',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('createdBy',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('createdAt',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('updatedBy',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('createdBy'),
+        this.transloco.selectTranslate('createdAt'),
+        this.transloco.selectTranslate('updatedBy'),
+        this.transloco.selectTranslate('updatedAt'),
       ]
-    ).subscribe(([id, name, lastname, email, phone, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
+    ).subscribe(([id, name, lastname, username, email, phone, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
         new BiitTableColumn("id", id, 50, undefined, false),
         new BiitTableColumn("name", name, undefined, undefined, true),
         new BiitTableColumn("lastname", lastname, undefined, undefined, true),
+        new BiitTableColumn("username", username, undefined, undefined, true),
         new BiitTableColumn("email", email, undefined, undefined, true),
         new BiitTableColumn("phone", phone, undefined, undefined, false),
-        new BiitTableColumn("accountLocked", accountLocked, undefined, BiitTableColumnFormat.BOOLEAN, true),
-        new BiitTableColumn("accountBlocked", accountBlocked, undefined, BiitTableColumnFormat.BOOLEAN, true),
+        new BiitTableColumn("accountLocked", accountLocked, undefined, BiitTableColumnFormat.BOOLEAN, false),
+        new BiitTableColumn("accountBlocked", accountBlocked, undefined, BiitTableColumnFormat.BOOLEAN, false),
         new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, false),
+        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
         new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, false),
         new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, false),
       ];
@@ -130,7 +132,7 @@ export class BiitUserListComponent implements OnInit {
         }, error: (): void => {
             this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'users'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
             );
         }});
