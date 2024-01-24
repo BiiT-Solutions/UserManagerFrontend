@@ -1,7 +1,7 @@
 {
   "name": "Nombre",
   "lastname": "Apellidos",
-  "email": "Correo",
+  "email": "Email",
   "phone": "Teléfono",
   "address": "Dirección",
   "postalCode": "Código postal",

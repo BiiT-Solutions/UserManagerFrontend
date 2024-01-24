@@ -61,27 +61,27 @@
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.city' | transloco}}"
+            [placeholder]="transloco.translate('form.city')"
             [(ngModel)]="user.city"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'form.postalCode' | transloco}}"
+            [placeholder]="transloco.translate('form.postalCode')"
           ></biit-input-text>
         </div>
         <div class="tab-row-single">
           <biit-input-text
-            placeholder="{{'form.country' | transloco}}"
+            [placeholder]="transloco.translate('form.country')"
             [(ngModel)]="user.country"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.phone' | transloco}}"
+            [placeholder]="transloco.translate('form.phone')"
             [(ngModel)]="user.phone"
             error="{{errors | mapGet: [UserFormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'email' | transloco}}"
+            [placeholder]="transloco.translate('form.email')"
             [(ngModel)]="user.email"
             [type]="Type.EMAIL"
             [disabled]="user.id"
