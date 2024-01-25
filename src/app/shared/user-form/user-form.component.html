@@ -6,13 +6,21 @@
   <div class="form">
     <biit-tab-group class="user-tabs">
       <biit-tab name="{{'form.account' | transloco}}">
-        <div class="tab-row-single">
+        <div class="tab-row">
           <biit-input-text
             placeholder="{{'username' | transloco}}"
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
             [required] = "true"
             error="{{errors | mapGet: [UserFormValidationFields.USERNAME_MANDATORY, UserFormValidationFields.USERNAME_EXISTS]}}"
+          ></biit-input-text>
+          <biit-input-text
+            [placeholder]="transloco.translate('form.email')"
+            [(ngModel)]="user.email"
+            [type]="Type.EMAIL"
+            [disabled]="user.id"
+            [required]="true"
+            error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
@@ -68,24 +76,15 @@
             [placeholder]="transloco.translate('form.postalCode')"
           ></biit-input-text>
         </div>
-        <div class="tab-row-single">
+        <div class="tab-row">
           <biit-input-text
             [placeholder]="transloco.translate('form.country')"
             [(ngModel)]="user.country"
           ></biit-input-text>
-        </div>
-        <div class="tab-row">
           <biit-input-text
             [placeholder]="transloco.translate('form.phone')"
             [(ngModel)]="user.phone"
             error="{{errors | mapGet: [UserFormValidationFields.PHONE_INVALID]}}"
-          ></biit-input-text>
-          <biit-input-text
-            [placeholder]="transloco.translate('form.email')"
-            [(ngModel)]="user.email"
-            [type]="Type.EMAIL"
-            [disabled]="user.id"
-            error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
