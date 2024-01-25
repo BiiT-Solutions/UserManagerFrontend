@@ -5,8 +5,8 @@
             [pageSizes]="pageSizes"
             [loading]="loading"
             [data]="data"
-            (onUpdate)="onUpdatingItem($event)"
-            selectable>
+            (onUpdate)="onTableUpdate($event)"
+            selectable sortable>
   <button biit-icon icon="plus"
           (click)="onAdd()"
           title="{{'add' | transloco}}"

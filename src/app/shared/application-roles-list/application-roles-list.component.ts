@@ -6,7 +6,7 @@ import {
   BackendServiceRole,
   Role, RoleService
 } from "user-manager-structure-lib";
-import {BiitTableColumn, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {GenericFilter} from "../utils/generic-filter";
@@ -81,6 +81,15 @@ export class ApplicationRolesListComponent implements OnInit {
     this.applicationRoleService.getByApplicationName(this.application.id).subscribe({
       next: roles => {
         this.roles = roles.map(ApplicationRole.clone);
+        this.roles.sort((a,b) => {
+          if ( a.id.role.id < b.id.role.id ){
+            return -1;
+          } else if ( a.id.role.id > b.id.role.id ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
       }, complete: () => {
         this.loading = false;
@@ -135,7 +144,7 @@ export class ApplicationRolesListComponent implements OnInit {
         })
     }
   }
-  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -144,6 +153,7 @@ export class ApplicationRolesListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
   protected assignRole(): void {

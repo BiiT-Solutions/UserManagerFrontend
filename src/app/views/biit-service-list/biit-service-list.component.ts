@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BackendService, BackendServiceService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {UserFormValidationFields} from "../../shared/validations/user-form/user-form-validation-fields";
 import {User} from "authorization-services-lib";
@@ -73,6 +73,15 @@ export class BiitServiceListComponent implements OnInit {
     this.backendService.getAll().subscribe({
       next: (services: BackendService[]): void => {
         this.services = services.map(BackendService.clone);
+        this.services.sort((a,b) => {
+          if ( a.name < b.name ){
+            return -1;
+          } else if ( a.name > b.name ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
       }, error: (): void => {
         this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
@@ -145,7 +154,7 @@ export class BiitServiceListComponent implements OnInit {
   protected onAssign(selectedRows: BackendService[]): void {
     this.assignService = selectedRows[0];
   }
-  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -154,5 +163,6 @@ export class BiitServiceListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.services.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 }

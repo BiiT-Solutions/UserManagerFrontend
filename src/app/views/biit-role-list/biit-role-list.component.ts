@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {Application, Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
@@ -75,6 +75,15 @@ export class BiitRoleListComponent {
     this.roleService.getAll().subscribe( {
       next: (roles: Role[]): void => {
         this.roles = roles.map(role => Role.clone(role));
+        this.roles.sort((a,b) => {
+          if ( a.id < b.id ){
+            return -1;
+          } else if ( a.id > b.id ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
         this.loading = false;
       }, error: (): void => {
@@ -144,7 +153,7 @@ export class BiitRoleListComponent {
     }
   }
 
-  protected onUpdatingRole(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -153,5 +162,6 @@ export class BiitRoleListComponent {
     } else {
       this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 }

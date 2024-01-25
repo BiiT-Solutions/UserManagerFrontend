@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {
   BackendService,
   BackendServiceRole,
@@ -63,6 +63,15 @@ export class ServiceRoleListComponent implements OnInit {
     this.backendServiceRoleService.getByBackendServiceName(this.service.name).subscribe({
       next: data => {
         this.serviceRoles = data.map(BackendServiceRole.clone);
+        this.serviceRoles.sort((a,b) => {
+          if ( a.id.name < b.id.name ){
+            return -1;
+          } else if ( a.id.name > b.id.name ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
         this.loading = false;
       },
@@ -125,7 +134,7 @@ export class ServiceRoleListComponent implements OnInit {
     });
   }
 
-  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -134,5 +143,6 @@ export class ServiceRoleListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.serviceRoles.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 }

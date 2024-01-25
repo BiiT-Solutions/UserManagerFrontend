@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {SessionService, UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
@@ -88,6 +88,15 @@ export class BiitUserListComponent implements OnInit {
     this.userService.getAll().subscribe( {
       next: (users: User[]): void => {
         this.users = users.map(user => User.clone(user));
+        this.users.sort((a,b) => {
+          if ( a.name < b.name ){
+            return -1;
+          } else if ( a.name > b.name ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
         this.loading = false;
       }, error: (): void => {
@@ -156,7 +165,7 @@ export class BiitUserListComponent implements OnInit {
     }
   }
 
-  protected onUpdatingTask(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -165,6 +174,7 @@ export class BiitUserListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
   protected onAssign(selectedRows: User[]): void {

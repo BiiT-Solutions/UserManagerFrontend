@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "authorization-services-lib";
-import {BiitTableColumn, BiitTableData, BiitTableResponse} from "biit-ui/table";
+import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {
@@ -96,6 +96,15 @@ export class UserRoleListComponent implements OnInit {
     this.applicationRoleService.getByUsername(this.user.username).subscribe({
       next: roles => {
         this.roles = roles.map(ApplicationRole.clone);
+        this.roles.sort((a,b) => {
+          if ( a.id.application.id < b.id.application.id ){
+            return -1;
+          } else if ( a.id.application.id > b.id.application.id ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.nextData();
       }, complete: () => {
         this.loading = false;
@@ -108,7 +117,7 @@ export class UserRoleListComponent implements OnInit {
         this.roles.length);
     }
   }
-  protected onUpdatingItem(tableResponse: BiitTableResponse): void {
+  protected onTableUpdate(tableResponse: BiitTableResponse): void {
     this.pageSize = tableResponse.pageSize;
     this.page = tableResponse.currentPage;
     if (tableResponse.search && tableResponse.search.length) {
@@ -117,6 +126,7 @@ export class UserRoleListComponent implements OnInit {
     } else {
       this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
     }
+    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
   protected onDelete(applicationRoles: ApplicationRole[], confirmed: boolean): void {

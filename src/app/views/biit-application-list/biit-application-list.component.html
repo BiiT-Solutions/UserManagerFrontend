@@ -5,9 +5,9 @@
               [defaultPageSize]="10"
               [data]="data"
               [pageSizes]="pageSizes"
-              (onUpdate)="onUpdatingApplication($event)"
+              (onUpdate)="onTableUpdate($event)"
               [loading]="loading"
-              selectable
+              selectable sortable
   >
     <button biit-icon icon="plus"
             title="{{'applications.add' | transloco}}"
