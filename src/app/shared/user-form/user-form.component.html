@@ -5,7 +5,16 @@
 >
   <div class="form">
     <biit-tab-group class="user-tabs">
-      <biit-tab name="{{'form.account' | transloco}}">
+      <biit-tab name="{{'form.account' | transloco}}"
+                [error]="!!(errors | mapGet: [UserFormValidationFields.USERNAME_MANDATORY,
+                                              UserFormValidationFields.USERNAME_EXISTS,
+                                              UserFormValidationFields.EMAIL_MANDATORY,
+                                              UserFormValidationFields.EMAIL_INVALID,
+                                              UserFormValidationFields.NAME_MANDATORY,
+                                              UserFormValidationFields.LASTNAME_MANDATORY,
+                                              UserFormValidationFields.PASSWORD_MANDATORY,
+                                              UserFormValidationFields.PASSWORD_MISMATCH])"
+      >
         <div class="tab-row">
           <biit-input-text
             placeholder="{{'username' | transloco}}"
@@ -59,7 +68,9 @@
           </button>
         </div>
       </biit-tab>
-      <biit-tab name="{{'form.personalData' | transloco}}">
+      <biit-tab name="{{'form.personalData' | transloco}}"
+                [error]="!!(errors | mapGet: [UserFormValidationFields.PHONE_INVALID])?.length"
+      >
         <div>
           <biit-textarea
             [(ngModel)]="user.address"
@@ -88,7 +99,10 @@
           ></biit-input-text>
         </div>
       </biit-tab>
-      <biit-tab name="{{'password' | transloco}}" *ngIf="user.id">
+      <biit-tab name="{{'password' | transloco}}" *ngIf="user.id"
+                [error]="!!(errors | mapGet: [UserFormValidationFields.PASSWORD_MANDATORY,
+                                              UserFormValidationFields.PASSWORD_MISMATCH])?.length"
+      >
         <div class="tab-row-single" *ngIf="!(this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)">
           <biit-input-text
             placeholder="{{'form.currentPassword' | transloco}}"
