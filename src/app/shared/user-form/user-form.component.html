@@ -112,7 +112,7 @@
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'form.newPassword' | transloco}}"
+            placeholder="{{'newPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"

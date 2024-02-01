@@ -16,6 +16,7 @@
   "username": "Nombre de usuario",
   "lastname": "Apellido",
   "password": "Contraseña",
+  "newPassword": "Nueva Contraseña",
   "repeatPassword": "Repetir Contraseña",
   "email": "Email",
   "assign": "Asignar",
