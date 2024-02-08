@@ -74,6 +74,15 @@ export class UserRoleListComponent implements OnInit {
     this.applicationService.getAll().subscribe({
       next: applications => {
         this.allApplications = applications.map(Application.clone);
+        this.allApplications.sort((a,b) => {
+          if ( a.id < b.id ){
+            return -1;
+          } else if ( a.id > b.id ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     });
   }
@@ -82,6 +91,15 @@ export class UserRoleListComponent implements OnInit {
     this.applicationRoleService.getByApplicationName(application.id).subscribe({
       next: roles => {
         this.allApplicationRoles = roles.map(ApplicationRole.clone).map(applicationRole => applicationRole.id.role);
+        this.allApplicationRoles.sort((a,b) => {
+          if ( a.id < b.id ){
+            return -1;
+          } else if ( a.id > b.id ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     });
   }
