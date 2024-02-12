@@ -5,6 +5,7 @@ export class Constants {
   }
   public static readonly PATHS = class {
     public static readonly USERS: string = '/users';
+    public static readonly GROUPS: string = '/groups';
     public static readonly ROLES: string = '/roles';
     public static readonly APPLICATIONS: string = '/applications';
     public static readonly SERVICES: string = '/services';

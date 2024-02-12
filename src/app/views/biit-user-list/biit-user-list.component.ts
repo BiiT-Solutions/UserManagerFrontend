@@ -52,7 +52,7 @@ export class BiitUserListComponent implements OnInit {
         this.transloco.selectTranslate('lastname'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('phone'),
+        this.transloco.selectTranslate('phone',{}, {scope: 'components/user_list', alias: 'users'}),
         this.transloco.selectTranslate('accountLocked',{}, {scope: 'components/user_list', alias: 'users'}),
         this.transloco.selectTranslate('accountBlocked',{}, {scope: 'components/user_list', alias: 'users'}),
         this.transloco.selectTranslate('createdBy'),

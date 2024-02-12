@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'groups',
+    loadChildren: () => import('./views/biit-user-group-list/biit-user-group-list.module').then(m => m.BiitUserGroupListModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'roles',
     loadChildren: () => import('./views/biit-role-list/biit-role-list.module').then(m => m.BiitRoleListModule),
     canActivate: [AuthGuard]
