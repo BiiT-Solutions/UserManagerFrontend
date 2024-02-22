@@ -4,7 +4,7 @@
   "edit": "Modificar",
   "delete": "Eliminar",
   "cancel": "Cancelar",
-  "confirm_delete": "¿Está seguro que desea continuar con la eliminación?",
+  "confirm_delete": "¿Seguro que desea continuar con la eliminación?",
   "you_cannot_delete_yourself": "No puede eliminar su propia cuenta",
   "request_completed_successfully": "Su solicitud se ha completado correctamente",
   "request_unsuccessful": "Lo sentimos, no hemos podido completar su solicitud",
@@ -20,6 +20,8 @@
   "repeatPassword": "Repetir Contraseña",
   "email": "Email",
   "assign": "Asignar",
+  "assigned": "Asignado",
+  "remove": "Quitar",
   "roles": "Roles",
   "applications": "Aplicaciones",
   "application": "Aplicación",
@@ -30,5 +32,7 @@
   "createdBy": "Creado por",
   "createdAt": "Fecha de creación",
   "updatedBy": "Actualizado por",
-  "updatedAt": "Fecha de actualización"
+  "updatedAt": "Fecha de actualización",
+  "validation_failed": "La validación falló. Por favor, compruebe si algún campo está vacío o no es válido.",
+  "server_failed": "Su solicitud ha fallado. Por favor, inténtelo de nuevo más tarde."
 }

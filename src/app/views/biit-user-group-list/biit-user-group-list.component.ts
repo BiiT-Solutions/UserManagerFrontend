@@ -14,7 +14,7 @@ import {GenericFilter} from "../../shared/utils/generic-filter";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_list', alias: 'userGroups'}
+      useValue: {scope: 'components/user_group_list', alias: 'userGroups'}
     }
   ]
 })
@@ -35,7 +35,8 @@ export class BiitUserGroupListComponent implements OnInit {
   protected selected: UserGroup[] = [];
   protected loading: boolean = false;
 
-  protected assign: UserGroup;
+  protected assignAppRoles: UserGroup;
+  protected assignUsers: UserGroup;
 
   constructor(private userGroupService: UserGroupService,
               private biitSnackbarService: BiitSnackbarService,
@@ -66,8 +67,6 @@ export class BiitUserGroupListComponent implements OnInit {
       this.page = BiitUserGroupListComponent.DEFAULT_PAGE;
       this.loadData();
     });
-
-
   }
 
   private loadData(): void {
@@ -157,7 +156,11 @@ export class BiitUserGroupListComponent implements OnInit {
     GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
-  protected onAssign(selectedRows: UserGroup[]): void {
-    this.assign = selectedRows[0];
+  protected onAssignAppRoles(selectedRows: UserGroup[]): void {
+    this.assignAppRoles = selectedRows[0];
+  }
+
+  protected onAssignUsers(selectedRows: UserGroup[]): void {
+    this.assignUsers = selectedRows[0];
   }
 }

@@ -1,0 +1,45 @@
+<biit-table #users
+            *ngIf="columns.length"
+            [columns]="columns"
+            [defaultPageSize]="10"
+            [data]="data"
+            [pageSizes]="pageSizes"
+            [loading]="loading"
+            (onUpdate)="onTableUpdate($event)"
+            selectable sortable
+>
+  <button biit-icon icon="plus"
+          title="{{'assign' | transloco}}"
+          (click)="onAssign(users.getSelectedRows(), false)"
+  ></button>
+  <button biit-icon icon="minus"
+          title="{{'assign' | transloco}}"
+          (click)="onRemove(users.getSelectedRows(), false)"
+  ></button>
+</biit-table>
+
+<biit-popup *ngIf="confirm === 'ASSIGN'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'form.confirm_assign' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onAssign(selected, true)">{{'assign' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>
+
+<biit-popup *ngIf="confirm === 'REMOVE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'form.confirm_remove' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onRemove(selected, true)">{{'remove' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>

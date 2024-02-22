@@ -1,0 +1,13 @@
+{
+  "newUserGroup": "New User Group",
+  "editUserGroup": "Edit User Group",
+  "name_mandatory": "Name is mandatory",
+  "name_exists": "This user group already exists",
+  "request_failed_group_already_exists": "Your request couldn't be completed because the user group already exists.",
+  "roles": "Roles",
+  "assign_roles": "Assign Roles",
+  "users": "Users",
+  "assign_users": "Assign Users",
+  "confirm_assign": "Are you sure you want assign the selected users to the group?",
+  "confirm_remove": "Are you sure you want remove the selected users from the group?"
+}

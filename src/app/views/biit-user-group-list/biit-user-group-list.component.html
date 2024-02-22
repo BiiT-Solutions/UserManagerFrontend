@@ -25,18 +25,24 @@
     ></button>
     <button biit-icon icon="linkage"
             title="{{'assign' | transloco}}"
-            (click)="onAssign(table.getSelectedRows())"
+            (click)="onAssignAppRoles(table.getSelectedRows())"
+            [disabled]="table.getSelectedRows().length !== 1"
+    ></button>
+    <button biit-icon icon="sourceror"
+            title="{{'userGroups.users' | transloco}}"
+            (click)="onAssignUsers(table.getSelectedRows())"
             [disabled]="table.getSelectedRows().length !== 1"
     ></button>
   </biit-table>
 </div>
 
-<!--<biit-user-form *ngIf="target"-->
-<!--                [user]="target"-->
-<!--                (onClosed)="this.target = null"-->
-<!--                (onSaved)="onSaved($event)"-->
-<!--&gt;-->
-<!--</biit-user-form>-->
+<biit-user-group-form *ngIf="target"
+                      [userGroup]="target"
+                      (onClosed)="this.target = null"
+                      (onSaved)="onSaved($event)"
+>
+</biit-user-group-form>
+
 <biit-popup *ngIf="confirm === 'DELETE'"
             dark-bg no-header
             slot="{{'empty' | transloco}}"
@@ -48,15 +54,25 @@
       <button biit-button primary (click)="onDelete(selected, true)">{{'delete' | transloco}}</button>
     </div>
   </div>
-
 </biit-popup>
 
-<biit-popup *ngIf="assign"
+<biit-popup *ngIf="assignAppRoles"
             [title]="('userGroups.assign_roles' | transloco)"
-            (onClosed)="assign = null"
+            (onClosed)="assignAppRoles = null"
             dark-bg
             sixty-view
             closable
 >
-<!--  <biit-user-role-list [user]="assign"></biit-user-role-list>-->
+  <biit-user-group-role-list [userGroup]="assignAppRoles"></biit-user-group-role-list>
+</biit-popup>
+
+<biit-popup *ngIf="assignUsers"
+            [title]="('userGroups.assign_users' | transloco)"
+            (onClosed)="assignUsers = null"
+            dark-bg
+            sixty-view
+            closable
+>
+  <biit-user-group-user-list [userGroup]="assignUsers"
+  ></biit-user-group-user-list>
 </biit-popup>

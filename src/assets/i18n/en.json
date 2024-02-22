@@ -20,6 +20,8 @@
   "repeatPassword": "Repeat Password",
   "email": "Email",
   "assign": "Assign",
+  "assigned": "Assigned",
+  "remove": "Remove",
   "roles": "Roles",
   "applications": "Applications",
   "application": "Application",
@@ -30,5 +32,7 @@
   "createdBy": "Created By",
   "createdAt": "Created At",
   "updatedBy": "Updated At",
-  "updatedAt": "Updated At"
+  "updatedAt": "Updated At",
+  "validation_failed": "Validation failed. Please, check if some fields are empty or invalid.",
+  "server_failed": "Your request failed. Please, try again later."
 }

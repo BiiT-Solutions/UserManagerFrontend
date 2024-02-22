@@ -79,8 +79,6 @@ export class BiitUserListComponent implements OnInit {
       this.page = BiitUserListComponent.DEFAULT_PAGE;
       this.loadData();
     });
-
-
   }
 
   private loadData(): void {

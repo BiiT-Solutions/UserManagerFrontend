@@ -8,6 +8,9 @@ import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitUserGroupListRoutingModule} from "./biit-user-group-list-routing.module";
 import {UserRoleListModule} from "../../shared/user-role-list/user-role-list.module";
+import {UserGroupFormModule} from "../../shared/user-group-form/user-group-form.module";
+import {UserGroupUserListModule} from "../../shared/user-group-user-list/user-group-user-list.module";
+import {UserGroupRoleListModule} from "../../shared/user-group-role-list/user-group-role-list.module";
 
 @NgModule({
   declarations: [
@@ -16,16 +19,19 @@ import {UserRoleListModule} from "../../shared/user-role-list/user-role-list.mod
   exports: [
     BiitUserGroupListComponent
   ],
-  imports: [
-    CommonModule,
-    TranslocoRootModule,
-    BiitUserGroupListRoutingModule,
-    BiitTableModule,
-    UserFormModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    UserRoleListModule
-  ]
+    imports: [
+        CommonModule,
+        TranslocoRootModule,
+        BiitUserGroupListRoutingModule,
+        UserGroupFormModule,
+        BiitTableModule,
+        UserFormModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        UserRoleListModule,
+        UserGroupUserListModule,
+        UserGroupRoleListModule
+    ]
 })
 export class BiitUserGroupListModule { }

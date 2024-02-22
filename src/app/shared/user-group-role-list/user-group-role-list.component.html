@@ -1,0 +1,64 @@
+<biit-table #user_roles
+            *ngIf="columns.length"
+            [columns]="columns"
+            [defaultPageSize]="10"
+            [pageSizes]="pageSizes"
+            [loading]="loading"
+            [data]="data"
+            (onUpdate)="onTableUpdate($event)"
+            selectable sortable>
+  <button biit-icon icon="plus"
+          (click)="onAdd()"
+          title="{{'add' | transloco}}"
+  ></button>
+  <button biit-icon icon="minus"
+          title="{{'delete' | transloco}}"
+          (click)="onDelete(user_roles.getSelectedRows(), false)"
+          [disabled]="!user_roles.getSelectedRows().length"
+  ></button>
+</biit-table>
+
+<biit-popup *ngIf="confirm === 'DELETE'"
+            dark-bg no-header
+>
+  <div class="vertical">
+    <div>{{'confirm_delete' | transloco}}</div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{'delete' | transloco}}</button>
+    </div>
+  </div>
+
+</biit-popup>
+
+<biit-popup *ngIf="applicationRole"
+            (onClosed)="applicationRole = null"
+            title="{{'application_roles.assign_role' | transloco}}"
+            closable
+>
+  <div class="vertical" style="margin-top: 0.5rem;">
+    <div class="horizontal gap">
+      <biit-dropdown
+        title="{{'applications' | transloco}}"
+        [required]="true"
+        [data]="allApplications"
+        [(ngModel)]="applicationRole.id.application"
+        (ngModelChange)="loadApplicationRoles($event)"
+        [primitive]="false" label="id"></biit-dropdown>
+      <div>
+        <biit-dropdown
+          title="{{'roles' | transloco}}"
+          [required]="true"
+          [disabled]="!allApplicationRoles || !allApplicationRoles.length || loading"
+          [data]="allApplicationRoles"
+          [(ngModel)]="applicationRole.id.role"
+          [primitive]="false" label="id"></biit-dropdown>
+        <biit-progress-bar *ngIf="loadingRoles" [type]="BiitProgressBarType.INDETERMINATE"></biit-progress-bar>
+      </div>
+    </div>
+    <div class="flex-grow horizontal buttons-row">
+      <button biit-button secondary (click)="applicationRole = null">{{'cancel' | transloco}}</button>
+      <button biit-button primary (click)="assignRole()">{{'assign' | transloco}}</button>
+    </div>
+  </div>
+</biit-popup>

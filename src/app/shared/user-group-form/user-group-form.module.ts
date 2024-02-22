@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserFormComponent } from './user-form.component';
+import { UserGroupFormComponent } from './user-group-form.component';
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitTabGroupModule} from "biit-ui/navigation";
 import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
@@ -11,10 +11,10 @@ import {UtilsModule} from "../utils/utils.module";
 
 @NgModule({
   declarations: [
-    UserFormComponent
+    UserGroupFormComponent
   ],
   exports: [
-    UserFormComponent
+    UserGroupFormComponent
   ],
   imports: [
     CommonModule,
@@ -28,4 +28,4 @@ import {UtilsModule} from "../utils/utils.module";
     BiitTextareaModule
   ]
 })
-export class UserFormModule { }
+export class UserGroupFormModule { }
