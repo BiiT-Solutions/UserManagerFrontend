@@ -97,7 +97,7 @@ export class UserGroupUserListComponent implements OnInit {
 
         this.users = users.map(user => UserGroupUser.clone(user as UserGroupUser));
         this.users.forEach(user => {
-          members.some(m => m.id == user.id) ? user.assigned = "crystalball" : user.assigned = undefined;
+          members.some(m => m.id == user.id) ? user.assigned = "user_single" : user.assigned = undefined;
         });
         this.users.sort((a,b) => {
           if ( a.name < b.name ){
