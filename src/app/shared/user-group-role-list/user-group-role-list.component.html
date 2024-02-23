@@ -45,16 +45,13 @@
         [(ngModel)]="applicationRole.id.application"
         (ngModelChange)="loadApplicationRoles($event)"
         [primitive]="false" label="id"></biit-dropdown>
-      <div>
-        <biit-dropdown
-          title="{{'roles' | transloco}}"
-          [required]="true"
-          [disabled]="!allApplicationRoles || !allApplicationRoles.length || loading"
-          [data]="allApplicationRoles"
-          [(ngModel)]="applicationRole.id.role"
-          [primitive]="false" label="id"></biit-dropdown>
-        <biit-progress-bar *ngIf="loadingRoles" [type]="BiitProgressBarType.INDETERMINATE"></biit-progress-bar>
-      </div>
+      <biit-dropdown
+        title="{{'roles' | transloco}}"
+        [required]="true"
+        [disabled]="!allApplicationRoles || !allApplicationRoles.length || loading"
+        [data]="allApplicationRoles"
+        [(ngModel)]="applicationRole.id.role"
+        [primitive]="false" label="id"></biit-dropdown>
     </div>
     <div class="flex-grow horizontal buttons-row">
       <button biit-button secondary (click)="applicationRole = null">{{'cancel' | transloco}}</button>

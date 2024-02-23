@@ -35,7 +35,6 @@ export class UserGroupRoleListComponent implements OnInit {
   protected page: number = UserGroupRoleListComponent.DEFAULT_PAGE_SIZE;
   protected columns: BiitTableColumn[] = [];
   protected loading: boolean = false;
-  protected loadingRoles: boolean = false;
   protected data: BiitTableData<ApplicationRole>;
   private roles: ApplicationRole[];
   protected selectedToDelete: ApplicationRole[];
@@ -92,19 +91,22 @@ export class UserGroupRoleListComponent implements OnInit {
       next: roles => {
         this.allApplicationRoles = roles
           .map(ApplicationRole.clone)
+          .filter(applicationRole =>
+            !this.roles.some(role =>
+              role.id.application.id.toLowerCase() == applicationRole.id.application.id.toLowerCase() &&
+              role.id.role.id.toLowerCase() == applicationRole.id.role.id.toLowerCase()
+            )
+          )
           .map(applicationRole => applicationRole.id.role)
           .sort((a,b) => {
-          if ( a.id < b.id ){
-            return -1;
-          } else if ( a.id > b.id ){
-            return 1;
-          } else {
-            return 0;
-          }
+            if ( a.id < b.id ){
+              return -1;
+            } else if ( a.id > b.id ){
+              return 1;
+            } else {
+              return 0;
+            }
         });
-      },
-      complete: () => {
-        this.loadingRoles = false;
       }
     });
   }

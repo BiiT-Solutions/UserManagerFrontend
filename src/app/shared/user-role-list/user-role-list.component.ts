@@ -91,15 +91,23 @@ export class UserRoleListComponent implements OnInit {
     this.allApplicationRoles = [];
     this.applicationRoleService.getByApplicationName(application.id).subscribe({
       next: roles => {
-        this.allApplicationRoles = roles.map(ApplicationRole.clone).map(applicationRole => applicationRole.id.role);
-        this.allApplicationRoles.sort((a,b) => {
-          if ( a.id < b.id ){
-            return -1;
-          } else if ( a.id > b.id ){
-            return 1;
-          } else {
-            return 0;
-          }
+        this.allApplicationRoles = roles
+          .map(ApplicationRole.clone)
+          .filter(applicationRole =>
+            !this.roles.some(role =>
+              role.id.application.id.toLowerCase() == applicationRole.id.application.id.toLowerCase() &&
+              role.id.role.id.toLowerCase() == applicationRole.id.role.id.toLowerCase()
+            )
+          )
+          .map(applicationRole => applicationRole.id.role)
+          .sort((a,b) => {
+            if ( a.id < b.id ){
+              return -1;
+            } else if ( a.id > b.id ){
+              return 1;
+            } else {
+              return 0;
+            }
         });
       }
     });
