@@ -4,8 +4,8 @@ import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {ApplicationFormType} from "../../shared/application-form/application-form.component";
 import {GenericFilter} from "../../shared/utils/generic-filter";
+import {ApplicationFormType} from "../../shared/forms/application-form/application-form.component";
 
 @Component({
   selector: 'app-biit-application-list',

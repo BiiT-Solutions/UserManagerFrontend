@@ -6,10 +6,10 @@ import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
-import {RoleFormModule} from "../../shared/role-form/role-form.module";
-import {UserFormModule} from "../../shared/user-form/user-form.module";
-import {ApplicationRolesListModule} from "../../shared/application-roles-list/application-roles-list.module";
-import {RoleApplicationsListModule} from "../../shared/role-applications-list/role-applications-list.module";
+import {RoleApplicationsListModule} from "../../shared/lists/role-applications-list/role-applications-list.module";
+import {RoleFormModule} from "../../shared/forms/role-form/role-form.module";
+import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
+import {ApplicationRolesListModule} from "../../shared/lists/application-roles-list/application-roles-list.module";
 
 @NgModule({
   declarations: [

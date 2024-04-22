@@ -3,5 +3,6 @@
   "groups": "Groups",
   "roles" : "Roles",
   "applications": "Applications",
-  "services" : "Services"
+  "services" : "Services",
+  "organizations" : "Organizations"
 }

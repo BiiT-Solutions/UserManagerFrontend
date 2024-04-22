@@ -39,5 +39,8 @@ export class BiitNavbarComponent implements OnInit {
     this.translocoService.selectTranslate('services', {},  {scope: 'components/main'}).subscribe(msg => {
       this.routes.push({path: Constants.PATHS.SERVICES, title: msg});
     });
+    this.translocoService.selectTranslate('organizations', {},  {scope: 'components/main'}).subscribe(msg => {
+      this.routes.push({path: Constants.PATHS.ORGANIZATIONS, title: msg});
+    });
   }
 }

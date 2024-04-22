@@ -1,0 +1,13 @@
+{
+  "id": "Id",
+  "name": "Name",
+  "createdBy": "Created By",
+  "createdAt": "Created At",
+  "updatedBy": "Updated At",
+  "updatedAt": "Updated At",
+  "add": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "assign_roles": "Assign roles"
+}

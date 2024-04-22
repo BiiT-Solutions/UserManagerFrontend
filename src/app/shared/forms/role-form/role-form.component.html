@@ -1,0 +1,29 @@
+<biit-popup *ngIf="type !== RoleFormType.ASSIGN"
+            [title]="'form.'+type | transloco"
+            (onClosed)="onClosed.emit()"
+            closable sixty-view
+            slot="{{'empty' | transloco}}"
+>
+  <div class="form">
+    <div class="tab-row-single">
+      <biit-input-text
+        placeholder="{{'name' | transloco}}"
+        [(ngModel)]="role.id"
+        [required] = "true"
+        error="{{errors | mapGet: RoleFormValidationFields.NAME_MANDATORY}}"
+      ></biit-input-text>
+    </div>
+    <div class="tab-row-single">
+      <biit-textarea
+        [(ngModel)]="role.description"
+        placeholder="{{'description' | transloco}}"
+        style="display: block"
+      ></biit-textarea>
+    </div>
+    <div class="form-bottom">
+      <button biit-button primary style="display: block" (click)="onSave()">
+        {{'save' | transloco}}
+      </button>
+    </div>
+  </div>
+</biit-popup>

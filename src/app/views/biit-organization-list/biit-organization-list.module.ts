@@ -1,31 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BiitUserListComponent } from './biit-user-list.component';
+import { BiitOrganizationListComponent } from './biit-organization-list.component';
 import {BiitTableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
-import {BiitUserListRoutingModule} from "./biit-user-list-routing.module";
-import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
-import {UserRoleListModule} from "../../shared/lists/user-role-list/user-role-list.module";
+import {BiitOrganizationListRoutingModule} from "./biit-organization-list-routing.module";
+import {OrganizationFormModule} from "../../shared/forms/organization-form/organization-form.module";
 
 @NgModule({
   declarations: [
-    BiitUserListComponent
+    BiitOrganizationListComponent
   ],
   exports: [
-    BiitUserListComponent
+    BiitOrganizationListComponent
   ],
   imports: [
     CommonModule,
     TranslocoRootModule,
-    BiitUserListRoutingModule,
+    BiitOrganizationListRoutingModule,
     BiitTableModule,
-    UserFormModule,
     BiitPopupModule,
     BiitButtonModule,
     BiitIconButtonModule,
-    UserRoleListModule
+    OrganizationFormModule,
   ]
 })
-export class BiitUserListModule { }
+export class BiitOrganizationListModule { }

@@ -4,7 +4,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
-import {UserFormValidationFields} from "../../shared/validations/user-form/user-form-validation-fields";
+import {UserFormValidationFields} from "../../shared/validations/forms/user-form-validation-fields";
 import {User} from "authorization-services-lib";
 import {GenericFilter} from "../../shared/utils/generic-filter";
 

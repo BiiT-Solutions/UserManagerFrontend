@@ -5,7 +5,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {GenericFilter} from "../../shared/utils/generic-filter";
-import {RoleFormType} from "../../shared/role-form/role-form.component";
+import {RoleFormType} from "../../shared/forms/role-form/role-form.component";
 
 @Component({
   selector: 'app-biit-role-list',
