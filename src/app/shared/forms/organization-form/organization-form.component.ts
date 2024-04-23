@@ -15,7 +15,7 @@ import {FormValidationFields} from "../../validations/form-validation-fields";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_form', alias: 'form'}
+      useValue: {scope: 'components/organization_form', alias: 'form'}
     }
   ]
 })
@@ -41,7 +41,7 @@ export class OrganizationFormComponent {
 
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING, null, 5);
       return;
     }
     const observable: Observable<Organization> = this.organization.id ? this.organizationService.update(this.organization) : this.organizationService.create(this.organization);
@@ -51,7 +51,7 @@ export class OrganizationFormComponent {
           this.onSaved.emit(Organization.clone(organization));
         },
         error: (error: HttpErrorResponse): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
         }
       }
     );

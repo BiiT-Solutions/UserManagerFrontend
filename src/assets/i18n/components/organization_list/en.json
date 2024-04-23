@@ -9,5 +9,6 @@
   "edit": "Edit",
   "delete": "Delete",
   "cancel": "Cancel",
-  "assign_roles": "Assign roles"
+  "new_organization": "New Organization",
+  "edit_organization": "Edit Organization"
 }

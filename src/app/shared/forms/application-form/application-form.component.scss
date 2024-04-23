@@ -20,6 +20,7 @@ $space : 1em;
 
 .tab-row-single {
   width: calc(50% - #{$space});
+  margin-top: 2em;
 }
 
 .form {

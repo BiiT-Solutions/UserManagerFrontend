@@ -14,5 +14,6 @@
   "edit": "Modificar",
   "delete": "Eliminar",
   "cancel": "Cancelar",
-  "assign_roles": "Asignar roles"
+  "new_organization": "Crear Organización",
+  "edit_organization": "Editar Organización"
 }

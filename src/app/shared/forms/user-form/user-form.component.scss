@@ -7,6 +7,8 @@ $space : 1em;
 
 .tab-row {
   display: flex;
+  margin-top: 2em;
+
   biit-input-text {
     flex: 1;
     &:first-child {
@@ -16,10 +18,15 @@ $space : 1em;
       margin-left: $space;
     }
   }
+
+  biit-textarea {
+    flex: 1;
+  }
 }
 
 .tab-row-single {
   width: calc(50% - #{$space});
+  margin-top: 2em;
 }
 
 .form {

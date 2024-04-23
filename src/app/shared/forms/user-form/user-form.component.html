@@ -71,7 +71,7 @@
       <biit-tab name="{{'form.personalData' | transloco}}"
                 [error]="!!(errors | mapGet: [FormValidationFields.PHONE_INVALID])?.length"
       >
-        <div>
+        <div class="tab-row">
           <biit-textarea
             [(ngModel)]="user.address"
             placeholder="{{'form.address' | transloco}}"
