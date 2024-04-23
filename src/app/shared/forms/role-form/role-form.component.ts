@@ -3,7 +3,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import { RoleFormValidationFields } from '../../validations/forms/role-form-validation-fields';
+import { FormValidationFields } from '../../validations/form-validation-fields';
 
 @Component({
   selector: 'biit-role-form',
@@ -24,8 +24,8 @@ export class RoleFormComponent {
   @Output() onSaved: EventEmitter<Role> = new EventEmitter<Role>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
-  protected errors: Map<RoleFormValidationFields, string> = new Map<RoleFormValidationFields, string>();
-  protected readonly RoleFormValidationFields = RoleFormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
   protected readonly RoleFormType = RoleFormType;
 
 
@@ -51,11 +51,11 @@ export class RoleFormComponent {
     );
   }
   protected validate(): boolean {
-    this.errors = new Map<RoleFormValidationFields, string>();
+    this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
     if (!this.role.id) {
       verdict = false;
-      this.errors.set(RoleFormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${RoleFormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

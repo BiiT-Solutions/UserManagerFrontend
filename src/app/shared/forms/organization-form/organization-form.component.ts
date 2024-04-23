@@ -5,7 +5,7 @@ import {Organization, OrganizationService, SessionService, UserService} from "us
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {OrganizationFormValidationFields} from "../../validations/forms/organization-form-validation-fields";
+import {FormValidationFields} from "../../validations/form-validation-fields";
 
 @Component({
   selector: 'biit-organization-form',
@@ -29,8 +29,8 @@ export class OrganizationFormComponent {
   protected oldPassword: string;
   protected readonly Type = Type;
 
-  protected errors: Map<OrganizationFormValidationFields, string> = new Map<OrganizationFormValidationFields, string>();
-  protected readonly OrganizationFormValidationFields = OrganizationFormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
 
 
   constructor(private organizationService: OrganizationService,
@@ -57,11 +57,11 @@ export class OrganizationFormComponent {
     );
   }
   protected validate(): boolean {
-    this.errors = new Map<OrganizationFormValidationFields, string>();
+    this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
     if (!this.organization.name) {
       verdict = false;
-      this.errors.set(OrganizationFormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${OrganizationFormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

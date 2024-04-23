@@ -9,7 +9,7 @@
         placeholder="{{'name' | transloco}}"
         [(ngModel)]="userGroup.name"
         [required]="true"
-        [error]="errors | mapGet: [UserGroupFormValidationFields.NAME_MANDATORY, UserGroupFormValidationFields.NAME_EXISTS]"
+        [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY, FormValidationFields.NAME_EXISTS]"
       ></biit-input-text>
     </div>
     <div class="tab-row-single">

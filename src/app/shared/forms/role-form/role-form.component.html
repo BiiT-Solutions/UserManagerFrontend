@@ -10,7 +10,7 @@
         placeholder="{{'name' | transloco}}"
         [(ngModel)]="role.id"
         [required] = "true"
-        error="{{errors | mapGet: RoleFormValidationFields.NAME_MANDATORY}}"
+        error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
       ></biit-input-text>
     </div>
     <div class="tab-row-single">

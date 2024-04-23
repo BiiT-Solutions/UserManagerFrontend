@@ -4,7 +4,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
-import {UserFormValidationFields} from "../../shared/validations/forms/user-form-validation-fields";
+import {FormValidationFields} from "../../shared/validations/form-validation-fields";
 import {User} from "authorization-services-lib";
 import {GenericFilter} from "../../shared/utils/generic-filter";
 
@@ -134,8 +134,6 @@ export class BiitServiceListComponent implements OnInit {
       this.mode = 'EDIT';
     }
   }
-
-  protected readonly UserFormValidationFields = UserFormValidationFields;
 
   onSave(): void {
     const request: Observable<BackendService> = this.mode === "NEW" ? this.backendService.create(this.editService) :

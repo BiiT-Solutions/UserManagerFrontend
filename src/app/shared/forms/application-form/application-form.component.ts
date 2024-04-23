@@ -3,7 +3,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import { ApplicationFormValidationFields } from '../../validations/forms/application-form-validation-fields';
+import { FormValidationFields } from '../../validations/form-validation-fields';
 
 @Component({
   selector: 'biit-application-form',
@@ -24,8 +24,8 @@ export class ApplicationFormComponent {
   @Output() onSaved: EventEmitter<Application> = new EventEmitter<Application>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
-  protected errors: Map<ApplicationFormValidationFields, string> = new Map<ApplicationFormValidationFields, string>();
-  protected readonly ApplicationFormValidationFields = ApplicationFormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
   protected readonly ApplicationFormType = ApplicationFormType;
 
 
@@ -51,11 +51,11 @@ export class ApplicationFormComponent {
     );
   }
   protected validate(): boolean {
-    this.errors = new Map<ApplicationFormValidationFields, string>();
+    this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
     if (!this.application.id) {
       verdict = false;
-      this.errors.set(ApplicationFormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${ApplicationFormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

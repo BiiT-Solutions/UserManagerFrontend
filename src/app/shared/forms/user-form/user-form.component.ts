@@ -6,7 +6,7 @@ import {SessionService, UserService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
-import {UserFormValidationFields} from "../../validations/forms/user-form-validation-fields";
+import {FormValidationFields} from "../../validations/form-validation-fields";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";
 
@@ -32,8 +32,8 @@ export class UserFormComponent implements OnInit {
   protected oldPassword: string;
   protected readonly Type = Type;
 
-  protected errors: Map<UserFormValidationFields, string> = new Map<UserFormValidationFields, string>();
-  protected readonly UserFormValidationFields = UserFormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
   protected loggedUser: User;
 
 
@@ -73,7 +73,7 @@ export class UserFormComponent implements OnInit {
           switch (error.status) {
             case HttpStatusCode.Conflict:
               this.biitSnackbarService.showNotification(this.transloco.translate('form.request_failed_user_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(UserFormValidationFields.USERNAME_EXISTS, this.transloco.translate(`form.${UserFormValidationFields.USERNAME_EXISTS.toString()}`))
+              this.errors.set(FormValidationFields.USERNAME_EXISTS, this.transloco.translate(`form.${FormValidationFields.USERNAME_EXISTS.toString()}`))
               break;
             default:
               this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
@@ -83,53 +83,53 @@ export class UserFormComponent implements OnInit {
     );
   }
   protected validate(): boolean {
-    this.errors = new Map<UserFormValidationFields, string>();
+    this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
     if (!this.user.username) {
       verdict = false;
-      this.errors.set(UserFormValidationFields.USERNAME_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.USERNAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.USERNAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.USERNAME_MANDATORY.toString()}`));
     }
     if (!this.user.name) {
       verdict = false;
-      this.errors.set(UserFormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     if (!this.user.lastname) {
       verdict = false;
-      this.errors.set(UserFormValidationFields.LASTNAME_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.LASTNAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.LASTNAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.LASTNAME_MANDATORY.toString()}`));
     }
     if (!this.user.id) {
       if (!this.user.password) {
         verdict = false;
-        this.errors.set(UserFormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MANDATORY.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MANDATORY.toString()}`));
       }
       if (this.pwdVerification !== this.user.password) {
         verdict = false;
-        this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     } else  {
       if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)) {
         if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
           verdict = false;
-          this.errors.set(UserFormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
+          this.errors.set(FormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${FormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
         }
       }
       if (this.pwdVerification !== this.user.password) {
         verdict = false;
-        this.errors.set(UserFormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${UserFormValidationFields.PASSWORD_MISMATCH.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     }
     if (!this.user.email) {
       verdict = false;
-      this.errors.set(UserFormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.EMAIL_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${FormValidationFields.EMAIL_MANDATORY.toString()}`));
     } else {
       if (!TypeValidations.isEmail(this.user.email)) {
         verdict = false;
-        this.errors.set(UserFormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${UserFormValidationFields.EMAIL_INVALID.toString()}`));
+        this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${FormValidationFields.EMAIL_INVALID.toString()}`));
       }
     }
     if (this.user.phone && !TypeValidations.isPhoneNumber(this.user.phone)) {
       verdict = false;
-      this.errors.set(UserFormValidationFields.PHONE_INVALID, this.transloco.translate(`form.${UserFormValidationFields.PHONE_INVALID.toString()}`));
+      this.errors.set(FormValidationFields.PHONE_INVALID, this.transloco.translate(`form.${FormValidationFields.PHONE_INVALID.toString()}`));
     }
     return verdict;
   }

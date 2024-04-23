@@ -4,7 +4,7 @@ import {SessionService, UserGroup, UserGroupService} from "user-manager-structur
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
-import { UserGroupFormValidationFields } from '../../validations/forms/user-group-form-validation-fields';
+import { FormValidationFields } from '../../validations/form-validation-fields';
 
 @Component({
   selector: 'biit-user-group-form',
@@ -24,8 +24,8 @@ export class UserGroupFormComponent {
   @Output() onSaved: EventEmitter<UserGroup> = new EventEmitter<UserGroup>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
-  protected errors: Map<UserGroupFormValidationFields, string> = new Map<UserGroupFormValidationFields, string>();
-  protected readonly UserGroupFormValidationFields = UserGroupFormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
 
 
   constructor(private userGroupService: UserGroupService,
@@ -49,7 +49,7 @@ export class UserGroupFormComponent {
           switch (error.status) {
             case HttpStatusCode.Conflict:
               this.biitSnackbarService.showNotification(this.transloco.translate('form.request_failed_group_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(UserGroupFormValidationFields.NAME_EXISTS, this.transloco.translate(`form.${UserGroupFormValidationFields.NAME_EXISTS.toString()}`));
+              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`form.${FormValidationFields.NAME_EXISTS.toString()}`));
               break;
             default:
               this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
@@ -59,11 +59,11 @@ export class UserGroupFormComponent {
     );
   }
   protected validate(): boolean {
-    this.errors = new Map<UserGroupFormValidationFields, string>();
+    this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
     if (!this.userGroup.name) {
       verdict = false;
-      this.errors.set(UserGroupFormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${UserGroupFormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

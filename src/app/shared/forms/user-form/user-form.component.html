@@ -6,14 +6,14 @@
   <div class="form">
     <biit-tab-group class="user-tabs">
       <biit-tab name="{{'form.account' | transloco}}"
-                [error]="!!(errors | mapGet: [UserFormValidationFields.USERNAME_MANDATORY,
-                                              UserFormValidationFields.USERNAME_EXISTS,
-                                              UserFormValidationFields.EMAIL_MANDATORY,
-                                              UserFormValidationFields.EMAIL_INVALID,
-                                              UserFormValidationFields.NAME_MANDATORY,
-                                              UserFormValidationFields.LASTNAME_MANDATORY,
-                                              UserFormValidationFields.PASSWORD_MANDATORY,
-                                              UserFormValidationFields.PASSWORD_MISMATCH])"
+                [error]="!!(errors | mapGet: [FormValidationFields.USERNAME_MANDATORY,
+                                              FormValidationFields.USERNAME_EXISTS,
+                                              FormValidationFields.EMAIL_MANDATORY,
+                                              FormValidationFields.EMAIL_INVALID,
+                                              FormValidationFields.NAME_MANDATORY,
+                                              FormValidationFields.LASTNAME_MANDATORY,
+                                              FormValidationFields.PASSWORD_MANDATORY,
+                                              FormValidationFields.PASSWORD_MISMATCH])"
       >
         <div class="tab-row">
           <biit-input-text
@@ -21,7 +21,7 @@
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
             [required] = "true"
-            error="{{errors | mapGet: [UserFormValidationFields.USERNAME_MANDATORY, UserFormValidationFields.USERNAME_EXISTS]}}"
+            error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
           <biit-input-text
             [placeholder]="transloco.translate('form.email')"
@@ -29,7 +29,7 @@
             [type]="Type.EMAIL"
             [disabled]="user.id"
             [required]="true"
-            error="{{errors | mapGet: [UserFormValidationFields.EMAIL_MANDATORY, UserFormValidationFields.EMAIL_INVALID]}}"
+            error="{{errors | mapGet: [FormValidationFields.EMAIL_MANDATORY, FormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
@@ -37,13 +37,13 @@
             placeholder="{{'name' | transloco}}"
             [(ngModel)]="user.name"
             [required] = "true"
-            error="{{errors | mapGet: UserFormValidationFields.NAME_MANDATORY}}"
+            error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
             placeholder="{{'lastname' | transloco}}"
             [(ngModel)]="user.lastname"
             [required] = "true"
-            error="{{errors | mapGet: UserFormValidationFields.LASTNAME_MANDATORY}}"
+            error="{{errors | mapGet: FormValidationFields.LASTNAME_MANDATORY}}"
           ></biit-input-text>
         </div>
         <div class="tab-row" *ngIf="!user.id">
@@ -52,14 +52,14 @@
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             [required]="true"
-            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"
+            error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
             placeholder="{{'repeatPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
             [required]="true"
-            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MISMATCH}}"
+            error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
         <div class="tab-row-single" *ngIf="!user.id">
@@ -69,7 +69,7 @@
         </div>
       </biit-tab>
       <biit-tab name="{{'form.personalData' | transloco}}"
-                [error]="!!(errors | mapGet: [UserFormValidationFields.PHONE_INVALID])?.length"
+                [error]="!!(errors | mapGet: [FormValidationFields.PHONE_INVALID])?.length"
       >
         <div>
           <biit-textarea
@@ -95,13 +95,13 @@
           <biit-input-text
             [placeholder]="transloco.translate('form.phone')"
             [(ngModel)]="user.phone"
-            error="{{errors | mapGet: [UserFormValidationFields.PHONE_INVALID]}}"
+            error="{{errors | mapGet: [FormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
       <biit-tab name="{{'password' | transloco}}" *ngIf="user.id"
-                [error]="!!(errors | mapGet: [UserFormValidationFields.PASSWORD_MANDATORY,
-                                              UserFormValidationFields.PASSWORD_MISMATCH])?.length"
+                [error]="!!(errors | mapGet: [FormValidationFields.PASSWORD_MANDATORY,
+                                              FormValidationFields.PASSWORD_MISMATCH])?.length"
       >
         <div class="tab-row-single" *ngIf="!(this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)">
           <biit-input-text
@@ -115,13 +115,13 @@
             placeholder="{{'newPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
-            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MANDATORY}}"
+            error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
             placeholder="{{'repeatPassword' | transloco}}"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
-            error="{{errors | mapGet: UserFormValidationFields.PASSWORD_MISMATCH}}"
+            error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
         <div class="tab-row-single">

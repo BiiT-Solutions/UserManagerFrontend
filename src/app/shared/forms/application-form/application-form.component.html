@@ -10,7 +10,7 @@
         placeholder="{{'name' | transloco}}"
         [(ngModel)]="application.id"
         [required] = "true"
-        error="{{errors | mapGet: ApplicationFormValidationFields.NAME_MANDATORY}}"
+        error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
       ></biit-input-text>
     </div>
     <div class="tab-row-single">
@@ -27,32 +27,3 @@
     </div>
   </div>
 </biit-popup>
-
-<!--<biit-popup *ngIf="type == RoleFormType.ASSIGN"-->
-<!--            [title]="'form.'+type | transloco"-->
-<!--            (onClosed)="onClosed.emit()"-->
-<!--            closable sixty-view-->
-<!--&gt;-->
-<!--  <div class="form">-->
-<!--    <div class="tab-row-single">-->
-<!--      <biit-input-text-->
-<!--        placeholder="{{'form.username' | transloco}}"-->
-<!--        [(ngModel)]="role.id"-->
-<!--        [required] = "true"-->
-<!--        error="{{errors | mapGet: RoleFormValidationFields.NAME_MANDATORY}}"-->
-<!--      ></biit-input-text>-->
-<!--    </div>-->
-<!--    <div class="tab-row-single">-->
-<!--      <biit-textarea-->
-<!--        [(ngModel)]="role.description"-->
-<!--        placeholder="{{'form.address' | transloco}}"-->
-<!--        style="display: block"-->
-<!--      ></biit-textarea>-->
-<!--    </div>-->
-<!--    <div class="form-bottom">-->
-<!--      <button biit-button primary style="display: block" (click)="onSave()">-->
-<!--        {{'form.save' | transloco}}-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</biit-popup>-->
