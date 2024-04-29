@@ -15,7 +15,7 @@ import {FormValidationFields} from "../../validations/form-validation-fields";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/organization_form', alias: 'form'}
+      useValue: {scope: 'components/organization', alias: 'form'}
     }
   ]
 })
@@ -24,10 +24,6 @@ export class OrganizationFormComponent {
   @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSaved: EventEmitter<Organization> = new EventEmitter<Organization>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
-
-  protected pwdVerification: string;
-  protected oldPassword: string;
-  protected readonly Type = Type;
 
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;

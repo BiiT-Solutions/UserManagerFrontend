@@ -1,0 +1,126 @@
+<ng-container *transloco="let t">
+  <biit-table #teams
+              *ngIf="columns.length"
+              [columns]="columns"
+              [defaultPageSize]="10"
+              [data]="data"
+              [pageSizes]="pageSizes"
+              [loading]="loading"
+              (onUpdate)="onTableUpdate($event)"
+              selectable sortable
+  >
+    <button biit-icon icon="plus"
+            title="{{'add' | transloco}}"
+            (click)="onCommand(undefined, 'ADD')"
+    ></button>
+    <button biit-icon icon="minus"
+            title="{{'delete' | transloco}}"
+            [disabled]="teams.getSelectedRows().length < 1"
+            (click)="onRemove(teams.getSelectedRows(),false)"
+    ></button>
+    <button biit-icon icon="edit"
+            title="{{'edit' | transloco}}"
+            [disabled]="teams.getSelectedRows().length !== 1"
+            (click)="onCommand(teams.getSelectedRows()[0], 'EDIT')"
+    ></button>
+    <button biit-icon icon="user_single"
+            title="{{'assign' | transloco}}"
+            [disabled]="teams.getSelectedRows().length !== 1"
+            (click)="onManageTeam(teams.getSelectedRows()[0])"
+    ></button>
+  </biit-table>
+
+  <biit-popup *ngIf="confirm === 'REMOVE'"
+              no-header
+  >
+    <div class="vertical">
+      <div>{{'confirm_delete' | transloco}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+        <button biit-button primary (click)="onRemove(selected, true)">{{'delete' | transloco}}</button>
+      </div>
+    </div>
+
+  </biit-popup>
+
+  <biit-popup *ngIf="targetTeam"
+              sixty-view closable
+              [title]="targetTeam.id ? t('org.edit_team') : t('org.add_team')"
+              (onClosed)="confirm = undefined; targetTeam = undefined;"
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text [(ngModel)]="targetTeam.name"
+                         [placeholder]="t('name')"
+                         [required]="true"
+                         [error]="errors | mapGet: FormValidationFields.NAME_MANDATORY"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea [(ngModel)]="targetTeam.description"
+                       [placeholder]="t('description')"
+        ></biit-textarea>
+      </div>
+      <div class="tab-row">
+        <button biit-button
+                (click)="onSaveTeam()">
+          {{t('save')}}
+        </button>
+      </div>
+    </div>
+
+  </biit-popup>
+
+  <biit-popup *ngIf="manageTeam"
+              sixty-view closable
+              [title]="t('org.assign_users') + ': ' + manageTeam.name"
+              (onClosed)="manageTeam = undefined; userData = undefined;"
+  >
+    <biit-table #users
+                *ngIf="userColumns.length && manageTeam"
+                [columns]="userColumns"
+                [defaultPageSize]="10"
+                [data]="userData"
+                [pageSizes]="pageSizes"
+                [loading]="loading"
+                (onUpdate)="onUserTableUpdate($event)"
+                selectable sortable
+    >
+      <button biit-icon icon="plus"
+              title="{{'assign' | transloco}}"
+              (click)="onAssign(users.getSelectedRows(), false)"
+      ></button>
+      <button biit-icon icon="minus"
+              title="{{'unassign' | transloco}}"
+              (click)="onUnassign(users.getSelectedRows(), false)"
+      ></button>
+    </biit-table>
+
+    <biit-popup *ngIf="confirm === 'ASSIGN'"
+                no-header
+    >
+      <div class="vertical">
+        <div>{{'org.confirm_assign' | transloco}}</div>
+        <div class="flex-grow horizontal buttons-row">
+          <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+          <button biit-button primary (click)="onAssign(selectedUsers, true)">{{'assign' | transloco}}</button>
+        </div>
+      </div>
+
+    </biit-popup>
+
+    <biit-popup *ngIf="confirm === 'UNASSIGN'"
+                no-header
+    >
+      <div class="vertical">
+        <div>{{'org.confirm_remove' | transloco}}</div>
+        <div class="flex-grow horizontal buttons-row">
+          <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
+          <button biit-button primary (click)="onUnassign(selectedUsers, true)">{{'remove' | transloco}}</button>
+        </div>
+      </div>
+
+    </biit-popup>
+
+  </biit-popup>
+</ng-container>

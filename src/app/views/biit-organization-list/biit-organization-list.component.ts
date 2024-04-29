@@ -15,7 +15,7 @@ import {GenericFilter} from "../../shared/utils/generic-filter";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/organization_list', alias: 'org'}
+      useValue: {scope: 'components/organization', alias: 'org'}
     }
   ]
 })
@@ -36,7 +36,7 @@ export class BiitOrganizationListComponent implements OnInit {
   protected selected: Organization[] = [];
   protected loading: boolean = false;
 
-  protected assign: User;
+  protected manage: Organization;
 
   constructor(private organizationService: OrganizationService,
               private biitSnackbarService: BiitSnackbarService,
@@ -138,7 +138,7 @@ export class BiitOrganizationListComponent implements OnInit {
     if (organizations && organizations.length === 1) {
       this.target = organizations[0];
     } else {
-      this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/organization_list', alias: 'org'}).subscribe(
+      this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/organization', alias: 'org'}).subscribe(
         translation => {
           this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
         }
@@ -158,7 +158,7 @@ export class BiitOrganizationListComponent implements OnInit {
     GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
-  protected onAssign(selectedRows: User[]): void {
-    this.assign = selectedRows[0];
+  protected onManage(selectedRows: Organization[]): void {
+    this.manage = selectedRows[0];
   }
 }

@@ -15,5 +15,12 @@
   "delete": "Eliminar",
   "cancel": "Cancelar",
   "new_organization": "Crear Organización",
-  "edit_organization": "Editar Organización"
+  "edit_organization": "Editar Organización",
+  "teams": "Equipos",
+  "add_team": "Añadir Equipo",
+  "edit_team": "Editar Equipo",
+  "name_mandatory": "El nombre es obligatorio",
+  "assign_users": "Asignar Usuarios",
+  "confirm_assign": "¿Seguro que desea asignar los usuarios seleccionados al equipo?",
+  "confirm_remove": "¿Seguro que desea quitar los usuarios seleccionados del equipo?"
 }

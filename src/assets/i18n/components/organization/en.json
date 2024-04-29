@@ -1,0 +1,21 @@
+{
+  "id": "Id",
+  "name": "Name",
+  "createdBy": "Created By",
+  "createdAt": "Created At",
+  "updatedBy": "Updated At",
+  "updatedAt": "Updated At",
+  "add": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "new_organization": "New Organization",
+  "edit_organization": "Edit Organization",
+  "teams": "Teams",
+  "add_team": "Add Team",
+  "edit_team": "Edit Team",
+  "name_mandatory": "Name is mandatory",
+  "assign_users": "Assign Users",
+  "confirm_assign": "Are you sure you want assign the selected users to the group?",
+  "confirm_remove": "Are you sure you want remove the selected users from the group?"
+}

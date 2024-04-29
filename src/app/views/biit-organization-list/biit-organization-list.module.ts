@@ -7,6 +7,7 @@ import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitOrganizationListRoutingModule} from "./biit-organization-list-routing.module";
 import {OrganizationFormModule} from "../../shared/forms/organization-form/organization-form.module";
+import {OrganizationTeamListModule} from "../../shared/lists/organization-team-list/organization-team-list.module";
 
 @NgModule({
   declarations: [
@@ -15,15 +16,16 @@ import {OrganizationFormModule} from "../../shared/forms/organization-form/organ
   exports: [
     BiitOrganizationListComponent
   ],
-  imports: [
-    CommonModule,
-    TranslocoRootModule,
-    BiitOrganizationListRoutingModule,
-    BiitTableModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    OrganizationFormModule,
-  ]
+    imports: [
+        CommonModule,
+        TranslocoRootModule,
+        BiitOrganizationListRoutingModule,
+        BiitTableModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        OrganizationFormModule,
+        OrganizationTeamListModule,
+    ]
 })
 export class BiitOrganizationListModule { }

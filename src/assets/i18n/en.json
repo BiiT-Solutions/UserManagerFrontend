@@ -20,6 +20,7 @@
   "repeatPassword": "Repeat Password",
   "email": "Email",
   "assign": "Assign",
+  "unassign": "Unassign",
   "assigned": "Assigned",
   "remove": "Remove",
   "roles": "Roles",
