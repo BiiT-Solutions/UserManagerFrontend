@@ -16,7 +16,7 @@
     <button biit-icon icon="minus"
             title="{{'delete' | transloco}}"
             [disabled]="teams.getSelectedRows().length < 1"
-            (click)="onRemove(teams.getSelectedRows(),false)"
+            (click)="onRemoveTeam(teams.getSelectedRows(),false)"
     ></button>
     <button biit-icon icon="edit"
             title="{{'edit' | transloco}}"
@@ -37,7 +37,7 @@
       <div>{{'confirm_delete' | transloco}}</div>
       <div class="flex-grow horizontal buttons-row">
         <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-        <button biit-button primary (click)="onRemove(selected, true)">{{'delete' | transloco}}</button>
+        <button biit-button primary (click)="onRemoveTeam(selected, true)">{{'delete' | transloco}}</button>
       </div>
     </div>
 
@@ -53,7 +53,8 @@
         <biit-input-text [(ngModel)]="targetTeam.name"
                          [placeholder]="t('name')"
                          [required]="true"
-                         [error]="errors | mapGet: FormValidationFields.NAME_MANDATORY"
+                         [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
+                                                    FormValidationFields.NAME_EXISTS]"
         ></biit-input-text>
       </div>
       <div class="tab-row-single">
@@ -88,11 +89,11 @@
     >
       <button biit-icon icon="plus"
               title="{{'assign' | transloco}}"
-              (click)="onAssign(users.getSelectedRows(), false)"
+              (click)="onAssignUser(users.getSelectedRows(), false)"
       ></button>
       <button biit-icon icon="minus"
               title="{{'unassign' | transloco}}"
-              (click)="onUnassign(users.getSelectedRows(), false)"
+              (click)="onUnassignUser(users.getSelectedRows(), false)"
       ></button>
     </biit-table>
 
@@ -103,7 +104,7 @@
         <div>{{'org.confirm_assign' | transloco}}</div>
         <div class="flex-grow horizontal buttons-row">
           <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-          <button biit-button primary (click)="onAssign(selectedUsers, true)">{{'assign' | transloco}}</button>
+          <button biit-button primary (click)="onAssignUser(selectedUsers, true)">{{'assign' | transloco}}</button>
         </div>
       </div>
 
@@ -116,7 +117,7 @@
         <div>{{'org.confirm_remove' | transloco}}</div>
         <div class="flex-grow horizontal buttons-row">
           <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-          <button biit-button primary (click)="onUnassign(selectedUsers, true)">{{'remove' | transloco}}</button>
+          <button biit-button primary (click)="onUnassignUser(selectedUsers, true)">{{'remove' | transloco}}</button>
         </div>
       </div>
 

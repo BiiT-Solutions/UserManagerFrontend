@@ -17,5 +17,8 @@
   "name_mandatory": "Name is mandatory",
   "assign_users": "Assign Users",
   "confirm_assign": "Are you sure you want assign the selected users to the group?",
-  "confirm_remove": "Are you sure you want remove the selected users from the group?"
+  "confirm_remove": "Are you sure you want remove the selected users from the group?",
+  "request_failed_org_already_exists": "Your request couldn't be completed because the organization already exists.",
+  "request_failed_team_already_exists": "Your request couldn't be completed because the team already exists.",
+  "name_exists": "This name is already being used."
 }

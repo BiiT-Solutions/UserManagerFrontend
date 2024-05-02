@@ -19,7 +19,7 @@ import {
 } from "biit-ui/table";
 import {User} from "authorization-services-lib";
 import {FormValidationFields} from "../../validations/form-validation-fields";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {UserGroupUser} from "../../../models/user-group-user";
 
 @Component({
@@ -268,13 +268,20 @@ export class OrganizationTeamListComponent implements OnInit {
           this.confirm = undefined;
         },
         error: (error: HttpErrorResponse): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
+          switch (error.status) {
+            case HttpStatusCode.Conflict:
+              this.biitSnackbarService.showNotification(this.transloco.translate('org.request_failed_team_already_exists'), NotificationType.WARNING, null, 5);
+              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`org.${FormValidationFields.NAME_EXISTS.toString()}`))
+              break;
+            default:
+              this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
+          }
         }
       }
     );
   }
 
-  protected onRemove(teams: Team[], confirmed: boolean): void {
+  protected onRemoveTeam(teams: Team[], confirmed: boolean): void {
     if (!confirmed) {
       this.confirm = 'REMOVE';
       this.selected = teams;
@@ -304,7 +311,7 @@ export class OrganizationTeamListComponent implements OnInit {
     }
   }
 
-  protected onAssign(users: UserGroupUser[], confirmed: boolean): void {
+  protected onAssignUser(users: UserGroupUser[], confirmed: boolean): void {
     if (!confirmed) {
       this.confirm = 'ASSIGN';
       this.selectedUsers = users;
@@ -329,7 +336,7 @@ export class OrganizationTeamListComponent implements OnInit {
     }
   }
 
-  protected onUnassign(users: UserGroupUser[], confirmed: boolean): void {
+  protected onUnassignUser(users: UserGroupUser[], confirmed: boolean): void {
     if (!confirmed) {
       this.confirm = 'UNASSIGN';
       this.selectedUsers = users;

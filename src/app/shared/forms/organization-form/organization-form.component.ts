@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {Type} from "biit-ui/inputs";
-import {Organization, OrganizationService, SessionService, UserService} from "user-manager-structure-lib";
+import {Organization, OrganizationService, SessionService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 
 @Component({
@@ -47,7 +46,14 @@ export class OrganizationFormComponent {
           this.onSaved.emit(Organization.clone(organization));
         },
         error: (error: HttpErrorResponse): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
+          switch (error.status) {
+            case HttpStatusCode.Conflict:
+              this.biitSnackbarService.showNotification(this.transloco.translate('org.request_failed_team_already_exists'), NotificationType.WARNING, null, 5);
+              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`form.${FormValidationFields.NAME_EXISTS.toString()}`))
+              break;
+            default:
+              this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
+          }
         }
       }
     );

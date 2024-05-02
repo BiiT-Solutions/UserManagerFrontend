@@ -22,5 +22,8 @@
   "name_mandatory": "El nombre es obligatorio",
   "assign_users": "Asignar Usuarios",
   "confirm_assign": "¿Seguro que desea asignar los usuarios seleccionados al equipo?",
-  "confirm_remove": "¿Seguro que desea quitar los usuarios seleccionados del equipo?"
+  "confirm_remove": "¿Seguro que desea quitar los usuarios seleccionados del equipo?",
+  "request_failed_org_already_exists": "Su solicitud no pudo completarse porque la organización ya existe.",
+  "request_failed_team_already_exists": "Su solicitud no pudo completarse porque el equipo ya existe.",
+  "name_exists": "Este nombre ya está en uso."
 }

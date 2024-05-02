@@ -1,28 +1,29 @@
-<biit-popup
-            [title]="organization.id ? t('form.edit_organization') : t('form.new_organization')"
-            (onClosed)="onClosed.emit()"
-            closable sixty-view
-            *transloco="let t"
->
-  <div class="form">
-    <div class="tab-row-single">
-      <biit-input-text
-        [placeholder]="t('name')"
-        [(ngModel)]="organization.name"
-        [required]="true"
-        [error]="errors | mapGet: FormValidationFields.NAME_MANDATORY"
-      ></biit-input-text>
+<ng-container *transloco="let t">
+  <biit-popup [title]="organization.id ? t('form.edit_organization') : t('form.new_organization')"
+              (onClosed)="onClosed.emit()"
+              closable sixty-view
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text
+          [placeholder]="t('name')"
+          [(ngModel)]="organization.name"
+          [required]="true"
+          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
+                                     FormValidationFields.NAME_EXISTS]"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea
+          [placeholder]="t('description')"
+          [(ngModel)]="organization.description"
+        ></biit-textarea>
+      </div>
+      <div class="form-bottom">
+        <button biit-button primary style="display: block" (click)="onSave()">
+          {{t('save')}}
+        </button>
+      </div>
     </div>
-    <div class="tab-row-single">
-      <biit-textarea
-        [placeholder]="t('description')"
-        [(ngModel)]="organization.description"
-      ></biit-textarea>
-    </div>
-    <div class="form-bottom">
-      <button biit-button primary style="display: block" (click)="onSave()">
-        {{t('save')}}
-      </button>
-    </div>
-  </div>
-</biit-popup>
+  </biit-popup>
+</ng-container>
