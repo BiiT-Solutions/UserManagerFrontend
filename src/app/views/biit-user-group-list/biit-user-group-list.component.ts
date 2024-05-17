@@ -7,7 +7,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
 
 @Component({
-  selector: 'app-biit-user-list',
+  selector: 'app-biit-user-group-list',
   templateUrl: './biit-user-group-list.component.html',
   styleUrls: ['./biit-user-group-list.component.scss'],
   providers: [

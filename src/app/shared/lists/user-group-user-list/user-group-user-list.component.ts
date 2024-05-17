@@ -94,7 +94,7 @@ export class UserGroupUserListComponent implements OnInit {
     combineLatest(
       [
         this.userService.getAll(),
-        this.userService.getByUserGroup(this.userGroup.id)
+        this.userService.getByUserGroupId(this.userGroup.id)
       ]
     ).subscribe({
       next: (result: [users: User[], members: User[]]) => {

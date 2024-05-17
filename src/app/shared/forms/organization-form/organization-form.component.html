@@ -9,6 +9,7 @@
           [placeholder]="t('name')"
           [(ngModel)]="organization.name"
           [required]="true"
+          [disabled]="organization.id"
           [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
                                      FormValidationFields.NAME_EXISTS]"
         ></biit-input-text>
