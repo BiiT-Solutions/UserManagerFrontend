@@ -1,0 +1,16 @@
+{
+  "update": "Update",
+  "update_password_title": "Update password",
+  "update_password_subtitle": "You do need a new spell...",
+  "update_password_body": "Choose a powerful password and don't reuse it in other accounts",
+  "invalid_token_title": "...Oops!",
+  "invalid_token_subtitle": "Your spell failed, apparently",
+  "invalid_token_body": "There seems to be something wrong from our side, please contact support for more info.",
+  "completed_title": "Victory!",
+  "completed_subtitle": "Your spell has been completed",
+  "completed_body": "You can now login with your new password. It's safe to close this tab.",
+  "password": "Password",
+  "password_mandatory": "Password is mandatory",
+  "password_mismatch": "Passwords do not match",
+  "repeat_password": "Repeat password"
+}

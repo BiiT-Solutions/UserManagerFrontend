@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => login
   },
   {
+    path: 'reset_password',
+    loadChildren: () => import('./views/biit-reset-password/biit-reset-password.module').then(m => m.BiitResetPasswordModule)
+  },
+  {
     path: 'users',
     loadChildren: () => import('./views/biit-user-list/biit-user-list.module').then(m => m.BiitUserListModule),
     canActivate: [AuthGuard]
