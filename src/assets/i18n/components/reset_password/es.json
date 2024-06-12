@@ -5,7 +5,7 @@
   "update_password_body": "Escoge una contraseña robusta y no la reuses en otras cuentas",
   "invalid_token_title": "...¡Cáspita!",
   "invalid_token_subtitle": "El hechizo ha fallado, aparentemente",
-  "invalid_token_body": "Parece que hay algo mal por nuestra parte, por favor contacta con soporte para más información.",
+  "invalid_token_body": "Parece que hay algo mal por nuestra parte. Por favor, contacta con soporte para más información.",
   "completed_title": "¡Victoria!",
   "completed_subtitle": "Tu hechizo ha sido completadoYour spell has been completed",
   "completed_body": "Ya puedes iniciar sesión con tu nueva contraseña. Puedes cerrar esta pestaña.",
