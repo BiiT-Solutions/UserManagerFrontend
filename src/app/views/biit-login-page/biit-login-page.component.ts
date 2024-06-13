@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BiitLogin} from "biit-ui/models";
-import {AuthService, SessionService} from "user-manager-structure-lib";
+import {AuthService, SessionService, UserService} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
 import {HttpResponse} from "@angular/common/http";
 import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
@@ -26,6 +26,7 @@ export class BiitLoginPageComponent implements OnInit {
   protected waiting: boolean = true;
   constructor(private authService: AuthService,
               private sessionService: SessionService,
+              private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
               private activateRoute: ActivatedRoute,
               private router: Router,
@@ -95,4 +96,18 @@ export class BiitLoginPageComponent implements OnInit {
     });
   }
 
+  protected onResetPassword(email: string) {
+    this.userService.resetPassword(email).subscribe({
+      next: () => {
+        this.translocoService.selectTranslate('success', {},  {scope: 'biit-ui/login'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS, null, 5);
+        });
+      },
+      error: () => {
+        this.translocoService.selectTranslate('error', {},  {scope: 'biit-ui/login'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        });
+      }
+    })
+  }
 }
