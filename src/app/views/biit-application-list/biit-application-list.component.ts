@@ -96,6 +96,11 @@ export class BiitApplicationListComponent {
   private nextData() {
     if (this.applications.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
+    } else if (this.applications.length > 0) {
+      this.page = Math.trunc(this.applications.length / this.pageSize);
+      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 

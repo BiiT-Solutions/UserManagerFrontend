@@ -108,6 +108,11 @@ export class BiitUserListComponent implements OnInit {
   private nextData() {
     if (this.users.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
+    } else if (this.users.length > 0) {
+      this.page = Math.trunc(this.users.length / this.pageSize);
+      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 

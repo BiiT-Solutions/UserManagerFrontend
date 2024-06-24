@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
-import {Organization, OrganizationService, SessionService, UserService} from "user-manager-structure-lib";
-import {User} from "authorization-services-lib";
+import {Organization, OrganizationService, SessionService} from "user-manager-structure-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
@@ -98,6 +97,11 @@ export class BiitOrganizationListComponent implements OnInit {
   private nextData() {
     if (this.organizations.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.organizations.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.organizations.length);
+    } else if (this.organizations.length > 0) {
+      this.page = Math.trunc(this.organizations.length / this.pageSize);
+      this.data = new BiitTableData(this.organizations.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.organizations.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 

@@ -196,6 +196,11 @@ export class OrganizationTeamListComponent implements OnInit {
   private nextData() {
     if (this.teams.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.teams.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.teams.length);
+    } else if (this.teams.length > 0) {
+      this.page = Math.trunc(this.teams.length / this.pageSize);
+      this.data = new BiitTableData(this.teams.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.teams.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
-import {Application, Role, RoleService} from "user-manager-structure-lib";
+import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
@@ -96,6 +96,11 @@ export class BiitRoleListComponent {
   private nextData() {
     if (this.roles.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
+    } else if (this.roles.length > 0) {
+      this.page = Math.trunc(this.roles.length / this.pageSize);
+      this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 

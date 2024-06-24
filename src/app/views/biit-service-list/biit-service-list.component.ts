@@ -4,8 +4,6 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
-import {FormValidationFields} from "../../shared/validations/form-validation-fields";
-import {User} from "authorization-services-lib";
 import {GenericFilter} from "../../shared/utils/generic-filter";
 
 @Component({
@@ -95,6 +93,11 @@ export class BiitServiceListComponent implements OnInit {
     if (this.services.length > (this.page * this.pageSize - this.pageSize)) {
       this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
           this.services.length);
+    } else if (this.services.length > 0) {
+      this.page = Math.trunc(this.services.length / this.pageSize);
+      this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.services.length);
+    } else {
+      this.data = new BiitTableData([], 0);
     }
   }
 
