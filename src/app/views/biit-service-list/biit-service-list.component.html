@@ -41,6 +41,7 @@
                      placeholder="{{'name' | transloco}}"
                      [(ngModel)]="editService.name"
                      [required] = "true"
+                     [disabled]="mode == 'EDIT'"
     ></biit-input-text>
     <biit-textarea
       [(ngModel)]="editService.description"
