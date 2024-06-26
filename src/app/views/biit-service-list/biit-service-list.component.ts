@@ -144,6 +144,7 @@ export class BiitServiceListComponent implements OnInit {
 
     request.subscribe({
       next: (service: BackendService): void => {
+        this.editService = undefined;
         this.loadServices();
       }, error: (error: any): void => {
         this.biitSnackbarService.showNotification('error_saving', NotificationType.ERROR, null, 5);
