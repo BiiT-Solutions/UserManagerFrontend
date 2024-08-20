@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { OrganizationTeamListComponent } from './organization-team-list.component';
 import {FormsModule} from "@angular/forms";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {BiitPopupModule} from "biit-ui/popup";
 import {UtilsModule} from "../../utils/utils.module";
 import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
+import {BiitIconModule} from "biit-ui/icon";
 
 @NgModule({
   declarations: [
@@ -21,12 +22,16 @@ import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
     FormsModule,
     TranslocoRootModule,
     UtilsModule,
-    BiitTableModule,
+    BiitDatatableModule,
     BiitIconButtonModule,
     BiitButtonModule,
     BiitPopupModule,
     BiitInputTextModule,
-    BiitTextareaModule
+    BiitTextareaModule,
+    BiitIconModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class OrganizationTeamListModule { }

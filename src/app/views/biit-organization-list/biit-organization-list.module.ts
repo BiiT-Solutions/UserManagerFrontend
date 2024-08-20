@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { BiitOrganizationListComponent } from './biit-organization-list.component';
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
@@ -16,16 +16,19 @@ import {OrganizationTeamListModule} from "../../shared/lists/organization-team-l
   exports: [
     BiitOrganizationListComponent
   ],
-    imports: [
-        CommonModule,
-        TranslocoRootModule,
-        BiitOrganizationListRoutingModule,
-        BiitTableModule,
-        BiitPopupModule,
-        BiitButtonModule,
-        BiitIconButtonModule,
-        OrganizationFormModule,
-        OrganizationTeamListModule,
-    ]
+  imports: [
+    CommonModule,
+    TranslocoRootModule,
+    BiitOrganizationListRoutingModule,
+    BiitDatatableModule,
+    BiitPopupModule,
+    BiitButtonModule,
+    BiitIconButtonModule,
+    OrganizationFormModule,
+    OrganizationTeamListModule,
+  ],
+  providers: [
+    DatePipe
+  ]
 })
 export class BiitOrganizationListModule { }

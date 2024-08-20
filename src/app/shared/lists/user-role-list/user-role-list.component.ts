@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "authorization-services-lib";
-import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericFilter, GenericSort} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {
@@ -21,7 +21,7 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/application_role_list', alias: 'application_roles'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
@@ -34,10 +34,9 @@ export class UserRoleListComponent implements OnInit {
   protected readonly pageSizes: number[] = [10, 25, 50, 100];
   protected pageSize: number = UserRoleListComponent.DEFAULT_PAGE_SIZE;
   protected page: number = UserRoleListComponent.DEFAULT_PAGE_SIZE;
-  protected columns: BiitTableColumn[] = [];
+  protected columns: DatatableColumn[] = [];
   protected loading: boolean = false;
-  protected data: BiitTableData<ApplicationRole>;
-  private roles: ApplicationRole[];
+  protected roles: ApplicationRole[];
   protected selectedToDelete: ApplicationRole[];
   protected confirm: null | 'DELETE';
   protected applicationRole: ApplicationRole;
@@ -59,8 +58,8 @@ export class UserRoleListComponent implements OnInit {
       ]
     ).subscribe(([application, role]) => {
       this.columns = [
-        new BiitTableColumn("id.application.id", application, undefined, undefined, true),
-        new BiitTableColumn("id.role.id", role, undefined, undefined, true)
+        new DatatableColumn(application, "id.application.id", undefined, undefined, true),
+        new DatatableColumn(role, "id.role.id", undefined, undefined, true)
       ];
       this.pageSize = UserRoleListComponent.DEFAULT_PAGE_SIZE;
       this.page = UserRoleListComponent.DEFAULT_PAGE;
@@ -114,7 +113,6 @@ export class UserRoleListComponent implements OnInit {
 
   private loadRoles(): void {
     this.roles = [];
-    this.data = new BiitTableData([], 0);
     this.loading = true;
     if (!this.user || !this.user.username) {
       return;
@@ -131,28 +129,10 @@ export class UserRoleListComponent implements OnInit {
             return 0;
           }
         });
-        this.nextData();
       }, complete: () => {
         this.loading = false;
       }
     });
-  }
-  private nextData(): void {
-    if (this.roles.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
-        this.roles.length);
-    }
-  }
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const roles: ApplicationRole[] = this.roles.filter(serviceRole => GenericFilter.filter(serviceRole, tableResponse.search, true));
-      this.data = new BiitTableData(roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), roles.length);
-    } else {
-      this.data = new BiitTableData(this.roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.roles.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
   protected onDelete(applicationRoles: ApplicationRole[], confirmed: boolean): void {
@@ -166,13 +146,13 @@ export class UserRoleListComponent implements OnInit {
         .subscribe({
           next: (): void => {
             this.loadRoles();
-            this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+            this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
           }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
@@ -200,13 +180,13 @@ export class UserRoleListComponent implements OnInit {
       next: (): void => {
         this.loadRoles();
         this.applicationRole = null;
-        this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+        this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
           }
         );
       }, error: (): void => {
-        this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
           }

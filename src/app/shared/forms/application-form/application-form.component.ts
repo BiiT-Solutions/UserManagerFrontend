@@ -13,7 +13,7 @@ import { FormValidationFields } from '../../validations/form-validation-fields';
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/application_form', alias: 'form'}
+      useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
 })
@@ -35,7 +35,7 @@ export class ApplicationFormComponent {
               ) { }
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
       return;
     }
     const observable: Observable<Application> = this.type == ApplicationFormType.CREATE ? this.applicationService.create(this.application) : this.applicationService.update(this.application);
@@ -45,7 +45,9 @@ export class ApplicationFormComponent {
           this.onSaved.emit(Application.clone(application));
         },
         error: (error: any): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+          this.transloco.selectTranslate('request_unsuccessful', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+          });
         }
       }
     );
@@ -55,7 +57,7 @@ export class ApplicationFormComponent {
     let verdict: boolean = true;
     if (!this.application.id) {
       verdict = false;
-      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

@@ -1,28 +1,29 @@
-<biit-popup
-            [title]="userGroup.id ? transloco.translate('form.editUserGroup') : transloco.translate('form.newUserGroup')"
-            (onClosed)="onClosed.emit()"
-            closable sixty-view
->
-  <div class="form">
-    <div class="tab-row-single">
-      <biit-input-text
-        placeholder="{{'name' | transloco}}"
-        [(ngModel)]="userGroup.name"
-        [required]="true"
-        [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY, FormValidationFields.NAME_EXISTS]"
-      ></biit-input-text>
+<ng-container *transloco="let t">
+  <biit-popup [title]="userGroup.id ? t('t.editUserGroup') : t('t.newUserGroup')"
+              (onClosed)="onClosed.emit()"
+              closable sixty-view
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text
+          [placeholder]="t('name')"
+          [(ngModel)]="userGroup.name"
+          [required]="true"
+          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY, FormValidationFields.NAME_EXISTS]"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea
+          [(ngModel)]="userGroup.description"
+          [placeholder]="t('description')"
+          style="display: block"
+        ></biit-textarea>
+      </div>
+      <div class="form-bottom">
+        <button biit-button primary style="display: block" (click)="onSave()">
+          {{t('save')}}
+        </button>
+      </div>
     </div>
-    <div class="tab-row-single">
-      <biit-textarea
-        [(ngModel)]="userGroup.description"
-        placeholder="{{'description' | transloco}}"
-        style="display: block"
-      ></biit-textarea>
-    </div>
-    <div class="form-bottom">
-      <button biit-button primary style="display: block" (click)="onSave()">
-        {{'save' | transloco}}
-      </button>
-    </div>
-  </div>
-</biit-popup>
+  </biit-popup>
+</ng-container>

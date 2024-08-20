@@ -1,11 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
+import {AfterViewInit, Component, OnInit, QueryList, TemplateRef, ViewChildren} from '@angular/core';
+import {
+  BiitTableColumn,
+  BiitTableColumnFormat,
+  BiitTableData,
+  BiitTableResponse,
+  DatatableColumn,
+  GenericSort
+} from "biit-ui/table";
 import {SessionService, UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -15,18 +23,15 @@ import {GenericFilter} from "../../shared/utils/generic-filter";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_list', alias: 'users'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
-export class BiitUserListComponent implements OnInit {
+export class BiitUserListComponent implements OnInit, AfterViewInit {
+  @ViewChildren('booleanCell') booleanCell: QueryList<TemplateRef<any>>;
 
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
-
-  protected columns: BiitTableColumn[] = [];
-  protected pageSize: number = BiitUserListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = BiitUserListComponent.DEFAULT_PAGE_SIZE;
+  protected columns: DatatableColumn[] = [];
+  protected pageSize: number = 10;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected users: User[];
   protected data: BiitTableData<User>;
@@ -41,10 +46,18 @@ export class BiitUserListComponent implements OnInit {
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
               private sessionService: SessionService,
+              private _datePipe: DatePipe,
               private transloco: TranslocoService) {
   }
 
+  datePipe() {
+    return {transform: (value: any) => this._datePipe.transform(value, 'dd/MM/yyyy')}
+  }
+
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
     combineLatest(
       [
         this.transloco.selectTranslate('id'),
@@ -52,9 +65,9 @@ export class BiitUserListComponent implements OnInit {
         this.transloco.selectTranslate('lastname'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('phone',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('accountLocked',{}, {scope: 'components/user_list', alias: 'users'}),
-        this.transloco.selectTranslate('accountBlocked',{}, {scope: 'components/user_list', alias: 'users'}),
+        this.transloco.selectTranslate('t.phone'),
+        this.transloco.selectTranslate('t.accountLocked'),
+        this.transloco.selectTranslate('t.accountBlocked'),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),
@@ -62,21 +75,19 @@ export class BiitUserListComponent implements OnInit {
       ]
     ).subscribe(([id, name, lastname, username, email, phone, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("id", id, 50, undefined, false),
-        new BiitTableColumn("name", name, undefined, undefined, true),
-        new BiitTableColumn("lastname", lastname, undefined, undefined, true),
-        new BiitTableColumn("username", username, undefined, undefined, true),
-        new BiitTableColumn("email", email, undefined, undefined, true),
-        new BiitTableColumn("phone", phone, undefined, undefined, false),
-        new BiitTableColumn("accountLocked", accountLocked, undefined, BiitTableColumnFormat.BOOLEAN, false),
-        new BiitTableColumn("accountBlocked", accountBlocked, undefined, BiitTableColumnFormat.BOOLEAN, false),
-        new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, false),
-        new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, false),
+        new DatatableColumn(id, 'id', false, 80),
+        new DatatableColumn(name, 'name'),
+        new DatatableColumn(lastname, 'lastname'),
+        new DatatableColumn(username, 'username'),
+        new DatatableColumn(email, 'email'),
+        new DatatableColumn(phone, 'phone', false),
+        new DatatableColumn(accountLocked, 'accountLocked', false, 200, undefined, undefined, this.booleanCell.first),
+        new DatatableColumn(accountBlocked, 'accountBlocked', false, 200, undefined, undefined, this.booleanCell.first),
+        new DatatableColumn(createdBy, 'createdBy', false),
+        new DatatableColumn(createdAt, 'createdAt', undefined, undefined, undefined, this.datePipe()),
+        new DatatableColumn(updatedBy, 'updatedBy', false),
+        new DatatableColumn(updatedAt, 'updatedAt', false, undefined, undefined, this.datePipe())
       ];
-      this.pageSize = BiitUserListComponent.DEFAULT_PAGE_SIZE;
-      this.page = BiitUserListComponent.DEFAULT_PAGE;
       this.loadData();
     });
   }
@@ -86,34 +97,14 @@ export class BiitUserListComponent implements OnInit {
     this.userService.getAll().subscribe( {
       next: (users: User[]): void => {
         this.users = users.map(user => User.clone(user));
-        this.users.sort((a,b) => {
-          if ( a.name < b.name ){
-            return -1;
-          } else if ( a.name > b.name ){
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-        this.nextData();
         this.loading = false;
       }, error: (): void => {
         this.loading = false;
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        });
       }
     });
-  }
-
-
-  private nextData() {
-    if (this.users.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
-    } else if (this.users.length > 0) {
-      this.page = Math.trunc(this.users.length / this.pageSize);
-      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
-    } else {
-      this.data = new BiitTableData([], 0);
-    }
   }
 
   protected onAdd(): void {
@@ -122,10 +113,7 @@ export class BiitUserListComponent implements OnInit {
 
   protected onDelete(users: User[], confirmed: boolean): void {
     if (users.some(user => user.email === this.sessionService.getUser().email)) {
-      this.transloco.selectTranslate('you_cannot_delete_yourself', {}, {scope: '', alias: 'users'})
-        .subscribe(translation => {
-          this.biitSnackbarService.showNotification(translation, NotificationType.WARNING, null, 5);
-        });
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.you_cannot_delete_yourself'), NotificationType.WARNING, null, 5);
       return;
     }
     if (!confirmed) {
@@ -136,13 +124,13 @@ export class BiitUserListComponent implements OnInit {
       combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
         .subscribe({next: (): void => {
           this.loadData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'users'}).subscribe(
+          this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
         }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'users'}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
@@ -157,27 +145,7 @@ export class BiitUserListComponent implements OnInit {
   }
 
   onEdit(user: User[]): void {
-    if (user && user.length === 1) {
-      this.target = user[0];
-    } else {
-      this.transloco.selectTranslate('bad_implementation', {}, {scope: 'components/user_list', alias: 'users'}).subscribe(
-        translation => {
-          this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
-        }
-      );
-    }
-  }
-
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const users: User[] = this.users.filter(user => GenericFilter.filter(user, tableResponse.search, true));
-      this.data = new BiitTableData(users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), users.length);
-    } else {
-      this.data = new BiitTableData(this.users.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.users.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
+    this.target = user[0];
   }
 
   protected onAssign(selectedRows: User[]): void {

@@ -1,45 +1,61 @@
-<biit-table #users
-            *ngIf="columns.length"
-            [columns]="columns"
-            [defaultPageSize]="10"
-            [data]="data"
-            [pageSizes]="pageSizes"
-            [loading]="loading"
-            (onUpdate)="onTableUpdate($event)"
-            selectable sortable
->
-  <button biit-icon icon="plus"
-          title="{{'assign' | transloco}}"
-          (click)="onAssign(users.getSelectedRows(), false)"
-  ></button>
-  <button biit-icon icon="minus"
-          title="{{'assign' | transloco}}"
-          (click)="onRemove(users.getSelectedRows(), false)"
-  ></button>
-</biit-table>
+<ng-container *transloco="let t">
+  <biit-datatable #userTable
+                  [columns]="columns"
+                  [data]="users"
+                  [pageSize]="pageSize"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable scrollbarH
+  >
+    <button biit-icon icon="user_add"
+            [title]="t('t.assign')"
+            [disabled]="!userTable.selectedRows.length"
+            (click)="onAssign(userTable.selectedRows, false)"
+    ></button>
+    <button biit-icon icon="user_remove"
+            [title]="t('t.unassign')"
+            [disabled]="!userTable.selectedRows.length"
+            (click)="onRemove(userTable.selectedRows, false)"
+    ></button>
+  </biit-datatable>
 
-<biit-popup *ngIf="confirm === 'ASSIGN'"
-            dark-bg no-header
->
-  <div class="vertical">
-    <div>{{'form.confirm_assign' | transloco}}</div>
-    <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-      <button biit-button primary (click)="onAssign(selected, true)">{{'assign' | transloco}}</button>
+  <biit-popup *ngIf="confirm === 'ASSIGN'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_assign')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onAssign(selected, true)">{{t('t.assign')}}</button>
+      </div>
     </div>
-  </div>
 
-</biit-popup>
+  </biit-popup>
 
-<biit-popup *ngIf="confirm === 'REMOVE'"
-            dark-bg no-header
->
-  <div class="vertical">
-    <div>{{'form.confirm_remove' | transloco}}</div>
-    <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-      <button biit-button primary (click)="onRemove(selected, true)">{{'remove' | transloco}}</button>
+  <biit-popup *ngIf="confirm === 'REMOVE'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_unassign')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onRemove(selected, true)">{{t('t.unassign')}}</button>
+      </div>
     </div>
-  </div>
 
-</biit-popup>
+  </biit-popup>
+</ng-container>
+
+<ng-template #booleanCell let-row="row" let-value="value" let-i="index">
+  <biit-icon *ngIf="value"
+             [name]="'thick'"
+             style="height: 18px; width: 100%;"
+  />
+</ng-template>
+
+<ng-template #assignedCell let-row="row" let-value="value" let-i="index">
+  <biit-icon *ngIf="value"
+             [name]="'user_single'"
+             style="height: 18px; width: 100%;"
+  />
+</ng-template>

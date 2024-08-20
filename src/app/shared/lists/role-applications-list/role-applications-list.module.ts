@@ -4,7 +4,7 @@ import { RoleApplicationsListComponent } from './role-applications-list.componen
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitDropdownModule} from "biit-ui/inputs";
 import {BiitPopupModule} from "biit-ui/popup";
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {FormsModule} from "@angular/forms";
 
@@ -23,7 +23,7 @@ import {FormsModule} from "@angular/forms";
     BiitDropdownModule,
     BiitIconButtonModule,
     BiitPopupModule,
-    BiitTableModule,
+    BiitDatatableModule,
     TranslocoModule,
     FormsModule
   ]

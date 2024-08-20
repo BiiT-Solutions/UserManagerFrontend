@@ -13,7 +13,7 @@ import { FormValidationFields } from '../../validations/form-validation-fields';
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/role_form', alias: 'form'}
+      useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
 })
@@ -35,7 +35,7 @@ export class RoleFormComponent {
               ) { }
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
       return;
     }
     const observable: Observable<Role> = this.type == RoleFormType.CREATE ? this.roleService.create(this.role) : this.roleService.update(this.role);
@@ -45,7 +45,9 @@ export class RoleFormComponent {
           this.onSaved.emit(Role.clone(role));
         },
         error: (error: any): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+          this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+          });
         }
       }
     );
@@ -55,7 +57,7 @@ export class RoleFormComponent {
     let verdict: boolean = true;
     if (!this.role.id) {
       verdict = false;
-      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

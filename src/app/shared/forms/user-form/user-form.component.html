@@ -1,11 +1,12 @@
 <biit-popup
-            [title]="user.id ? transloco.translate('form.editUser') : transloco.translate('form.newUser')"
+            [title]="user.id ? t('t.editUser') : t('t.newUser')"
             (onClosed)="onClosed.emit()"
             closable sixty-view
+            *transloco="let t"
 >
   <div class="form">
     <biit-tab-group class="user-tabs">
-      <biit-tab name="{{'form.account' | transloco}}"
+      <biit-tab [name]="t('t.account')"
                 [error]="!!(errors | mapGet: [FormValidationFields.USERNAME_MANDATORY,
                                               FormValidationFields.USERNAME_EXISTS,
                                               FormValidationFields.EMAIL_MANDATORY,
@@ -17,14 +18,14 @@
       >
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'username' | transloco}}"
+            [placeholder]="t('t.username')"
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
             [required] = "true"
             error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
           <biit-input-text
-            [placeholder]="transloco.translate('form.email')"
+            [placeholder]="t('t.email')"
             [(ngModel)]="user.email"
             [type]="Type.EMAIL"
             [disabled]="user.id"
@@ -34,13 +35,13 @@
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'name' | transloco}}"
+            [placeholder]="t('t.name')"
             [(ngModel)]="user.name"
             [required] = "true"
             error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'lastname' | transloco}}"
+            [placeholder]="t('t.lastname')"
             [(ngModel)]="user.lastname"
             [required] = "true"
             error="{{errors | mapGet: FormValidationFields.LASTNAME_MANDATORY}}"
@@ -48,14 +49,14 @@
         </div>
         <div class="tab-row" *ngIf="!user.id">
           <biit-input-text
-            placeholder="{{'password' | transloco}}"
+            [placeholder]="t('t.password')"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             [required]="true"
             error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'repeatPassword' | transloco}}"
+            [placeholder]="t('t.repeatPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
             [required]="true"
@@ -64,61 +65,61 @@
         </div>
         <div class="tab-row-single" *ngIf="!user.id">
           <button biit-button secondary style="display: block" (click)="generatePassword()">
-            {{'form.generate' | transloco}}
+            {{t('t.generate')}}
           </button>
         </div>
       </biit-tab>
-      <biit-tab name="{{'form.personalData' | transloco}}"
+      <biit-tab [name]="t('t.personalData')"
                 [error]="!!(errors | mapGet: [FormValidationFields.PHONE_INVALID])?.length"
       >
         <div class="tab-row">
           <biit-textarea
             [(ngModel)]="user.address"
-            placeholder="{{'form.address' | transloco}}"
+            [placeholder]="t('t.address')"
             style="display: block"
           ></biit-textarea>
         </div>
         <div class="tab-row">
           <biit-input-text
-            [placeholder]="transloco.translate('form.city')"
+            [placeholder]="t('t.city')"
             [(ngModel)]="user.city"
           ></biit-input-text>
           <biit-input-text
-            [placeholder]="transloco.translate('form.postalCode')"
+            [placeholder]="t('t.postalCode')"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
-            [placeholder]="transloco.translate('form.country')"
+            [placeholder]="t('t.country')"
             [(ngModel)]="user.country"
           ></biit-input-text>
           <biit-input-text
-            [placeholder]="transloco.translate('form.phone')"
+            [placeholder]="t('t.phone')"
             [(ngModel)]="user.phone"
             error="{{errors | mapGet: [FormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
-      <biit-tab name="{{'password' | transloco}}" *ngIf="user.id"
+      <biit-tab [name]="t('password')" *ngIf="user.id"
                 [error]="!!(errors | mapGet: [FormValidationFields.PASSWORD_MANDATORY,
                                               FormValidationFields.PASSWORD_MISMATCH])?.length"
       >
         <div class="tab-row-single" *ngIf="!(this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)">
           <biit-input-text
-            placeholder="{{'form.currentPassword' | transloco}}"
+            [placeholder]="t('t.currentPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="oldPassword"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
-            placeholder="{{'newPassword' | transloco}}"
+            [placeholder]="t('t.newPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text
-            placeholder="{{'repeatPassword' | transloco}}"
+            [placeholder]="t('t.repeatPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
             error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
@@ -126,14 +127,14 @@
         </div>
         <div class="tab-row-single">
           <button biit-button secondary style="display: block" (click)="generatePassword()">
-            {{'form.generate' | transloco}}
+            {{t('t.generate')}}
           </button>
         </div>
       </biit-tab>
     </biit-tab-group>
     <div class="form-bottom">
       <button biit-button primary style="display: block" (click)="onSave()">
-        {{'save' | transloco}}
+        {{t('t.save')}}
       </button>
     </div>
   </div>

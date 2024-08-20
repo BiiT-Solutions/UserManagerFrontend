@@ -2,34 +2,37 @@ import {Component, Input, OnInit} from '@angular/core';
 import {
   Application,
   ApplicationBackendServiceRole, ApplicationBackendServiceRoleId, ApplicationBackendServiceRoleService,
-  ApplicationRole, ApplicationRoleId,
-  ApplicationRoleService,
-  ApplicationService, BackendService,
-  BackendServiceRole, BackendServiceRoleId, BackendServiceRoleService, BackendServiceService, Role, UserService
+  ApplicationRole, ApplicationRoleId, BackendService,
+  BackendServiceRole, BackendServiceRoleId, BackendServiceRoleService, BackendServiceService, Role
 } from "user-manager-structure-lib";
-import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericFilter, GenericSort} from "biit-ui/table";
+import {
+  DatatableColumn
+} from "biit-ui/table";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {TranslocoService} from "@ngneat/transloco";
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'biit-aplication-role-services',
   templateUrl: './aplication-role-services.component.html',
-  styleUrls: ['./aplication-role-services.component.scss']
+  styleUrls: ['./aplication-role-services.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      multi:true,
+      useValue: {scope: 'components/lists', alias: 't'}
+    }
+  ]
 })
 export class AplicationRoleServicesComponent implements OnInit{
 
   @Input() applicationRole: ApplicationRole;
 
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
   protected readonly pageSizes: number[] = [10, 25, 50, 100];
-  protected pageSize: number = AplicationRoleServicesComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = AplicationRoleServicesComponent.DEFAULT_PAGE_SIZE;
+  protected pageSize: number = 10;
   protected serviceRoles: BackendServiceRole[];
-  protected columns: BiitTableColumn[] = [];
+  protected columns: DatatableColumn[] = [];
   protected loading: boolean = false;
-  protected data: BiitTableData<BackendServiceRole>;
   protected confirm: null | 'DELETE';
   protected applicationBackendServiceRole: ApplicationBackendServiceRole;
 
@@ -53,11 +56,9 @@ export class AplicationRoleServicesComponent implements OnInit{
       ]
     ).subscribe(([service, role]) => {
       this.columns = [
-        new BiitTableColumn("id.backendService.name", service, undefined, undefined, true),
-        new BiitTableColumn("id.name", role, undefined, undefined, true)
+        new DatatableColumn(service, 'id.backendService.name'),
+        new DatatableColumn(role, 'id.name')
       ];
-      this.pageSize = AplicationRoleServicesComponent.DEFAULT_PAGE_SIZE;
-      this.page = AplicationRoleServicesComponent.DEFAULT_PAGE;
       this.loadServices();
       this.loadData();
     });
@@ -66,8 +67,6 @@ export class AplicationRoleServicesComponent implements OnInit{
   private loadData() {
     this.loading = true;
     this.serviceRoles = [];
-    this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
-      this.serviceRoles.length);
     this.serviceRoleService.getByApplicationNameAndRoleName(this.applicationRole.id.application.id, this.applicationRole.id.role.id).subscribe({
       next: serviceRoles => {
         this.serviceRoles = serviceRoles.map(BackendServiceRole.clone);
@@ -80,31 +79,12 @@ export class AplicationRoleServicesComponent implements OnInit{
             return 0;
           }
         });
-        this.nextData();
         this.loading = false;
       },
       error: () => {
         this.loading = false;
       }
     })
-  }
-  private nextData(): void {
-    if (this.serviceRoles.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
-        this.serviceRoles.length);
-    }
-  }
-
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const roles: BackendServiceRole[] = this.serviceRoles.filter(serviceRole => GenericFilter.filter(serviceRole, tableResponse.search, true));
-      this.data = new BiitTableData(roles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), roles.length);
-    } else {
-      this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.serviceRoles.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 
   protected loadServices(): void {
@@ -133,14 +113,14 @@ export class AplicationRoleServicesComponent implements OnInit{
       next: () => {
         this.loadData();
         this.applicationBackendServiceRole = null;
-        this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+        this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
           }
         );
       },
       error: () => {
-        this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
           }
@@ -182,13 +162,13 @@ export class AplicationRoleServicesComponent implements OnInit{
         .subscribe({
           next: (): void => {
             this.loadData();
-            this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
+            this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
           }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }

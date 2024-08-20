@@ -1,10 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
+import {
+  BiitTableColumn,
+  BiitTableColumnFormat,
+  BiitTableData,
+  BiitTableResponse,
+  DatatableColumn,
+  GenericSort
+} from "biit-ui/table";
 import {SessionService, UserGroup, UserGroupService} from "user-manager-structure-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {GenericFilter} from "../../shared/utils/generic-filter";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-biit-user-group-list',
@@ -14,21 +22,16 @@ import {GenericFilter} from "../../shared/utils/generic-filter";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_group_list', alias: 'userGroups'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
 export class BiitUserGroupListComponent implements OnInit {
 
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
-
-  protected columns: BiitTableColumn[] = [];
-  protected pageSize: number = BiitUserGroupListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = BiitUserGroupListComponent.DEFAULT_PAGE_SIZE;
+  protected columns: DatatableColumn[] = [];
+  protected pageSize: number = 10;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected userGroups: UserGroup[];
-  protected data: BiitTableData<UserGroup>;
 
   protected target: UserGroup;
   protected confirm: null | 'DELETE';
@@ -41,7 +44,12 @@ export class BiitUserGroupListComponent implements OnInit {
   constructor(private userGroupService: UserGroupService,
               private biitSnackbarService: BiitSnackbarService,
               private sessionService: SessionService,
+              private _datePipe: DatePipe,
               private transloco: TranslocoService) {
+  }
+
+  datePipe() {
+    return {transform: (value: any) => this._datePipe.transform(value, 'dd/MM/yyyy')}
   }
 
   ngOnInit(): void {
@@ -56,15 +64,13 @@ export class BiitUserGroupListComponent implements OnInit {
       ]
     ).subscribe(([id, name, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("id", id, 50, undefined, false),
-        new BiitTableColumn("name", name, undefined, undefined, true),
-        new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, false),
-        new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, true),
+        new DatatableColumn(id, 'id', false, 80),
+        new DatatableColumn(name, 'name'),
+        new DatatableColumn(createdBy, 'createdBy', false),
+        new DatatableColumn(createdAt, 'createdAt', undefined, undefined, undefined, this.datePipe()),
+        new DatatableColumn(updatedBy, 'updatedBy', false),
+        new DatatableColumn(updatedAt, 'updatedAt', false, undefined, undefined, this.datePipe())
       ];
-      this.pageSize = BiitUserGroupListComponent.DEFAULT_PAGE_SIZE;
-      this.page = BiitUserGroupListComponent.DEFAULT_PAGE;
       this.loadData();
     });
   }
@@ -83,25 +89,14 @@ export class BiitUserGroupListComponent implements OnInit {
             return 0;
           }
         });
-        this.nextData();
         this.loading = false;
       }, error: (): void => {
         this.loading = false;
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        })
       }
     });
-  }
-
-
-  private nextData() {
-    if (this.userGroups.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.userGroups.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.userGroups.length);
-    } else if (this.userGroups.length > 0) {
-      this.page = Math.trunc(this.userGroups.length / this.pageSize);
-      this.data = new BiitTableData(this.userGroups.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.userGroups.length);
-    } else {
-      this.data = new BiitTableData([], 0);
-    }
   }
 
   protected onAdd(): void {
@@ -117,13 +112,13 @@ export class BiitUserGroupListComponent implements OnInit {
       combineLatest(userGroups.map(userGroup => this.userGroupService.delete(userGroup.id)))
         .subscribe({next: (): void => {
           this.loadData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+          this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
         }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
@@ -138,27 +133,7 @@ export class BiitUserGroupListComponent implements OnInit {
   }
 
   onEdit(userGroups: UserGroup[]): void {
-    if (userGroups && userGroups.length === 1) {
-      this.target = userGroups[0];
-    } else {
-      this.transloco.selectTranslate('bad_implementation', {}, {scope: '', alias: 'userGroups'}).subscribe(
-        translation => {
-          this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
-        }
-      );
-    }
-  }
-
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const userGroups: UserGroup[] = this.userGroups.filter(user => GenericFilter.filter(user, tableResponse.search, true));
-      this.data = new BiitTableData(userGroups.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), userGroups.length);
-    } else {
-      this.data = new BiitTableData(this.userGroups.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.userGroups.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
+    this.target = userGroups[0];
   }
 
   protected onAssignAppRoles(selectedRows: UserGroup[]): void {

@@ -2,9 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {BackendService, BackendServiceService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
+import {
+  BiitTableColumn,
+  BiitTableColumnFormat,
+  BiitTableData,
+  BiitTableResponse,
+  DatatableColumn,
+  GenericSort
+} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {GenericFilter} from "../../shared/utils/generic-filter";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-biit-service-list',
@@ -14,21 +22,18 @@ import {GenericFilter} from "../../shared/utils/generic-filter";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/service_list', alias: 'services'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
 export class BiitServiceListComponent implements OnInit {
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
 
   protected loading: boolean = false;
-  protected columns: BiitTableColumn[] = [];
+  protected columns: DatatableColumn[] = [];
   protected data: BiitTableData<BackendService>;
   protected services: BackendService[];
   protected pageSizes: number[] = [10, 25, 50, 100];
-  protected pageSize: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
+  protected pageSize: number = 10;
   protected editService: BackendService;
   protected assignService: BackendService;
   protected mode: 'EDIT' | 'NEW' = 'NEW';
@@ -37,30 +42,33 @@ export class BiitServiceListComponent implements OnInit {
 
   constructor(private biitSnackbarService: BiitSnackbarService,
               protected transloco: TranslocoService,
+              private _datePipe: DatePipe,
               private backendService: BackendServiceService) {
+  }
+
+  datePipe() {
+    return {transform: (value: any) => this._datePipe.transform(value, 'dd/MM/yyyy')}
   }
 
   ngOnInit(): void {
     combineLatest(
         [
           this.transloco.selectTranslate('name', {}),
-          this.transloco.selectTranslate('description', {}, {scope: 'components/service_list', alias: 'roles'}),
-          this.transloco.selectTranslate('createdBy', {}, {scope: 'components/service_list', alias: 'roles'}),
-          this.transloco.selectTranslate('createdAt', {}, {scope: 'components/service_list', alias: 'roles'}),
-          this.transloco.selectTranslate('updatedBy', {}, {scope: 'components/service_list', alias: 'roles'}),
-          this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/service_list', alias: 'roles'}),
+          this.transloco.selectTranslate('description'),
+          this.transloco.selectTranslate('createdBy'),
+          this.transloco.selectTranslate('createdAt'),
+          this.transloco.selectTranslate('updatedBy'),
+          this.transloco.selectTranslate('updatedAt'),
         ]
     ).subscribe(([name, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("name", name, undefined, undefined, true),
-        new BiitTableColumn("description", description, undefined, undefined, true),
-        new BiitTableColumn("createdBy", createdBy, undefined, undefined, true),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, true),
-        new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, true),
+        new DatatableColumn(name, 'name'),
+        new DatatableColumn(description, 'description'),
+        new DatatableColumn(createdBy, 'createdBy', false),
+        new DatatableColumn(createdAt, 'createdAt', undefined, undefined, undefined, this.datePipe()),
+        new DatatableColumn(updatedBy, 'updatedBy', false),
+        new DatatableColumn(updatedAt, 'updatedAt', false, undefined, undefined, this.datePipe())
       ];
-      this.pageSize = BiitServiceListComponent.DEFAULT_PAGE_SIZE;
-      this.page = BiitServiceListComponent.DEFAULT_PAGE;
       this.loadServices();
     });
 
@@ -80,25 +88,14 @@ export class BiitServiceListComponent implements OnInit {
             return 0;
           }
         });
-        this.nextData();
       }, error: (): void => {
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        });
       }, complete: (): void => {
           this.loading = false;
       }
     });
-  }
-
-  private nextData() {
-    if (this.services.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
-          this.services.length);
-    } else if (this.services.length > 0) {
-      this.page = Math.trunc(this.services.length / this.pageSize);
-      this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.services.length);
-    } else {
-      this.data = new BiitTableData([], 0);
-    }
   }
 
 
@@ -116,15 +113,15 @@ export class BiitServiceListComponent implements OnInit {
       combineLatest(services.map(service => this.backendService.deleteById(service.id)))
         .subscribe({next: (): void => {
             this.loadServices();
-            this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'users'}).subscribe(
+            this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
           }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'users'}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
             );
           }});
@@ -147,7 +144,9 @@ export class BiitServiceListComponent implements OnInit {
         this.editService = undefined;
         this.loadServices();
       }, error: (error: any): void => {
-        this.biitSnackbarService.showNotification('error_saving', NotificationType.ERROR, null, 5);
+        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        })
         console.error(error);
       }
     });
@@ -155,16 +154,5 @@ export class BiitServiceListComponent implements OnInit {
 
   protected onAssign(selectedRows: BackendService[]): void {
     this.assignService = selectedRows[0];
-  }
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const services: BackendService[] = this.services.filter(service => GenericFilter.filter(service, tableResponse.search, true));
-      this.data = new BiitTableData(services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), services.length);
-    } else {
-      this.data = new BiitTableData(this.services.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.services.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 }

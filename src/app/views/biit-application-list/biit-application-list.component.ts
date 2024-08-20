@@ -1,11 +1,18 @@
 import {Component} from '@angular/core';
-import {BiitTableColumn, BiitTableColumnFormat, BiitTableData, BiitTableResponse, GenericSort} from "biit-ui/table";
+import {
+  BiitTableColumn,
+  BiitTableColumnFormat,
+  BiitTableData,
+  BiitTableResponse,
+  DatatableColumn,
+  GenericSort
+} from "biit-ui/table";
 import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {GenericFilter} from "../../shared/utils/generic-filter";
 import {ApplicationFormType} from "../../shared/forms/application-form/application-form.component";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-biit-application-list',
@@ -15,22 +22,17 @@ import {ApplicationFormType} from "../../shared/forms/application-form/applicati
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/application_list', alias: 'applications'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
 export class BiitApplicationListComponent {
 
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
-
-  protected columns: BiitTableColumn[] = [];
-  protected pageSize: number = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
+  protected columns: DatatableColumn[] = [];
+  protected pageSize: number = 10;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected applications: Application[];
   protected application: Application;
-  protected data: BiitTableData<Application>;
 
   protected target: Application;
   protected popup: ApplicationFormType;
@@ -39,31 +41,34 @@ export class BiitApplicationListComponent {
   protected loading: boolean = false;
 
   constructor(private applicationService: ApplicationService,
+              private _datePipe: DatePipe,
               private biitSnackbarService: BiitSnackbarService,
               private transloco: TranslocoService) {
+  }
+
+  datePipe() {
+    return {transform: (value: any) => this._datePipe.transform(value, 'dd/MM/yyyy')}
   }
 
   ngOnInit(): void {
     combineLatest(
       [
-        this.transloco.selectTranslate('id', {}, {scope: 'components/application_list', alias: 'roles'}),
-        this.transloco.selectTranslate('description', {}, {scope: 'components/application_list', alias: 'roles'}),
-        this.transloco.selectTranslate('createdBy', {}, {scope: 'components/application_list', alias: 'roles'}),
-        this.transloco.selectTranslate('createdAt', {}, {scope: 'components/application_list', alias: 'roles'}),
-        this.transloco.selectTranslate('updatedBy', {}, {scope: 'components/application_list', alias: 'roles'}),
-        this.transloco.selectTranslate('updatedAt',{}, {scope: 'components/application_list', alias: 'roles'}),
+        this.transloco.selectTranslate('id'),
+        this.transloco.selectTranslate('description'),
+        this.transloco.selectTranslate('createdBy'),
+        this.transloco.selectTranslate('createdAt'),
+        this.transloco.selectTranslate('updatedBy'),
+        this.transloco.selectTranslate('updatedAt'),
       ]
     ).subscribe(([id, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("id", id, undefined, undefined, true),
-        new BiitTableColumn("description", description, undefined, undefined, true),
-        new BiitTableColumn("createdBy", createdBy, undefined, undefined, true),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, true),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, true),
-        new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, true),
+        new DatatableColumn(id, 'id'),
+        new DatatableColumn(description, 'description'),
+        new DatatableColumn(createdBy, 'createdBy', false),
+        new DatatableColumn(createdAt, 'createdAt', undefined, undefined, undefined, this.datePipe()),
+        new DatatableColumn(updatedBy, 'updatedBy', false),
+        new DatatableColumn(updatedAt, 'updatedAt', false, undefined, undefined, this.datePipe())
       ];
-      this.pageSize = BiitApplicationListComponent.DEFAULT_PAGE_SIZE;
-      this.page = BiitApplicationListComponent.DEFAULT_PAGE;
       this.loadData();
     });
 
@@ -84,24 +89,14 @@ export class BiitApplicationListComponent {
             return 0;
           }
         });
-        this.nextData();
         this.loading = false;
       }, error: (): void => {
         this.loading = false;
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
+        this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(msg => {
+          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+        });
       }
     });
-  }
-
-  private nextData() {
-    if (this.applications.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
-    } else if (this.applications.length > 0) {
-      this.page = Math.trunc(this.applications.length / this.pageSize);
-      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
-    } else {
-      this.data = new BiitTableData([], 0);
-    }
   }
 
   protected onAdd(): void {
@@ -118,15 +113,15 @@ export class BiitApplicationListComponent {
       combineLatest(applications.map(application => this.applicationService.deleteById(application.id)))
         .subscribe({next: (): void => {
             this.loadData();
-            this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'applications'}).subscribe(
+            this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
           }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'applications'}).subscribe(
+            this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
               }
             );
           }});
@@ -140,33 +135,11 @@ export class BiitApplicationListComponent {
   }
 
   onEdit(applications: Application[]): void {
-    if (applications && applications.length === 1) {
-      this.target = Application.clone(applications[0]);
-      this.popup = ApplicationFormType.EDIT;
-    } else {
-      this.transloco.selectTranslate('bad_implementation', {}, {scope: '', alias: ''}).subscribe(
-        translation => {
-          this.biitSnackbarService.showNotification(translation.replace('${CODE}', 'ULC0'), NotificationType.ERROR, undefined, 10);
-        }
-      );
-    }
+    this.target = Application.clone(applications[0]);
+    this.popup = ApplicationFormType.EDIT;
   }
 
   onAssign(applications: Application[]): void {
-    if (applications && applications.length) {
-      this.application = applications[0];
-    }
-  }
-
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const applications: Application[] = this.applications.filter(application => GenericFilter.filter(application, tableResponse.search, true));
-      this.data = new BiitTableData(applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), applications.length);
-    } else {
-      this.data = new BiitTableData(this.applications.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.applications.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
+    this.application = applications[0];
   }
 }

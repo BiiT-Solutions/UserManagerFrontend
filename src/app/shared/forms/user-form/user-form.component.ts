@@ -18,7 +18,7 @@ import {PwdGenerator} from "../../utils/pwd-generator";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_form', alias: 'form'}
+      useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
 })
@@ -48,7 +48,7 @@ export class UserFormComponent implements OnInit {
     }
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('form.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
       return;
     }
     if (this.user.id && this.user.password && this.user.password === this.pwdVerification) {
@@ -57,9 +57,9 @@ export class UserFormComponent implements OnInit {
         this.userService.updatePassword(this.user.username, passwordRequest) : this.userService.updateCurrentPassword(passwordRequest);
       observable.subscribe({
         next: (user: User): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.password_changed'), NotificationType.WARNING, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.WARNING, null, 5);
         }, error: (error: HttpErrorResponse): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('form.password_change_failed'), NotificationType.WARNING, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_failed'), NotificationType.WARNING, null, 5);
         }
       })
     }
@@ -72,11 +72,13 @@ export class UserFormComponent implements OnInit {
         error: (error: HttpErrorResponse): void => {
           switch (error.status) {
             case HttpStatusCode.Conflict:
-              this.biitSnackbarService.showNotification(this.transloco.translate('form.request_failed_user_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(FormValidationFields.USERNAME_EXISTS, this.transloco.translate(`form.${FormValidationFields.USERNAME_EXISTS.toString()}`))
+              this.biitSnackbarService.showNotification(this.transloco.translate('t.request_failed_user_already_exists'), NotificationType.WARNING, null, 5);
+              this.errors.set(FormValidationFields.USERNAME_EXISTS, this.transloco.translate(`t.${FormValidationFields.USERNAME_EXISTS.toString()}`))
               break;
             default:
-              this.biitSnackbarService.showNotification(this.transloco.translate('form.server_failed'), NotificationType.WARNING, null, 5);
+              this.transloco.selectTranslate('request_unsuccessful', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+                this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+              });
           }
         }
       }
@@ -87,49 +89,49 @@ export class UserFormComponent implements OnInit {
     let verdict: boolean = true;
     if (!this.user.username) {
       verdict = false;
-      this.errors.set(FormValidationFields.USERNAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.USERNAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.USERNAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.USERNAME_MANDATORY.toString()}`));
     }
     if (!this.user.name) {
       verdict = false;
-      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     if (!this.user.lastname) {
       verdict = false;
-      this.errors.set(FormValidationFields.LASTNAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.LASTNAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.LASTNAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.LASTNAME_MANDATORY.toString()}`));
     }
     if (!this.user.id) {
       if (!this.user.password) {
         verdict = false;
-        this.errors.set(FormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MANDATORY.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MANDATORY, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MANDATORY.toString()}`));
       }
       if (this.pwdVerification !== this.user.password) {
         verdict = false;
-        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     } else  {
       if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)) {
         if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
           verdict = false;
-          this.errors.set(FormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`form.${FormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
+          this.errors.set(FormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`t.${FormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
         }
       }
       if (this.pwdVerification !== this.user.password) {
         verdict = false;
-        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`form.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
+        this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     }
     if (!this.user.email) {
       verdict = false;
-      this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${FormValidationFields.EMAIL_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`t.${FormValidationFields.EMAIL_MANDATORY.toString()}`));
     } else {
       if (!TypeValidations.isEmail(this.user.email)) {
         verdict = false;
-        this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`form.${FormValidationFields.EMAIL_INVALID.toString()}`));
+        this.errors.set(FormValidationFields.EMAIL_MANDATORY, this.transloco.translate(`t.${FormValidationFields.EMAIL_INVALID.toString()}`));
       }
     }
     if (this.user.phone && !TypeValidations.isPhoneNumber(this.user.phone)) {
       verdict = false;
-      this.errors.set(FormValidationFields.PHONE_INVALID, this.transloco.translate(`form.${FormValidationFields.PHONE_INVALID.toString()}`));
+      this.errors.set(FormValidationFields.PHONE_INVALID, this.transloco.translate(`t.${FormValidationFields.PHONE_INVALID.toString()}`));
     }
     return verdict;
   }

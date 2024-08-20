@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { BiitApplicationListComponent } from './biit-application-list.component';
 import {BiitApplicationListRoutingModule} from "./biit-application-list-routing.module";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
 import {RoleFormModule} from "../../shared/forms/role-form/role-form.module";
@@ -21,13 +21,16 @@ import {ApplicationRolesListModule} from "../../shared/lists/application-roles-l
     CommonModule,
     BiitApplicationListRoutingModule,
     TranslocoModule,
-    BiitTableModule,
+    BiitDatatableModule,
     BiitPopupModule,
     BiitButtonModule,
     BiitIconButtonModule,
     RoleFormModule,
     ApplicationFormModule,
     ApplicationRolesListModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class BiitApplicationListModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserGroupRoleListComponent } from './user-group-role-list.component';
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule, BiitTableModule} from "biit-ui/table";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
@@ -20,14 +20,14 @@ import {BiitProgressBarModule} from "biit-ui/info";
   ],
     imports: [
         CommonModule,
-        BiitTableModule,
         BiitIconButtonModule,
         TranslocoModule,
         BiitButtonModule,
         BiitPopupModule,
         BiitDropdownModule,
         FormsModule,
-        BiitProgressBarModule
+        BiitProgressBarModule,
+        BiitDatatableModule
     ]
 })
 export class UserGroupRoleListModule { }

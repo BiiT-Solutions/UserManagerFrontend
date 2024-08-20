@@ -1,5 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BiitTableColumn, BiitTableData, BiitTableResponse, GenericFilter, GenericSort} from "biit-ui/table";
+import {
+  BiitTableColumn,
+  BiitTableData,
+  BiitTableResponse,
+  DatatableColumn,
+  GenericFilter,
+  GenericSort
+} from "biit-ui/table";
 import {
   BackendService,
   BackendServiceRole,
@@ -18,22 +25,18 @@ import {BiitSnackbarService, NotificationType} from "biit-ui/info";
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/role_form', alias: 'roles'}
+      useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
 })
 export class ServiceRoleListComponent implements OnInit {
-  private static readonly DEFAULT_PAGE_SIZE: number = 10;
-  private static readonly DEFAULT_PAGE: number = 1;
   protected readonly pageSizes: number[] = [10, 25, 50, 100];
-  protected pageSize: number = ServiceRoleListComponent.DEFAULT_PAGE_SIZE;
-  protected page: number = ServiceRoleListComponent.DEFAULT_PAGE_SIZE;
-  protected columns: BiitTableColumn[] = [];
-  protected data: BiitTableData<BackendServiceRole>;
+  protected pageSize: number = 10;
+  protected columns: DatatableColumn[] = [];
   protected loading: boolean = false;
   protected role: string;
   protected confirm: null | 'DELETE';
-  private serviceRoles: BackendServiceRole[];
+  protected serviceRoles: BackendServiceRole[];
   protected selectedToDelete: BackendServiceRole[];
 
   @Input() service: BackendService;
@@ -49,10 +52,8 @@ export class ServiceRoleListComponent implements OnInit {
       ]
     ).subscribe(([name]) => {
       this.columns = [
-        new BiitTableColumn("id.name", name, undefined, undefined, true)
+        new DatatableColumn(name, 'id.name')
       ];
-      this.pageSize = ServiceRoleListComponent.DEFAULT_PAGE_SIZE;
-      this.page = ServiceRoleListComponent.DEFAULT_PAGE;
       this.loadServiceRoles();
     });
   }
@@ -71,20 +72,12 @@ export class ServiceRoleListComponent implements OnInit {
             return 0;
           }
         });
-        this.nextData();
         this.loading = false;
       },
       error: () => {
         this.loading = false;
       }
     })
-  }
-
-  private nextData(): void {
-    if (this.serviceRoles.length > (this.page * this.pageSize - this.pageSize)) {
-      this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize),
-        this.serviceRoles.length);
-    }
   }
 
   protected onAdd(): void {
@@ -131,17 +124,5 @@ export class ServiceRoleListComponent implements OnInit {
         this.role = undefined;
       }
     });
-  }
-
-  protected onTableUpdate(tableResponse: BiitTableResponse): void {
-    this.pageSize = tableResponse.pageSize;
-    this.page = tableResponse.currentPage;
-    if (tableResponse.search && tableResponse.search.length) {
-      const serviceRoles: BackendServiceRole[] = this.serviceRoles.filter(serviceRole => GenericFilter.filter(serviceRole, tableResponse.search, true));
-      this.data = new BiitTableData(serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), serviceRoles.length);
-    } else {
-      this.data = new BiitTableData(this.serviceRoles.slice(this.page * this.pageSize - this.pageSize, this.page * this.pageSize), this.serviceRoles.length);
-    }
-    GenericSort.sort(this.data.data, tableResponse.sorting, this.columns);
   }
 }

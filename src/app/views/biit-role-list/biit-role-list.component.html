@@ -1,58 +1,59 @@
-<!-- data-transloco helps to load translations file before asking for it. It throws missing translation key-->
-<div class="table-view" slot="{{'empty' | transloco}}">
-  <biit-table #table *ngIf="columns.length"
-              [columns]="columns"
-              [defaultPageSize]="10"
-              [data]="data"
-              [pageSizes]="pageSizes"
-              (onUpdate)="onTableUpdate($event)"
-              [loading]="loading"
-              selectable sortable
-  >
-    <button biit-icon icon="plus"
-            title="{{'roles.add' | transloco}}"
-            (click)="onAdd()"
-    ></button>
-    <button biit-icon icon="minus"
-            title="{{'roles.delete' | transloco}}"
-            (click)="onDelete(table.getSelectedRows(), false)"
-            [disabled]="!table.getSelectedRows().length"
-    ></button>
-    <button biit-icon icon="edit"
-            title="{{'roles.edit' | transloco}}"
-            (click)="onEdit(table.getSelectedRows())"
-            [disabled]="table.getSelectedRows().length !== 1"
-    ></button>
-    <button biit-icon icon="linkage"
-            title="{{'assign' | transloco}}"
-            (click)="onAssign(table.getSelectedRows())"
-            [disabled]="table.getSelectedRows().length !== 1"
-    ></button>
-  </biit-table>
-</div>
-
-<biit-popup *ngIf="confirm === 'DELETE'"
-            dark-bg no-header
->
-  <div class="vertical">
-    <div>{{'confirm_delete' | transloco}}</div>
-    <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-      <button biit-button primary (click)="onDelete(selected, true)">{{'delete' | transloco}}</button>
-    </div>
+<ng-container *transloco="let t">
+  <div class="table-view">
+    <biit-datatable #table
+                    [columns]="columns"
+                    [data]="roles"
+                    [pageSize]="pageSize"
+                    [pageSizeList]="pageSizes"
+                    [loading]="loading"
+                    selectable
+    >
+      <button biit-icon icon="plus"
+              [title]="t('t.add')"
+              (click)="onAdd()"
+      ></button>
+      <button biit-icon icon="minus"
+              [title]="t('t.delete')"
+              (click)="onDelete(table.selectedRows, false)"
+              [disabled]="!table.selectedRows.length"
+      ></button>
+      <button biit-icon icon="edit"
+              [title]="t('t.edit')"
+              (click)="onEdit(table.selectedRows)"
+              [disabled]="table.selectedRows.length !== 1"
+      ></button>
+      <button biit-icon icon="linkage"
+              [title]="t('t.assign')"
+              (click)="onAssign(table.selectedRows)"
+              [disabled]="table.selectedRows.length !== 1"
+      ></button>
+    </biit-datatable>
   </div>
 
-</biit-popup>
+  <biit-popup *ngIf="confirm === 'DELETE'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_delete')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
+      </div>
+    </div>
 
-<biit-role-form *ngIf="popup"
-                [role]="target"
-                [type]="popup"
-                (onClosed)="this.target = null; this.popup = null;"
-                (onSaved)="onSaved($event)"
-></biit-role-form>
+  </biit-popup>
 
-<biit-popup *ngIf="role" [title]="role.id + ' ' +  ('applications' | transloco)" (onClosed)="role = null" sixty-view closable>
-  <biit-role-applications-list
-    [role]="role"
-  ></biit-role-applications-list>
-</biit-popup>
+  <biit-role-form *ngIf="popup"
+                  [role]="target"
+                  [type]="popup"
+                  (onClosed)="this.target = null; this.popup = null;"
+                  (onSaved)="onSaved($event)"
+  ></biit-role-form>
+
+  <biit-popup *ngIf="role" [title]="role.id + ' ' +  t('t.applications')" (onClosed)="role = null" sixty-view closable>
+    <biit-role-applications-list
+      [role]="role"
+      style="width: 100%"
+    ></biit-role-applications-list>
+  </biit-popup>
+</ng-container>

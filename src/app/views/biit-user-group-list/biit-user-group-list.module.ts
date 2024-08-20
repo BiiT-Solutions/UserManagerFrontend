@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { BiitUserGroupListComponent } from './biit-user-group-list.component';
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule, BiitTableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
@@ -19,19 +19,22 @@ import {UserGroupRoleListModule} from "../../shared/lists/user-group-role-list/u
   exports: [
     BiitUserGroupListComponent
   ],
-    imports: [
-        CommonModule,
-        TranslocoRootModule,
-        BiitUserGroupListRoutingModule,
-        UserGroupFormModule,
-        BiitTableModule,
-        UserFormModule,
-        BiitPopupModule,
-        BiitButtonModule,
-        BiitIconButtonModule,
-        UserRoleListModule,
-        UserGroupUserListModule,
-        UserGroupRoleListModule
-    ]
+  imports: [
+    CommonModule,
+    TranslocoRootModule,
+    BiitUserGroupListRoutingModule,
+    UserGroupFormModule,
+    BiitDatatableModule,
+    UserFormModule,
+    BiitPopupModule,
+    BiitButtonModule,
+    BiitIconButtonModule,
+    UserRoleListModule,
+    UserGroupUserListModule,
+    UserGroupRoleListModule
+  ],
+  providers: [
+    DatePipe
+  ]
 })
 export class BiitUserGroupListModule { }

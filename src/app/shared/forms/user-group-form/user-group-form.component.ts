@@ -14,7 +14,7 @@ import { FormValidationFields } from '../../validations/form-validation-fields';
     {
       provide: TRANSLOCO_SCOPE,
       multi:true,
-      useValue: {scope: 'components/user_group_form', alias: 'form'}
+      useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
 })
@@ -48,11 +48,13 @@ export class UserGroupFormComponent {
         error: (error: HttpErrorResponse): void => {
           switch (error.status) {
             case HttpStatusCode.Conflict:
-              this.biitSnackbarService.showNotification(this.transloco.translate('form.request_failed_group_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`form.${FormValidationFields.NAME_EXISTS.toString()}`));
+              this.biitSnackbarService.showNotification(this.transloco.translate('t.request_failed_group_already_exists'), NotificationType.WARNING, null, 5);
+              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`t.${FormValidationFields.NAME_EXISTS.toString()}`));
               break;
             default:
-              this.biitSnackbarService.showNotification(this.transloco.translate('server_failed'), NotificationType.WARNING, null, 5);
+              this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+                this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+              });
           }
         }
       }
@@ -63,7 +65,7 @@ export class UserGroupFormComponent {
     let verdict: boolean = true;
     if (!this.userGroup.name) {
       verdict = false;
-      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`form.${FormValidationFields.NAME_MANDATORY.toString()}`));
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
     }
     return verdict;
   }

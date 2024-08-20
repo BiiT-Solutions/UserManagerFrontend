@@ -1,42 +1,42 @@
-<biit-table #service_roles
-  *ngIf="columns.length"
-  [columns]="columns"
-  [defaultPageSize]="10"
-  [data]="data"
-  [pageSizes]="pageSizes"
-  [loading]="loading"
-  (onUpdate)="onTableUpdate($event)"
-  selectable sortable>
-  <button biit-icon icon="plus"
-          title="{{'add' | transloco}}"
-          (click)="onAdd()"
-  ></button>
-  <button biit-icon icon="minus"
-          title="{{'delete' | transloco}}"
-          (click)="onDelete(service_roles.getSelectedRows(), false)"
-          [disabled]="!service_roles.getSelectedRows().length"
-  ></button>
-</biit-table>
+<ng-container *transloco="let t">
+  <biit-datatable #service_roles
+                  [columns]="columns"
+                  [data]="serviceRoles"
+                  [pageSize]="pageSize"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable>
+    <button biit-icon icon="plus"
+            [title]="t('t.add')"
+            (click)="onAdd()"
+    ></button>
+    <button biit-icon icon="minus"
+            [title]="t('t.delete')"
+            (click)="onDelete(service_roles.selectedRows, false)"
+            [disabled]="!service_roles.selectedRows.length"
+    ></button>
+  </biit-datatable>
 
-<biit-popup *ngIf="role != null" [title]="'roles.create_role' | transloco">
-  <div>
-    <biit-input-text [placeholder]="'name' | transloco" [(ngModel)]="role"></biit-input-text>
-    <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="role = undefined">{{'cancel' | transloco}}</button>
-      <button biit-button primary (click)="onSave()">{{'save' | transloco}}</button>
+  <biit-popup *ngIf="role != null" [title]="t('t.create_role')">
+    <div>
+      <biit-input-text [placeholder]="t('t.name')" [(ngModel)]="role"></biit-input-text>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onSave()">{{t('t.save')}}</button>
+      </div>
     </div>
-  </div>
-</biit-popup>
+  </biit-popup>
 
-<biit-popup *ngIf="confirm === 'DELETE'"
-            dark-bg no-header
->
-  <div class="vertical">
-    <div>{{'confirm_delete' | transloco}}</div>
-    <div class="flex-grow horizontal buttons-row">
-      <button biit-button secondary (click)="confirm = null">{{'cancel' | transloco}}</button>
-      <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{'delete' | transloco}}</button>
+  <biit-popup *ngIf="confirm === 'DELETE'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_delete')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+      </div>
     </div>
-  </div>
 
-</biit-popup>
+  </biit-popup>
+</ng-container>
