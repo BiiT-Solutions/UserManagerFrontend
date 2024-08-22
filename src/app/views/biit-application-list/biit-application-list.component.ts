@@ -1,12 +1,5 @@
 import {Component} from '@angular/core';
-import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";

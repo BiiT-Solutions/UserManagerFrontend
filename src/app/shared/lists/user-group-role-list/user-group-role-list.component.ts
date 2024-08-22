@@ -1,12 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {
-  BiitTableColumn,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericFilter,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {
@@ -38,7 +31,6 @@ export class UserGroupRoleListComponent implements OnInit {
   protected readonly pageSizes: number[] = [10, 25, 50, 100];
   protected columns: DatatableColumn[] = [];
   protected loading: boolean = false;
-  protected data: BiitTableData<ApplicationRole>;
   protected roles: ApplicationRole[];
   protected selectedToDelete: ApplicationRole[];
   protected confirm: null | 'DELETE';

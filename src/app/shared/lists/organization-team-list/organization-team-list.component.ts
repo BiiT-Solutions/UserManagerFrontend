@@ -18,14 +18,7 @@ import {
 } from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {combineLatest, Observable} from "rxjs";
-import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse, DatatableColumn,
-  GenericFilter,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {User} from "authorization-services-lib";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
@@ -94,13 +87,13 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       ]
     ).subscribe(([id, name, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
-        new BiitTableColumn("id", id, 50, undefined, false),
-        new BiitTableColumn("name", name, undefined, undefined, true),
-        new BiitTableColumn("description", description, undefined, undefined, true),
-        new BiitTableColumn("createdBy", createdBy, undefined, undefined, false),
-        new BiitTableColumn("createdAt", createdAt, undefined, BiitTableColumnFormat.DATE, false),
-        new BiitTableColumn("updatedBy", updatedBy, undefined, undefined, false),
-        new BiitTableColumn("updatedAt", updatedAt, undefined, BiitTableColumnFormat.DATE, false),
+        new DatatableColumn(id, "id", false, 85),
+        new DatatableColumn(name, "name", name),
+        new DatatableColumn(description, "description"),
+        new DatatableColumn(createdBy, "createdBy", false),
+        new DatatableColumn(createdAt, "createdAt", false),
+        new DatatableColumn(updatedBy, "updatedBy", false),
+        new DatatableColumn(updatedAt, "updatedAt", false),
       ];
       this.loadData();
     });
@@ -114,9 +107,9 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
         this.transloco.selectTranslate('assigned'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('t.phone'),
-        this.transloco.selectTranslate('t.accountLocked'),
-        this.transloco.selectTranslate('t.accountBlocked'),
+        this.transloco.selectTranslate('phone', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('accountLocked', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('accountBlocked', {}, {scope:'components/lists'}),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),

@@ -1,18 +1,12 @@
 import {AfterViewInit, Component, OnInit, QueryList, TemplateRef, ViewChildren} from '@angular/core';
 import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericSort
+  DatatableColumn
 } from "biit-ui/table";
 import {SessionService, UserService} from "user-manager-structure-lib";
 import {User} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {GenericFilter} from "../../shared/utils/generic-filter";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -34,7 +28,6 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
   protected pageSize: number = 10;
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected users: User[];
-  protected data: BiitTableData<User>;
 
   protected target: User;
   protected confirm: null | 'DELETE';
@@ -65,9 +58,9 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         this.transloco.selectTranslate('lastname'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('t.phone'),
-        this.transloco.selectTranslate('t.accountLocked'),
-        this.transloco.selectTranslate('t.accountBlocked'),
+        this.transloco.selectTranslate('phone', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('accountLocked', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('accountBlocked', {}, {scope:'components/lists'}),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),

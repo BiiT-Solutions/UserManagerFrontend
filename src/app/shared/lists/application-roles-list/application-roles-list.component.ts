@@ -3,17 +3,9 @@ import {
   Application,
   ApplicationRole, ApplicationRoleId,
   ApplicationRoleService,
-  BackendServiceRole,
   Role, RoleService
 } from "user-manager-structure-lib";
-import {
-  BiitTableColumn,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericFilter,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";

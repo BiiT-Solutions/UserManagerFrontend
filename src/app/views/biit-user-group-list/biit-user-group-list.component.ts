@@ -1,17 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {SessionService, UserGroup, UserGroupService} from "user-manager-structure-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {GenericFilter} from "../../shared/utils/generic-filter";
 import {DatePipe} from "@angular/common";
 
 @Component({

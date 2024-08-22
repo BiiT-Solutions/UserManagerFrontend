@@ -1,12 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {
-  BiitTableColumn,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericFilter,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {
   BackendService,
   BackendServiceRole,

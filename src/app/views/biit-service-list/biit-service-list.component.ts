@@ -2,16 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BackendService, BackendServiceService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
-import {GenericFilter} from "../../shared/utils/generic-filter";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -30,7 +22,6 @@ export class BiitServiceListComponent implements OnInit {
 
   protected loading: boolean = false;
   protected columns: DatatableColumn[] = [];
-  protected data: BiitTableData<BackendService>;
   protected services: BackendService[];
   protected pageSizes: number[] = [10, 25, 50, 100];
   protected pageSize: number = 10;

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import { BiitUserGroupListComponent } from './biit-user-group-list.component';
-import {BiitDatatableModule, BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";

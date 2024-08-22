@@ -1,17 +1,9 @@
 import {Component} from '@angular/core';
-import {
-  BiitTableColumn,
-  BiitTableColumnFormat,
-  BiitTableData,
-  BiitTableResponse,
-  DatatableColumn,
-  GenericSort
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {GenericFilter} from "../../shared/utils/generic-filter";
 import {RoleFormType} from "../../shared/forms/role-form/role-form.component";
 import {DatePipe} from "@angular/common";
 
