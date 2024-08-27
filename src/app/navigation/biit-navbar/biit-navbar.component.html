@@ -5,7 +5,7 @@
   </div>
   <div class="right">
     <biit-nav-user [title]="sessionService.getUser()?.name + ' ' + sessionService.getUser()?.lastname"
-                   [subtitle]="'User Manager System'"
+                   [subtitle]="'User Manager'"
                    (click)="router.navigateByUrl('/login?logout')"
     ></biit-nav-user>
   </div>
