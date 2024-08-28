@@ -59,6 +59,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
         this.transloco.selectTranslate('phone', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('expirationDate'),
         this.transloco.selectTranslate('accountLocked', {}, {scope:'components/lists'}),
         this.transloco.selectTranslate('accountBlocked', {}, {scope:'components/lists'}),
         this.transloco.selectTranslate('createdBy'),
@@ -66,7 +67,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         this.transloco.selectTranslate('updatedBy'),
         this.transloco.selectTranslate('updatedAt'),
       ]
-    ).subscribe(([id, name, lastname, username, email, phone, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
+    ).subscribe(([id, name, lastname, username, email, phone, expirationDate, accountLocked, accountBlocked, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
         new DatatableColumn(id, 'id', false, 80),
         new DatatableColumn(name, 'name'),
@@ -74,6 +75,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         new DatatableColumn(username, 'username'),
         new DatatableColumn(email, 'email'),
         new DatatableColumn(phone, 'phone', false),
+        new DatatableColumn(expirationDate, 'accountExpirationTime', true, 265, undefined, undefined, this.booleanCell.first),
         new DatatableColumn(accountLocked, 'accountLocked', false, 200, undefined, undefined, this.booleanCell.first),
         new DatatableColumn(accountBlocked, 'accountBlocked', false, 200, undefined, undefined, this.booleanCell.first),
         new DatatableColumn(createdBy, 'createdBy', false),

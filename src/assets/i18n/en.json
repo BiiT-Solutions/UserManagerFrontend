@@ -35,5 +35,7 @@
   "updatedBy": "Updated At",
   "updatedAt": "Updated At",
   "validation_failed": "Validation failed. Please, check if some fields are empty or invalid.",
-  "server_failed": "Your request failed. Please, try again later."
+  "server_failed": "Your request failed. Please, try again later.",
+  "expirationDate": "Expiration Date",
+  "expiratingAccount": "Expirating Account"
 }

@@ -68,6 +68,19 @@
             {{t('t.generate')}}
           </button>
         </div>
+        <div class="tab-row" *ngIf="this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN">
+          <biit-datepicker
+            [placeholder]="t('expirationDate')"
+            [(ngModel)]="user.accountExpirationTime"
+            [disabled]="!expiratingAccount"
+          ></biit-datepicker>
+          <biit-toggle
+            [(ngModel)]="expiratingAccount"
+            (ngModelChange)="!$event ? user.accountExpirationTime = null : null"
+          >
+            {{t('expiratingAccount')}}
+          </biit-toggle>
+        </div>
       </biit-tab>
       <biit-tab [name]="t('t.personalData')"
                 [error]="!!(errors | mapGet: [FormValidationFields.PHONE_INVALID])?.length"

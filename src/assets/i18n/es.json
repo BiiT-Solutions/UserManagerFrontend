@@ -35,5 +35,7 @@
   "updatedBy": "Actualizado por",
   "updatedAt": "Fecha de actualización",
   "validation_failed": "La validación falló. Por favor, compruebe si algún campo está vacío o no es válido.",
-  "server_failed": "Su solicitud ha fallado. Por favor, inténtelo de nuevo más tarde."
+  "server_failed": "Su solicitud ha fallado. Por favor, inténtelo de nuevo más tarde.",
+  "expirationDate": "Fecha de expiración",
+  "expiratingAccount": "Cuenta expirable"
 }

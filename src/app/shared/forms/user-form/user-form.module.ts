@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserFormComponent } from './user-form.component';
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitTabGroupModule} from "biit-ui/navigation";
-import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
+import {BiitDatePickerModule, BiitInputTextModule, BiitTextareaModule, BiitToggleModule} from "biit-ui/inputs";
 import {FormsModule} from "@angular/forms";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitButtonModule} from "biit-ui/button";
@@ -25,7 +25,9 @@ import {UtilsModule} from "../../utils/utils.module";
     TranslocoRootModule,
     BiitButtonModule,
     UtilsModule,
-    BiitTextareaModule
+    BiitTextareaModule,
+    BiitDatePickerModule,
+    BiitToggleModule
   ]
 })
 export class UserFormModule { }

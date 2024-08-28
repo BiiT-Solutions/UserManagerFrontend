@@ -28,6 +28,7 @@ export class UserFormComponent implements OnInit {
   @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
+  protected expiratingAccount: boolean = false;
   protected pwdVerification: string;
   protected oldPassword: string;
   protected readonly Type = Type;
@@ -44,8 +45,10 @@ export class UserFormComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-        this.loggedUser = this.sessionService.getUser();
-    }
+      this.loggedUser = this.sessionService.getUser();
+      if (this.user.accountExpirationTime) this.expiratingAccount = true;
+  }
+
   protected onSave(): void {
     if (!this.validate()) {
       this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
@@ -57,7 +60,7 @@ export class UserFormComponent implements OnInit {
         this.userService.updatePassword(this.user.username, passwordRequest) : this.userService.updateCurrentPassword(passwordRequest);
       observable.subscribe({
         next: (user: User): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.WARNING, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.SUCCESS, null, 5);
         }, error: (error: HttpErrorResponse): void => {
           this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_failed'), NotificationType.WARNING, null, 5);
         }
@@ -84,6 +87,7 @@ export class UserFormComponent implements OnInit {
       }
     );
   }
+
   protected validate(): boolean {
     this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;
@@ -135,6 +139,7 @@ export class UserFormComponent implements OnInit {
     }
     return verdict;
   }
+
   protected generatePassword(): void {
     this.user.password = PwdGenerator.generate();
     this.pwdVerification = this.user.password;
