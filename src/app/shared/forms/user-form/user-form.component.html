@@ -73,6 +73,7 @@
             [placeholder]="t('expirationDate')"
             [(ngModel)]="user.accountExpirationTime"
             [disabled]="!expiratingAccount"
+            [error]="errors | mapGet: FormValidationFields.DATE_INVALID"
           ></biit-datepicker>
           <biit-toggle
             [(ngModel)]="expiratingAccount"
