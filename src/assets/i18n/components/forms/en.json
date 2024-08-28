@@ -32,6 +32,7 @@
   "validation_failed": "Validation failed. Please, check if some fields are empty or invalid.",
   "email_invalid": "Email has an invalid format",
   "phone_invalid": "Phone has an invalid format",
+  "date_invalid": "Date is invalid",
   "request_failed_user_already_exists": "Your request couldn't be completed because the user already exists.",
   "username_exists": "This user already exists",
   "password_change_success": "Password has been changed successfully.",

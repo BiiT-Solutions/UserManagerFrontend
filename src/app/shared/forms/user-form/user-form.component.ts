@@ -137,6 +137,10 @@ export class UserFormComponent implements OnInit {
       verdict = false;
       this.errors.set(FormValidationFields.PHONE_INVALID, this.transloco.translate(`t.${FormValidationFields.PHONE_INVALID.toString()}`));
     }
+    if (this.expiratingAccount && !this.user.accountExpirationTime) {
+      verdict = false;
+      this.errors.set(FormValidationFields.DATE_INVALID, this.transloco.translate(`t.${FormValidationFields.DATE_INVALID.toString()}`));
+    }
     return verdict;
   }
 

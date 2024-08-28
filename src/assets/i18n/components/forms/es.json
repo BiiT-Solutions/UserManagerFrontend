@@ -32,6 +32,7 @@
   "validation_failed": "La validación ha fallado. Por favor, compruebe si hay campos vacíos o inválidos.",
   "email_invalid": "El email tiene un formato inválido.",
   "phone_invalid": "El teléfono tiene un formato inválido.",
+  "date_invalid": "La fecha es inválida.",
   "request_failed_user_already_exists": "Su petición no se ha podido completar porque el usuario ya existe.",
   "username_exists": "El usuario ya existe.",
   "password_change_success": "La contraseña ha sido actualizada satisfactoriamente.",

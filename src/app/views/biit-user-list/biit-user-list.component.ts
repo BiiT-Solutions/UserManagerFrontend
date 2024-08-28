@@ -75,7 +75,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         new DatatableColumn(username, 'username'),
         new DatatableColumn(email, 'email'),
         new DatatableColumn(phone, 'phone', false),
-        new DatatableColumn(expirationDate, 'accountExpirationTime', true, 265, undefined, undefined, this.booleanCell.first),
+        new DatatableColumn(expirationDate, 'accountExpirationTime', true, 265, undefined, this.datePipe()),
         new DatatableColumn(accountLocked, 'accountLocked', false, 200, undefined, undefined, this.booleanCell.first),
         new DatatableColumn(accountBlocked, 'accountBlocked', false, 200, undefined, undefined, this.booleanCell.first),
         new DatatableColumn(createdBy, 'createdBy', false),
