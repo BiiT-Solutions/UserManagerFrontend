@@ -91,6 +91,15 @@ export class AplicationRoleServicesComponent implements OnInit{
     this.serviceService.getAll().subscribe({
       next: services => {
         this.allServices = services.map(BackendService.clone);
+        this.allServices.sort((a,b) => {
+          if ( a.name < b.name ){
+            return -1;
+          } else if ( a.name > b.name ){
+            return 1;
+          } else {
+            return 0;
+          }
+        });
       }
     })
   }
