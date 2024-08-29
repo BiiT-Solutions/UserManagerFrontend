@@ -31,12 +31,15 @@ export class UserFormComponent implements OnInit {
   protected expiratingAccount: boolean = false;
   protected pwdVerification: string;
   protected oldPassword: string;
-  protected readonly Type = Type;
 
-  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected loggedUser: User;
 
+  protected readonly Type = Type;
+  protected readonly AppRole = AppRole;
+
+  protected today = new Date();
 
   constructor(private userService: UserService,
               protected sessionService: SessionService,
@@ -148,6 +151,4 @@ export class UserFormComponent implements OnInit {
     this.user.password = PwdGenerator.generate();
     this.pwdVerification = this.user.password;
   }
-
-  protected readonly AppRole = AppRole;
 }

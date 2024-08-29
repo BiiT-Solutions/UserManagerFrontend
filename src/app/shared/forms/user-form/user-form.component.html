@@ -72,6 +72,7 @@
           <biit-datepicker
             [placeholder]="t('expirationDate')"
             [(ngModel)]="user.accountExpirationTime"
+            [min]="today"
             [disabled]="!expiratingAccount"
             [error]="errors | mapGet: FormValidationFields.DATE_INVALID"
           ></biit-datepicker>
