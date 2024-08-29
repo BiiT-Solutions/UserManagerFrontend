@@ -52,7 +52,7 @@ export class UserGroupFormComponent {
               this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`t.${FormValidationFields.NAME_EXISTS.toString()}`));
               break;
             default:
-              this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+              this.transloco.selectTranslate(error.status.toString(), {}, {scope:'biit-ui/utils'}).subscribe(msg => {
                 this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
               });
           }

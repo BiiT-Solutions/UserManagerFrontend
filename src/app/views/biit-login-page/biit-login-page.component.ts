@@ -49,8 +49,8 @@ export class BiitLoginPageComponent implements OnInit {
         const user: User = User.clone(response.body);
         if (!this.canAccess(user)) {
           this.waiting = false;
-          this.translocoService.selectTranslate('t.403').subscribe(msg => {
-            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 10);
+          this.translocoService.selectTranslate('403', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
+            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
           });
           return;
         }
@@ -64,7 +64,7 @@ export class BiitLoginPageComponent implements OnInit {
       error: (response: HttpResponse<void>) => {
         const error: string = response.status.toString();
         // Transloco does not load translation files. We need to load it manually;
-        this.translocoService.selectTranslate('t.' + error).subscribe(msg => {
+        this.translocoService.selectTranslate(error, {}, {scope:'biit-ui/utils'}).subscribe(msg => {
           this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
         });
         this.waiting = false;
