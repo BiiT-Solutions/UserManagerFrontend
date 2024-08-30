@@ -1,0 +1,51 @@
+<ng-container *transloco="let t">
+  <biit-datatable #user_groups
+                  [columns]="columns"
+                  [data]="userGroups"
+                  [pageSize]="pageSize"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable
+  >
+    <button biit-icon icon="plus"
+            (click)="assignGroup(user_groups.selectedRows, false)"
+            [title]="t('t.assign')"
+    ></button>
+    <button biit-icon icon="minus"
+            [title]="t('t.unassign')"
+            (click)="unassignGroup(user_groups.selectedRows, false)"
+            [disabled]="!user_groups.selectedRows.length"
+    ></button>
+  </biit-datatable>
+
+  <biit-popup *ngIf="assigningGroups"
+              no-header
+  >
+    <div class="vertical">
+      <div style="text-align: center">{{t('t.confirm_assign_groups')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="assigningGroups = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="assignGroup(user_groups.selectedRows, true)">{{t('t.assign')}}</button>
+      </div>
+    </div>
+  </biit-popup>
+
+  <biit-popup *ngIf="unassigningGroups"
+              no-header
+  >
+    <div class="vertical">
+      <div style="text-align: center">{{t('t.confirm_unassign_groups')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="unassigningGroups = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="unassignGroup(user_groups.selectedRows, true)">{{t('t.unassign')}}</button>
+      </div>
+    </div>
+  </biit-popup>
+</ng-container>
+
+<ng-template #assignedCell let-row="row" let-value="value" let-i="index">
+  <biit-icon *ngIf="value"
+             [name]="'user_single'"
+             style="height: 18px; width: 100%;"
+  />
+</ng-template>

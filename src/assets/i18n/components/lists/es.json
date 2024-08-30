@@ -15,6 +15,7 @@
   "delete": "Eliminar",
   "cancel": "Cancelar",
   "assign_roles": "Asignar roles",
+  "assign_groups": "Asignar grupos",
   "description": "Descripción",
   "confirm_delete": "¿Seguro que desea continuar con la eliminación?",
   "assign_role": "Asignar rol",
@@ -38,8 +39,12 @@
   "applications": "Aplicaciones",
   "confirm_assign": "¿Desea asignar los usuarios seleccionados?",
   "confirm_unassign": "¿Desea quitar los usuarios seleccionados?",
+  "confirm_assign_groups": "¿Desea asignar los grupos seleccionados?",
+  "confirm_unassign_groups": "¿Desea desasignar los grupos seleccionados?",
   "service": "Servicio",
   "role": "Rol",
   "create_role": "Crear Rol",
-  "teams": "Equipos"
+  "teams": "Equipos",
+  "user_groups_assign_success": "Los grupos han sido asignados satisfactoriamente.",
+  "user_groups_unassign_success": "Los grupos han sido desasignados satisfactoriamente."
 }

@@ -34,7 +34,8 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
   protected selected: User[] = [];
   protected loading: boolean = false;
 
-  protected assign: User;
+  protected assignRole: User;
+  protected assignGroup: User;
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
@@ -143,7 +144,11 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
     this.target = user[0];
   }
 
-  protected onAssign(selectedRows: User[]): void {
-    this.assign = selectedRows[0];
+  protected onAssignRole(selectedRows: User[]): void {
+    this.assignRole = selectedRows[0];
+  }
+
+  protected onAssignGroup(selectedRows: User[]): void {
+    this.assignGroup = selectedRows[0];
   }
 }

@@ -24,8 +24,13 @@
               [disabled]="table.selectedRows.length !== 1"
       ></button>
       <button biit-icon icon="linkage"
-              [title]="t('t.assign')"
-              (click)="onAssign(table.selectedRows)"
+              [title]="t('t.assign_roles')"
+              (click)="onAssignRole(table.selectedRows)"
+              [disabled]="table.selectedRows.length !== 1"
+      ></button>
+      <button biit-icon icon="user_group"
+              [title]="t('t.assign_groups')"
+              (click)="onAssignGroup(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
       ></button>
     </biit-datatable>
@@ -38,7 +43,7 @@
   />
 
   <biit-popup *ngIf="confirm === 'DELETE'"
-              dark-bg no-header
+              no-header
   >
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
@@ -49,14 +54,22 @@
     </div>
   </biit-popup>
 
-  <biit-popup *ngIf="assign"
+  <biit-popup *ngIf="assignRole"
               [title]="t('t.assign_roles')"
-              (onClosed)="assign = null"
-              dark-bg
+              (onClosed)="assignRole = null"
               sixty-view
               closable
   >
-    <biit-user-role-list [user]="assign" style="width: 100%"/>
+    <biit-user-role-list [user]="assignRole" style="width: 100%"/>
+  </biit-popup>
+
+  <biit-popup *ngIf="assignGroup"
+              [title]="t('t.assign_groups')"
+              (onClosed)="assignGroup = null"
+              sixty-view
+              closable
+  >
+    <user-group-list [user]="assignGroup" style="width: 100%"/>
   </biit-popup>
 </ng-container>
 

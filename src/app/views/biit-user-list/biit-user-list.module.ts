@@ -9,6 +9,7 @@ import {BiitUserListRoutingModule} from "./biit-user-list-routing.module";
 import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
 import {UserRoleListModule} from "../../shared/lists/user-role-list/user-role-list.module";
 import {BiitIconModule} from "biit-ui/icon";
+import {UserGroupListModule} from "../../shared/lists/user-group-list/user-group-list.module";
 
 @NgModule({
   declarations: [
@@ -17,18 +18,19 @@ import {BiitIconModule} from "biit-ui/icon";
   exports: [
     BiitUserListComponent
   ],
-  imports: [
-    CommonModule,
-    TranslocoRootModule,
-    BiitUserListRoutingModule,
-    BiitDatatableModule,
-    UserFormModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    UserRoleListModule,
-    BiitIconModule
-  ],
+    imports: [
+        CommonModule,
+        TranslocoRootModule,
+        BiitUserListRoutingModule,
+        BiitDatatableModule,
+        UserFormModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        UserRoleListModule,
+        BiitIconModule,
+        UserGroupListModule
+    ],
   providers: [
     DatePipe
   ]
