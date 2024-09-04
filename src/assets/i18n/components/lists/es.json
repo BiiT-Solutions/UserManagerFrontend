@@ -46,5 +46,6 @@
   "create_role": "Crear Rol",
   "teams": "Equipos",
   "user_groups_assign_success": "Los grupos han sido asignados satisfactoriamente.",
-  "user_groups_unassign_success": "Los grupos han sido desasignados satisfactoriamente."
+  "user_groups_unassign_success": "Los grupos han sido desasignados satisfactoriamente.",
+  "error_service_role_missing": "Esta combinación de aplicación/rol no tiene roles de backend asignados. Por favor, añade un rol de backend en la vista 'Servicios' primero."
 }

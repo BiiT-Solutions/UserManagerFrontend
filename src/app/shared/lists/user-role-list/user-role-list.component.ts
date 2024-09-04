@@ -12,6 +12,7 @@ import {
   UserService
 } from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'biit-user-role-list',
@@ -151,7 +152,7 @@ export class UserRoleListComponent implements OnInit {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
-          }, error: (): void => {
+          }, error: (error: HttpErrorResponse): void => {
             this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
@@ -185,7 +186,11 @@ export class UserRoleListComponent implements OnInit {
             this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
           }
         );
-      }, error: (): void => {
+      }, error: (error: HttpErrorResponse): void => {
+        if (error.status == 400) {
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.error_service_role_missing'), NotificationType.ERROR, null, 10);
+          return;
+        }
         this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
             this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
