@@ -8,6 +8,7 @@ export enum FormValidationFields {
   PASSWORD_MANDATORY = 'password_mandatory',
   PASSWORD_MISMATCH = 'password_mismatch',
   EMAIL_MANDATORY = 'email_mandatory',
+  USERNAME_INVALID = 'username_invalid',
   EMAIL_INVALID = 'email_invalid',
   PHONE_INVALID = 'phone_invalid',
   DATE_INVALID = 'date_invalid'

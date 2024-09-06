@@ -30,6 +30,7 @@
   "password_mismatch": "Las contraseñas no coinciden",
   "email_mandatory": "El email es obligatorio",
   "validation_failed": "La validación ha fallado. Por favor, compruebe si hay campos vacíos o inválidos.",
+  "username_invalid": "El nombre de usuario tiene un formato inválido. Por favor, borra cualquier espacio vacío.",
   "email_invalid": "El email tiene un formato inválido.",
   "phone_invalid": "El teléfono tiene un formato inválido.",
   "date_invalid": "La fecha es inválida.",

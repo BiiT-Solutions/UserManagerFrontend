@@ -30,6 +30,7 @@
   "password_mismatch": "Passwords do not match",
   "email_mandatory": "Email is mandatory",
   "validation_failed": "Validation failed. Please, check if some fields are empty or invalid.",
+  "username_invalid": "Username has an invalid format, please remove any white space.",
   "email_invalid": "Email has an invalid format",
   "phone_invalid": "Phone has an invalid format",
   "date_invalid": "Date is invalid",

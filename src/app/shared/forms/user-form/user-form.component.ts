@@ -98,6 +98,10 @@ export class UserFormComponent implements OnInit {
       verdict = false;
       this.errors.set(FormValidationFields.USERNAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.USERNAME_MANDATORY.toString()}`));
     }
+    if (this.user.username.indexOf(" ") >= 0) {
+      verdict = false;
+      this.errors.set(FormValidationFields.USERNAME_INVALID, this.transloco.translate(`t.${FormValidationFields.USERNAME_INVALID.toString()}`));
+    }
     if (!this.user.name) {
       verdict = false;
       this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
