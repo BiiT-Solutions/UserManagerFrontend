@@ -30,7 +30,6 @@
             [placeholder]="t('t.email')"
             [(ngModel)]="user.email"
             [type]="Type.EMAIL"
-            [disabled]="user.id"
             [required]="true"
             (focusout)="user.email = user.email.trim()"
             error="{{errors | mapGet: [FormValidationFields.EMAIL_MANDATORY, FormValidationFields.EMAIL_INVALID]}}"
