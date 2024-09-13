@@ -4,5 +4,6 @@
   "roles" : "Roles",
   "applications": "Applications",
   "services" : "Services",
-  "organizations" : "Organizations"
+  "organizations" : "Organizations",
+  "logout": "Logout"
 }

@@ -5,6 +5,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'app-biit-organization-list',
@@ -82,14 +83,9 @@ export class BiitOrganizationListComponent implements OnInit {
             return 0;
           }
         });
-      }, error: (): void => {
-        this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification('request_failed', NotificationType.ERROR, null, 5);
-        });
-      }
-    }).add(() => {
-      this.loading = false;
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAdd(): void {
@@ -110,17 +106,13 @@ export class BiitOrganizationListComponent implements OnInit {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-            this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
-              translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-              }
-            );
-        }});
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      });
     }
   }
 
-  protected onSaved(organization: Organization): void {
+  protected onSaved(): void {
     this.loadData();
     this.target = null;
   }

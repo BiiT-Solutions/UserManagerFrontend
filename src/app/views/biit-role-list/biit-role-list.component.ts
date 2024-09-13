@@ -6,6 +6,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {RoleFormType} from "../../shared/forms/role-form/role-form.component";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'app-biit-role-list',
@@ -82,12 +83,9 @@ export class BiitRoleListComponent {
             return 0;
           }
         });
-        this.loading = false;
-      }, error: (): void => {
-        this.loading = false;
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAdd(): void {
@@ -101,25 +99,21 @@ export class BiitRoleListComponent {
       this.selected = roles;
     } else {
       this.confirm = null;
-      combineLatest(roles.map(role => this.roleService.deleteById(role.id)))
-          .subscribe({next: (): void => {
-              this.loadData();
-              this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
-                  translation => {
-                    this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
-                  }
-              );
-            }, error: (): void => {
-              this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
-                  translation => {
-                    this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-                  }
-              );
-            }});
+      combineLatest(roles.map(role => this.roleService.deleteById(role.id))).subscribe({
+        next: (): void => {
+          this.loadData();
+          this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
+              translation => {
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              }
+          );
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      });
     }
   }
 
-  protected onSaved(role: Role): void {
+  protected onSaved(): void {
     this.loadData();
     this.target = null;
     this.popup = null;

@@ -8,6 +8,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -93,14 +94,9 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
     this.userService.getAll().subscribe( {
       next: (users: User[]): void => {
         this.users = users.map(user => User.clone(user));
-        this.loading = false;
-      }, error: (): void => {
-        this.loading = false;
-        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        });
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAdd(): void {
@@ -117,25 +113,21 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
       this.selected = users;
     } else {
       this.confirm = null;
-      combineLatest(users.map(user => this.userService.deleteByUserName(user.username)))
-        .subscribe({next: (): void => {
+      combineLatest(users.map(user => this.userService.deleteByUserName(user.username))).subscribe({
+        next: (): void => {
           this.loadData();
           this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-            this.transloco.selectTranslate('request_failed', {}, {scope: 'biit-ui/utils'}).subscribe(
-              translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-              }
-            );
-        }});
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      });
     }
   }
 
-  protected onSaved(user: User): void {
+  protected onSaved(): void {
     this.loadData();
     this.target = null;
   }

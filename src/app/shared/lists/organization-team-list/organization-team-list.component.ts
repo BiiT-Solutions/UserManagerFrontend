@@ -21,9 +21,9 @@ import {combineLatest, Observable} from "rxjs";
 import {DatatableColumn} from "biit-ui/table";
 import {User} from "authorization-services-lib";
 import {FormValidationFields} from "../../validations/form-validation-fields";
-import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'organization-team-list',
@@ -152,12 +152,9 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
             return 0;
           }
         });
-      }, error: (): void => {
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
-      }
-    }).add(() => {
-      this.loading = false;
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   private loadUserData(): void {
@@ -182,12 +179,9 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
 
         result[1]
           .forEach(user => this.users.find(u => u.username == user.username).assigned = 'user_single');
-      }, error: (): void => {
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
-      }
-    }).add(() => {
-      this.loading = false;
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onCommand(team: Team, command: string): void {
@@ -227,18 +221,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.targetTeam = undefined;
           this.confirm = undefined;
         },
-        error: (error: HttpErrorResponse): void => {
-          switch (error.status) {
-            case HttpStatusCode.Conflict:
-              this.biitSnackbarService.showNotification(this.transloco.translate('org.request_failed_team_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(FormValidationFields.NAME_EXISTS, this.transloco.translate(`org.${FormValidationFields.NAME_EXISTS.toString()}`))
-              break;
-            default:
-              this.transloco.selectTranslate('request_unsuccessful', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-                this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-              });
-          }
-        }
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }
@@ -260,13 +243,8 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       });
 
       this.selected = null;
@@ -287,13 +265,8 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       });
     }
   }
@@ -312,13 +285,8 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       });
     }
   }

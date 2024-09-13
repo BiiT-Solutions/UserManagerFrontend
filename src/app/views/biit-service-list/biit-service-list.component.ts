@@ -5,6 +5,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {DatatableColumn} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'app-biit-service-list',
@@ -79,14 +80,9 @@ export class BiitServiceListComponent implements OnInit {
             return 0;
           }
         });
-      }, error: (): void => {
-        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        });
-      }, complete: (): void => {
-          this.loading = false;
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
 
@@ -102,20 +98,17 @@ export class BiitServiceListComponent implements OnInit {
     } else {
       this.confirm = null;
       combineLatest(services.map(service => this.backendService.deleteById(service.id)))
-        .subscribe({next: (): void => {
+        .subscribe({
+          next: (): void => {
             this.loadServices();
             this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
-          }, error: (): void => {
-            this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
-              translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-              }
-            );
-          }});
+          },
+          error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      });
     }
   }
 
@@ -131,15 +124,11 @@ export class BiitServiceListComponent implements OnInit {
       this.backendService.update(this.editService);
 
     request.subscribe({
-      next: (service: BackendService): void => {
+      next: (): void => {
         this.editService = undefined;
         this.loadServices();
-      }, error: (error: any): void => {
-        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        })
-        console.error(error);
-      }
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });
   }
 

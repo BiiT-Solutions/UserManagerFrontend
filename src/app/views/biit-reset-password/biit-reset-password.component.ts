@@ -4,6 +4,8 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute} from "@angular/router";
 import {FormValidationFields} from "../../shared/validations/form-validation-fields";
 import {UserService} from "user-manager-structure-lib";
+import {ErrorHandler} from "biit-ui/utils";
+import {BiitSnackbarService} from "biit-ui/info";
 
 @Component({
   selector: 'biit-reset-password',
@@ -27,13 +29,15 @@ export class BiitResetPasswordComponent {
   protected pwdErrors: Map<FormValidationFields, string>;
 
   constructor(public translocoService: TranslocoService,
+              private snackbarService: BiitSnackbarService,
               private route: ActivatedRoute,
               private userService: UserService) {
     this.token = this.route.snapshot.paramMap.get('token');
 
     if (this.token) {
       this.userService.checkToken(this.token).subscribe({
-        error: () => {
+        error: (error) => {
+          ErrorHandler.notify(error, this.translocoService, this.snackbarService);
           this.token = undefined;
         }
       });
@@ -50,7 +54,8 @@ export class BiitResetPasswordComponent {
         next: () => {
           this.complete = true;
         },
-        error: () => {
+        error: (error) => {
+          ErrorHandler.notify(error, this.translocoService, this.snackbarService);
           this.token = undefined;
         }
       })

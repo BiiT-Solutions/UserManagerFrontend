@@ -5,10 +5,10 @@ import {Type} from "biit-ui/inputs";
 import {SessionService, UserService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-form',
@@ -62,9 +62,9 @@ export class UserFormComponent implements OnInit {
       const observable: Observable<User> = this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN) ?
         this.userService.updatePassword(this.user.username, passwordRequest) : this.userService.updateCurrentPassword(passwordRequest);
       observable.subscribe({
-        next: (user: User): void => {
+        next: (): void => {
           this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.SUCCESS, null, 5);
-        }, error: (error: HttpErrorResponse): void => {
+        }, error: (): void => {
           this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_failed'), NotificationType.WARNING, null, 5);
         }
       })
@@ -75,18 +75,7 @@ export class UserFormComponent implements OnInit {
         next: (user: User): void => {
           this.onSaved.emit(User.clone(user));
         },
-        error: (error: HttpErrorResponse): void => {
-          switch (error.status) {
-            case HttpStatusCode.Conflict:
-              this.biitSnackbarService.showNotification(this.transloco.translate('t.request_failed_user_already_exists'), NotificationType.WARNING, null, 5);
-              this.errors.set(FormValidationFields.USERNAME_EXISTS, this.transloco.translate(`t.${FormValidationFields.USERNAME_EXISTS.toString()}`))
-              break;
-            default:
-              this.transloco.selectTranslate('request_unsuccessful', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-                this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-              });
-          }
-        }
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }

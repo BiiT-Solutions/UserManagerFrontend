@@ -14,6 +14,7 @@ import localeEs from '@angular/common/locales/es';
 import localeNL from '@angular/common/locales/nl';
 import {BiitNavMenuModule, BiitNavUserModule} from "biit-ui/navigation";
 import {BiitNavbarModule} from "./navigation/biit-navbar/biit-navbar.module";
+import {ContextMenuModule} from "@perfectmemory/ngx-contextmenu";
 
 registerLocaleData(localeEn, 'en')
 registerLocaleData(localeEs, 'es');
@@ -23,18 +24,19 @@ registerLocaleData(localeNL, 'nl');
   declarations: [
     AppComponent
   ],
-    imports: [
-        BrowserModule,
-        CommonModule,
-        AppRoutingModule,
-        HttpClientModule,
-        TranslocoRootModule,
-        BiitSnackbarModule,
-        BiitNavUserModule,
-        BiitNavMenuModule,
-        BiitNavbarModule,
-        BiitCookiesConsentModule
-    ],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TranslocoRootModule,
+    BiitSnackbarModule,
+    BiitNavUserModule,
+    BiitNavMenuModule,
+    BiitNavbarModule,
+    BiitCookiesConsentModule,
+    ContextMenuModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
   ],

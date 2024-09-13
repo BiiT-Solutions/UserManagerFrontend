@@ -9,6 +9,7 @@ import {DatatableColumn} from "biit-ui/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-application-roles-list',
@@ -62,8 +63,9 @@ export class ApplicationRolesListComponent implements OnInit {
     this.roleService.getAll().subscribe({
       next: roles => {
         this.allRoles = roles.map(Role.clone);
-      }
-    })
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    });
   }
 
   private loadApplicationRoles(): void {
@@ -83,10 +85,9 @@ export class ApplicationRolesListComponent implements OnInit {
             return 0;
           }
         });
-      }, complete: () => {
-        this.loading = false;
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAdd(): void {
@@ -120,13 +121,8 @@ export class ApplicationRolesListComponent implements OnInit {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
-          }, error: (): void => {
-            this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
-              translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-              }
-            );
-          }
+          },
+          error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
         })
     }
   }
@@ -148,13 +144,8 @@ export class ApplicationRolesListComponent implements OnInit {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       })
     }
   }

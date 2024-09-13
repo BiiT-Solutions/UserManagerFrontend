@@ -6,7 +6,15 @@
   <div class="right">
     <biit-nav-user [title]="sessionService.getUser()?.name + ' ' + sessionService.getUser()?.lastname"
                    [subtitle]="'User Manager'"
-                   (click)="router.navigateByUrl('/login?logout')"
+                   (click)="onContextMenu($event)"
+                   #navUser
     ></biit-nav-user>
   </div>
 </div>
+<context-menu #contextMenu dir="rtl">
+  <ng-template contextMenuItem
+               *transloco="let t"
+               (execute)="router.navigateByUrl('/login?logout')">
+    {{t('t.logout')}}
+  </ng-template>
+</context-menu>

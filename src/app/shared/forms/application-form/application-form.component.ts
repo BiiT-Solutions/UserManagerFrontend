@@ -4,6 +4,7 @@ import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import { FormValidationFields } from '../../validations/form-validation-fields';
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-application-form',
@@ -44,11 +45,7 @@ export class ApplicationFormComponent {
         next: (application: Application): void => {
           this.onSaved.emit(Application.clone(application));
         },
-        error: (error: any): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-          });
-        }
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }

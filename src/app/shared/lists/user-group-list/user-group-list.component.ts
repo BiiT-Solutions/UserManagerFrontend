@@ -15,7 +15,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {UserGroup, UserGroupService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
-import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'user-group-list',
@@ -99,14 +99,9 @@ export class UserGroupListComponent implements AfterViewInit, AfterViewChecked {
             return 0;
           }
         });
-        this.loading = false;
-      }, error: (): void => {
-        this.loading = false;
-        this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        })
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected assignGroup(selection: {userGroup: UserGroup, assigned: boolean}[], confirmed: boolean): void {
@@ -119,11 +114,8 @@ export class UserGroupListComponent implements AfterViewInit, AfterViewChecked {
         this.loadData();
         this.assigningGroups = null;
         this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_assign_success'), NotificationType.SUCCESS, null, 5);
-      }, error: (err: HttpErrorResponse) => {
-        this.transloco.selectTranslate(err.status.toString(), {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        });
-      }
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });
   }
 
@@ -137,11 +129,8 @@ export class UserGroupListComponent implements AfterViewInit, AfterViewChecked {
         this.loadData();
         this.unassigningGroups = null;
         this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_unassign_success'), NotificationType.SUCCESS, null, 5);
-      }, error: (err: HttpErrorResponse) => {
-        this.transloco.selectTranslate(err.status.toString(), {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-        });
-      }
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });
   }
 }

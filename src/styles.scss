@@ -1,4 +1,6 @@
-@import "../node_modules/@siemens/ngx-datatable/assets/icons.css";
+@import "@siemens/ngx-datatable/assets/icons";
+@import '@angular/cdk/overlay-prebuilt';
+@import "biit-ui/styles";
 
 $background: #EDEDED;
 $space: 0.7rem;

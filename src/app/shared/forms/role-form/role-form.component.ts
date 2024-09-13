@@ -4,6 +4,7 @@ import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import { FormValidationFields } from '../../validations/form-validation-fields';
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-role-form',
@@ -44,11 +45,7 @@ export class RoleFormComponent {
         next: (role: Role): void => {
           this.onSaved.emit(Role.clone(role));
         },
-        error: (error: any): void => {
-          this.transloco.selectTranslate('request_failed', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
-          });
-        }
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }

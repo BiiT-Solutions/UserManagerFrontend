@@ -16,6 +16,7 @@ import {DatatableColumn} from "biit-ui/table";
 import {User} from "authorization-services-lib";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-group-user-list',
@@ -122,12 +123,9 @@ export class UserGroupUserListComponent implements AfterViewInit, AfterViewCheck
             return 0;
           }
         });
-        this.loading = false;
-      }, error: (): void => {
-        this.loading = false;
-        this.biitSnackbarService.showNotification('request_unsuccessful', NotificationType.ERROR, null, 5);
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAssign(users: UserGroupUser[], confirmed: boolean): void {
@@ -144,13 +142,8 @@ export class UserGroupUserListComponent implements AfterViewInit, AfterViewCheck
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       });
 
       this.selected = null;
@@ -171,13 +164,8 @@ export class UserGroupUserListComponent implements AfterViewInit, AfterViewCheck
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
             }
           );
-        }, error: (): void => {
-          this.transloco.selectTranslate('request_unsuccessful', {}, {scope: '', alias: 'userGroups'}).subscribe(
-            translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-            }
-          );
-        }
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       });
 
       this.selected = null;

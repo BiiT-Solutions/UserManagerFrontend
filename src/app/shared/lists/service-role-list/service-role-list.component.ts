@@ -9,6 +9,7 @@ import {
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-service-role-list',
@@ -65,12 +66,9 @@ export class ServiceRoleListComponent implements OnInit {
             return 0;
           }
         });
-        this.loading = false;
       },
-      error: () => {
-        this.loading = false;
-      }
-    })
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+    }).add(() => this.loading = false);
   }
 
   protected onAdd(): void {
@@ -92,13 +90,8 @@ export class ServiceRoleListComponent implements OnInit {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
-          }, error: (): void => {
-            this.transloco.selectTranslate('request_unsuccessful', {}).subscribe(
-              translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null, 5);
-              }
-            );
-          }
+          },
+          error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       })
     }
   }
@@ -109,13 +102,10 @@ export class ServiceRoleListComponent implements OnInit {
     role.id.name = this.role;
     role.id.backendService = this.service;
     this.backendServiceRoleService.create(role).subscribe({
-      next: (value: BackendServiceRole): void => {
+      next: (): void => {
         this.loadServiceRoles();
-      }, error: (): void => {
-
-      }, complete: (): void => {
-        this.role = undefined;
-      }
-    });
+      },
+      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService),
+    }).add(() => this.role = undefined);
   }
 }
