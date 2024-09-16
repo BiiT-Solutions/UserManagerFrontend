@@ -47,7 +47,7 @@
                   [role]="target"
                   [type]="popup"
                   (onClosed)="this.target = null; this.popup = null;"
-                  (onSaved)="onSaved($event)"
+                  (onSaved)="onSaved()"
   ></biit-role-form>
 
   <biit-popup *ngIf="role" [title]="role.id + ' ' +  t('t.applications')" (onClosed)="role = null" sixty-view closable>

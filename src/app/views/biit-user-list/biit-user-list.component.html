@@ -39,7 +39,7 @@
   <biit-user-form *ngIf="target"
                   [user]="target"
                   (onClosed)="this.target = null"
-                  (onSaved)="onSaved($event)"
+                  (onSaved)="onSaved()"
   />
 
   <biit-popup *ngIf="confirm === 'DELETE'"
