@@ -47,5 +47,7 @@
   "teams": "Teams",
   "user_groups_assign_success": "Groups have been assigned successfully.",
   "user_groups_unassign_success": "Groups have been unassigned successfully.",
-  "error_service_role_missing": "This application/role combo has no backend roles assigned. Please, add a backend role on 'Services' view first."
+  "error_service_role_missing": "This application/role combo has no backend roles assigned. Please, add a backend role on 'Services' view first.",
+  "add_team": "Add Team",
+  "edit_team": "Edit Team"
 }
