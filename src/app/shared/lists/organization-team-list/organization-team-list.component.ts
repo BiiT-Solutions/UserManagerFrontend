@@ -218,8 +218,14 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
               return 0;
             }
           });
+          this.teams = [...this.teams];
           this.targetTeam = undefined;
           this.confirm = undefined;
+          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
