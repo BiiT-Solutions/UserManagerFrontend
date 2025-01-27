@@ -1,7 +1,12 @@
+@import "@siemens/ngx-datatable/assets/icons";
+@import '@angular/cdk/overlay-prebuilt';
+@import "biit-ui/styles";
+
 $background: #EDEDED;
+$space: 0.7rem;
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; font-size: 20px}
+html, body { height: 100%; font-size: 16px}
 body { margin: 0;
   font-family: Montserrat, "Montserrat", sans-serif;
   background-color: $background;
@@ -17,4 +22,29 @@ app-root > router-outlet + * {
 biit-snackbar {
   z-index: 1000;
   position: absolute;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: $space;
+}
+.gap {
+  gap: $space;
 }

@@ -1,0 +1,30 @@
+<ng-container *transloco="let t">
+  <biit-popup [title]="organization.id ? t('t.edit_organization') : t('t.new_organization')"
+              (onClosed)="onClosed.emit()"
+              closable sixty-view
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text
+          [placeholder]="t('name')"
+          [(ngModel)]="organization.name"
+          [required]="true"
+          [disabled]="organization.id"
+          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
+                                     FormValidationFields.NAME_EXISTS]"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea
+          [placeholder]="t('description')"
+          [(ngModel)]="organization.description"
+        ></biit-textarea>
+      </div>
+      <div class="form-bottom">
+        <button biit-button primary style="display: block" (click)="onSave()">
+          {{t('save')}}
+        </button>
+      </div>
+    </div>
+  </biit-popup>
+</ng-container>

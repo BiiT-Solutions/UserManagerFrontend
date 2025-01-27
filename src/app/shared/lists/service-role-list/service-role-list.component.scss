@@ -1,0 +1,16 @@
+$space: 0.7rem;
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: $space;
+}

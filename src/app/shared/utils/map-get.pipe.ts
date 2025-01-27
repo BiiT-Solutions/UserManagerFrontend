@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'mapGet'
+  name: 'mapGet',
+  pure: false
 })
 export class MapGetPipe implements PipeTransform {
 

@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { BiitRoleListComponent } from './biit-role-list.component';
 import {BiitRoleListRoutingModule} from "./biit-role-list-routing.module";
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
-import {BiitTableModule} from "biit-ui/table";
+import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
-import {RoleFormModule} from "../../shared/role-form/role-form.module";
-import {UserFormModule} from "../../shared/user-form/user-form.module";
+import {RoleApplicationsListModule} from "../../shared/lists/role-applications-list/role-applications-list.module";
+import {RoleFormModule} from "../../shared/forms/role-form/role-form.module";
+import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
+import {ApplicationRolesListModule} from "../../shared/lists/application-roles-list/application-roles-list.module";
 
 @NgModule({
   declarations: [
@@ -20,12 +22,17 @@ import {UserFormModule} from "../../shared/user-form/user-form.module";
     CommonModule,
     BiitRoleListRoutingModule,
     TranslocoModule,
-    BiitTableModule,
+    BiitDatatableModule,
     BiitPopupModule,
     BiitButtonModule,
     BiitIconButtonModule,
     RoleFormModule,
-    UserFormModule
+    UserFormModule,
+    ApplicationRolesListModule,
+    RoleApplicationsListModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class BiitRoleListModule { }

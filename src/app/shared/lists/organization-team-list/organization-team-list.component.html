@@ -1,0 +1,140 @@
+<ng-container *transloco="let t">
+  <biit-datatable #teamsTable
+                  [columns]="columns"
+                  [data]="teams"
+                  [pageSize]="10"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable
+  >
+    <button biit-icon icon="plus"
+            [title]="t('t.add')"
+            (click)="onCommand(undefined, 'ADD')"
+    ></button>
+    <button biit-icon icon="minus"
+            [title]="t('t.delete')"
+            [disabled]="teamsTable.selectedRows.length < 1"
+            (click)="onRemoveTeam(teamsTable.selectedRows,false)"
+    ></button>
+    <button biit-icon icon="edit"
+            [title]="t('t.edit')"
+            [disabled]="teamsTable.selectedRows.length !== 1"
+            (click)="onCommand(teamsTable.selectedRows[0], 'EDIT')"
+    ></button>
+    <button biit-icon icon="user_single"
+            [title]="t('t.assign')"
+            [disabled]="teamsTable.selectedRows.length !== 1"
+            (click)="onManageTeam(teamsTable.selectedRows[0])"
+    ></button>
+  </biit-datatable>
+
+  <biit-popup *ngIf="confirm === 'REMOVE'"
+              no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_delete')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onRemoveTeam(selected, true)">{{t('t.delete')}}</button>
+      </div>
+    </div>
+
+  </biit-popup>
+
+  <biit-popup *ngIf="targetTeam"
+              sixty-view closable
+              [title]="targetTeam.id ? t('t.edit_team') : t('t.add_team')"
+              (onClosed)="confirm = undefined; targetTeam = undefined;"
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text [(ngModel)]="targetTeam.name"
+                         [placeholder]="t('name')"
+                         [required]="true"
+                         [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
+                                                    FormValidationFields.NAME_EXISTS]"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea [(ngModel)]="targetTeam.description"
+                       [placeholder]="t('description')"
+        ></biit-textarea>
+      </div>
+      <div class="tab-row">
+        <button biit-button
+                (click)="onSaveTeam()">
+          {{t('save')}}
+        </button>
+      </div>
+    </div>
+
+  </biit-popup>
+
+  <biit-popup *ngIf="manageTeam"
+              sixty-view closable
+              [title]="t('t.assign_users') + ': ' + manageTeam.name"
+              (onClosed)="manageTeam = undefined; users = undefined;"
+  >
+    <biit-datatable #usersTable
+                    [columns]="userColumns"
+                    [data]="users"
+                    [pageSize]="pageSize"
+                    [pageSizeList]="pageSizes"
+                    [loading]="loading"
+                    selectable scrollbarH
+                    style="width: 100%"
+    >
+      <button biit-icon icon="user_add"
+              [title]="t('t.assign')"
+              [disabled]="!usersTable.selectedRows.length"
+              (click)="onAssignUser(usersTable.selectedRows, false)"
+      ></button>
+      <button biit-icon icon="user_remove"
+              [title]="t('t.unassign')"
+              [disabled]="!usersTable.selectedRows.length"
+              (click)="onUnassignUser(usersTable.selectedRows, false)"
+      ></button>
+    </biit-datatable>
+
+    <biit-popup *ngIf="confirm === 'ASSIGN'"
+                no-header
+    >
+      <div class="vertical">
+        <div>{{t('t.confirm_assign')}}</div>
+        <div class="flex-grow horizontal buttons-row">
+          <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+          <button biit-button primary (click)="onAssignUser(selectedUsers, true)">{{t('t.assign')}}</button>
+        </div>
+      </div>
+
+    </biit-popup>
+
+    <biit-popup *ngIf="confirm === 'UNASSIGN'"
+                no-header
+    >
+      <div class="vertical">
+        <div>{{('t.confirm_unassign')}}</div>
+        <div class="flex-grow horizontal buttons-row">
+          <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+          <button biit-button primary (click)="onUnassignUser(selectedUsers, true)">{{t('t.unassign')}}</button>
+        </div>
+      </div>
+
+    </biit-popup>
+
+  </biit-popup>
+</ng-container>
+
+<ng-template #booleanCell let-row="row" let-value="value" let-i="index">
+  <biit-icon *ngIf="value"
+             [name]="'thick'"
+             style="height: 18px; width: 100%;"
+  />
+</ng-template>
+
+<ng-template #assignedCell let-row="row" let-value="value" let-i="index">
+  <biit-icon *ngIf="value"
+             [name]="'user_single'"
+             style="height: 18px; width: 100%;"
+  />
+</ng-template>

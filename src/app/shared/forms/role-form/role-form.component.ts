@@ -1,0 +1,67 @@
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
+import {Role, RoleService} from "user-manager-structure-lib";
+import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {Observable} from "rxjs";
+import { FormValidationFields } from '../../validations/form-validation-fields';
+import {ErrorHandler} from "biit-ui/utils";
+
+@Component({
+  selector: 'biit-role-form',
+  templateUrl: './role-form.component.html',
+  styleUrls: ['./role-form.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      multi:true,
+      useValue: {scope: 'components/forms', alias: 't'}
+    }
+  ]
+})
+export class RoleFormComponent {
+  @Input() role: Role;
+  @Input() type: RoleFormType;
+  @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onSaved: EventEmitter<Role> = new EventEmitter<Role>();
+  @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
+  protected readonly RoleFormType = RoleFormType;
+
+
+  constructor(private roleService: RoleService,
+              protected transloco: TranslocoService,
+              private biitSnackbarService: BiitSnackbarService
+              ) { }
+  protected onSave(): void {
+    if (!this.validate()) {
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
+      return;
+    }
+    const observable: Observable<Role> = this.type == RoleFormType.CREATE ? this.roleService.create(this.role) : this.roleService.update(this.role);
+    observable.subscribe(
+      {
+        next: (role: Role): void => {
+          this.onSaved.emit(Role.clone(role));
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      }
+    );
+  }
+  protected validate(): boolean {
+    this.errors = new Map<FormValidationFields, string>();
+    let verdict: boolean = true;
+    if (!this.role.id) {
+      verdict = false;
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
+    }
+    return verdict;
+  }
+}
+
+export enum RoleFormType {
+  CREATE = "create_role",
+  EDIT = "edit_role",
+  ASSIGN = "assign_role"
+}

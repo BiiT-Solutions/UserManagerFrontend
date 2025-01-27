@@ -1,0 +1,31 @@
+<ng-container *transloco="let t">
+  <biit-popup *ngIf="type !== ApplicationFormType.ASSIGN"
+              [title]="'t.'+type | transloco"
+              (onClosed)="onClosed.emit()"
+              closable sixty-view
+  >
+    <div class="form">
+      <div class="tab-row-single">
+        <biit-input-text
+          [placeholder]="t('t.name')"
+          [(ngModel)]="application.id"
+          [required] = "true"
+          [disabled]="type == ApplicationFormType.EDIT"
+          error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
+        ></biit-input-text>
+      </div>
+      <div class="tab-row-single">
+        <biit-textarea
+          [(ngModel)]="application.description"
+          [placeholder]="t('t.description')"
+          style="display: block"
+        ></biit-textarea>
+      </div>
+      <div class="form-bottom">
+        <button biit-button primary style="display: block" (click)="onSave()">
+          {{t('t.save')}}
+        </button>
+      </div>
+    </div>
+  </biit-popup>
+</ng-container>

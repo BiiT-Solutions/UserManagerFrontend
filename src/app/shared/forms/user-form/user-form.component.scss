@@ -1,0 +1,43 @@
+$space : 1em;
+.user-tabs {
+  display: block;
+  width: 100%;
+  margin-top: 5vh;
+  flex-grow: 1;
+  height: 95%;
+}
+
+.tab-row {
+  display: flex;
+  margin-top: 2em;
+  align-items: center;
+
+  * {
+    flex: 1;
+    margin-right: $space;
+    margin-left: $space;
+    height: fit-content;
+  }
+}
+
+.tab-row-single {
+  width: calc(50% - #{$space});
+  margin-top: 2em;
+  margin-right: $space;
+  margin-left: $space;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-bottom {
+  display: flex;
+  justify-content: center;
+  button {
+    align-self: end;
+  };
+}

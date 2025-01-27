@@ -1,0 +1,53 @@
+<ng-container *transloco="let t">
+  <biit-datatable #application_roles
+                  [columns]="columns"
+                  [data]="applicationRoles"
+                  [pageSize]="pageSize"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable
+  >
+    <button biit-icon icon="plus"
+            [title]="t('t.add')"
+            (click)="onAdd()"
+    ></button>
+    <button biit-icon icon="minus"
+            [title]="t('t.delete')"
+            (click)="onDelete(application_roles.selectedRows, false)"
+            [disabled]="!application_roles.selectedRows.length"
+    ></button>
+  </biit-datatable>
+
+  <biit-popup *ngIf="applicationRole"
+              (onClosed)="applicationRole = null"
+              [title]="t('t.assign_application')"
+              closable
+  >
+    <div class="vertical" style="margin-top: 0.5rem;">
+      <biit-dropdown
+        [title]="t('t.applications')"
+        [required]="true"
+        [data]="availableApplication"
+        [(ngModel)]="applicationRole.id.application"
+        [primitive]="false" label="id"></biit-dropdown>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="assignApplication()">{{t('t.assign')}}</button>
+      </div>
+    </div>
+
+  </biit-popup>
+
+  <biit-popup *ngIf="confirm === 'DELETE'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_delete')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+      </div>
+    </div>
+
+  </biit-popup>
+</ng-container>

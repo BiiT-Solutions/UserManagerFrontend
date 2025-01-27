@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {BiitSnackbarModule} from "biit-ui/info";
+import {BiitCookiesConsentModule, BiitSnackbarModule} from "biit-ui/info";
 import {TranslocoRootModule} from "biit-ui/i18n";
 import {CommonModule, registerLocaleData} from "@angular/common";
 import {HeaderInterceptor} from "./config/header-interceptor";
@@ -14,6 +14,7 @@ import localeEs from '@angular/common/locales/es';
 import localeNL from '@angular/common/locales/nl';
 import {BiitNavMenuModule, BiitNavUserModule} from "biit-ui/navigation";
 import {BiitNavbarModule} from "./navigation/biit-navbar/biit-navbar.module";
+import {ContextMenuModule} from "@perfectmemory/ngx-contextmenu";
 
 registerLocaleData(localeEn, 'en')
 registerLocaleData(localeEs, 'es');
@@ -32,7 +33,9 @@ registerLocaleData(localeNL, 'nl');
     BiitSnackbarModule,
     BiitNavUserModule,
     BiitNavMenuModule,
-    BiitNavbarModule
+    BiitNavbarModule,
+    BiitCookiesConsentModule,
+    ContextMenuModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}

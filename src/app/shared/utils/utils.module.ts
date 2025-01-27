@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MapGetPipe} from "./map-get.pipe";
 import {SetHasPipe} from "./set-has.pipe";
+import {HasRolePipe} from "./has-role.pipe";
 
 
 
@@ -9,14 +10,16 @@ import {SetHasPipe} from "./set-has.pipe";
 @NgModule({
   declarations: [
     MapGetPipe,
-    SetHasPipe
+    SetHasPipe,
+    HasRolePipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
     MapGetPipe,
-    SetHasPipe
+    SetHasPipe,
+    HasRolePipe
   ]
 })
 export class UtilsModule { }

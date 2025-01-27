@@ -1,0 +1,60 @@
+<ng-container *transloco="let t">
+  <biit-datatable #application_roles
+                  [columns]="columns"
+                  [data]="serviceRoles"
+                  [pageSize]="pageSize"
+                  [pageSizeList]="pageSizes"
+                  [loading]="loading"
+                  selectable>
+    <button biit-icon icon="plus"
+            [title]="t('t.add')"
+            (click)="onAdd()"
+    ></button>
+    <button biit-icon icon="minus"
+            [title]="t('t.delete')"
+            (click)="onDelete(application_roles.selectedRows, false)"
+            [disabled]="!application_roles.selectedRows.length"
+    ></button>
+  </biit-datatable>
+
+  <biit-popup *ngIf="applicationBackendServiceRole"
+              [title]="t('t.assign_to_service')"
+              (onClosed)="applicationBackendServiceRole = null"
+              closable
+  >
+    <div class="vertical" style="margin-top: 0.5rem;">
+      <div class="horizontal gap">
+        <biit-dropdown
+          [title]="t('t.service')"
+          [required]="true"
+          [data]="allServices"
+          [(ngModel)]="selectedService"
+          (ngModelChange)="loadServiceRoles($event)"
+          [primitive]="false" label="name"></biit-dropdown>
+        <biit-dropdown
+          [title]="t('t.role')"
+          [required]="true"
+          [disabled]="!allServiceRoles || !allServiceRoles.length"
+          [data]="allServiceRoles"
+          [(ngModel)]="selectedServiceRole"
+          [primitive]="false" label="name"></biit-dropdown>
+      </div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="applicationBackendServiceRole = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="assignRole()">{{t('t.assign')}}</button>
+      </div>
+    </div>
+  </biit-popup>
+  <biit-popup *ngIf="confirm === 'DELETE'"
+              dark-bg no-header
+  >
+    <div class="vertical">
+      <div>{{t('t.confirm_delete')}}</div>
+      <div class="flex-grow horizontal buttons-row">
+        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+      </div>
+    </div>
+
+  </biit-popup>
+</ng-container>

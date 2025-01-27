@@ -14,8 +14,17 @@ const routes: Routes = [
     loadChildren: () => login
   },
   {
+    path: 'reset_password',
+    loadChildren: () => import('./views/biit-reset-password/biit-reset-password.module').then(m => m.BiitResetPasswordModule)
+  },
+  {
     path: 'users',
     loadChildren: () => import('./views/biit-user-list/biit-user-list.module').then(m => m.BiitUserListModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'groups',
+    loadChildren: () => import('./views/biit-user-group-list/biit-user-group-list.module').then(m => m.BiitUserGroupListModule),
     canActivate: [AuthGuard]
   },
   {
@@ -31,6 +40,11 @@ const routes: Routes = [
   {
     path: 'services',
     loadChildren: () => import('./views/biit-service-list/biit-service-list.module').then(m => m.BiitServiceListModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'organizations',
+    loadChildren: () => import('./views/biit-organization-list/biit-organization-list.module').then(m => m.BiitOrganizationListModule),
     canActivate: [AuthGuard]
   },
   {

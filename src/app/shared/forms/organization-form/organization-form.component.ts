@@ -1,0 +1,61 @@
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
+import {Organization, OrganizationService, SessionService} from "user-manager-structure-lib";
+import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {Observable} from "rxjs";
+import {FormValidationFields} from "../../validations/form-validation-fields";
+import {ErrorHandler} from "biit-ui/utils";
+
+@Component({
+  selector: 'biit-organization-form',
+  templateUrl: './organization-form.component.html',
+  styleUrls: ['./organization-form.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      multi:true,
+      useValue: {scope: 'components/forms', alias: 't'}
+    }
+  ]
+})
+export class OrganizationFormComponent {
+  @Input() organization: Organization;
+  @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onSaved: EventEmitter<Organization> = new EventEmitter<Organization>();
+  @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+  protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
+  protected readonly FormValidationFields = FormValidationFields;
+
+
+  constructor(private organizationService: OrganizationService,
+              protected sessionService: SessionService,
+              protected transloco: TranslocoService,
+              private biitSnackbarService: BiitSnackbarService
+              ) { }
+
+  protected onSave(): void {
+    if (!this.validate()) {
+      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING, null, 5);
+      return;
+    }
+    const observable: Observable<Organization> = this.organization.id ? this.organizationService.update(this.organization) : this.organizationService.create(this.organization);
+    observable.subscribe(
+      {
+        next: (organization: Organization): void => {
+          this.onSaved.emit(Organization.clone(organization));
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+      }
+    );
+  }
+  protected validate(): boolean {
+    this.errors = new Map<FormValidationFields, string>();
+    let verdict: boolean = true;
+    if (!this.organization.name) {
+      verdict = false;
+      this.errors.set(FormValidationFields.NAME_MANDATORY, this.transloco.translate(`t.${FormValidationFields.NAME_MANDATORY.toString()}`));
+    }
+    return verdict;
+  }
+}
