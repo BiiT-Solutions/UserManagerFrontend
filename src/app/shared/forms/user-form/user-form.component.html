@@ -22,7 +22,7 @@
             [placeholder]="t('t.username')"
             [(ngModel)]="user.username"
             [disabled]="!!user.id"
-            [required] = "true"
+            [required] = "false"
             (focusout)="user.username = user.username.trim()"
             error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_INVALID, FormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
