@@ -17,7 +17,7 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
@@ -45,11 +45,13 @@ export class UserFormComponent implements OnInit {
               protected sessionService: SessionService,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
-              ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-      this.loggedUser = this.sessionService.getUser();
-      if (this.user.accountExpirationTime) this.expiratingAccount = true;
+    this.generatePassword();
+    this.loggedUser = this.sessionService.getUser();
+    if (this.user.accountExpirationTime) this.expiratingAccount = true;
   }
 
   protected onSave(): void {
@@ -108,7 +110,7 @@ export class UserFormComponent implements OnInit {
         verdict = false;
         this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
-    } else  {
+    } else {
       if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)) {
         if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
           verdict = false;
