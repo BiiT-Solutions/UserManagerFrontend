@@ -76,6 +76,7 @@ export class UserFormComponent implements OnInit {
       {
         next: (user: User): void => {
           this.onSaved.emit(User.clone(user));
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.username_created_success'), NotificationType.SUCCESS, null, 5);
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
