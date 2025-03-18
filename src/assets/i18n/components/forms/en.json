@@ -36,7 +36,7 @@
   "date_invalid": "Date is invalid",
   "request_failed_user_already_exists": "Your request couldn't be completed because the user already exists.",
   "username_exists": "This user already exists",
-  "username_created_success": "User has been created successfully.",
+  "user_created_success": "User has been created successfully.",
   "password_change_success": "Password has been changed successfully.",
   "password_change_failed": "Password was not saved. If issue persists, please contact to support",
   "add": "Add",

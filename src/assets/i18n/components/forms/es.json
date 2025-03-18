@@ -36,7 +36,7 @@
   "date_invalid": "La fecha es inválida.",
   "request_failed_user_already_exists": "Su petición no se ha podido completar porque el usuario ya existe.",
   "username_exists": "El usuario ya existe.",
-  "username_created_success": "El usuario ha sido creado con éxito.",
+  "user_created_success": "El usuario ha sido creado con éxito.",
   "password_change_success": "La contraseña ha sido actualizada satisfactoriamente.",
   "password_change_failed": "La contraseña no se ha guardado. Si el problema persiste, por favor contacte a soporte.",
   "add": "Añadir",
