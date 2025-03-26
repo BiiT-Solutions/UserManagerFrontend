@@ -49,7 +49,9 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.generatePassword();
+    if (!this.user?.id) {
+      this.generatePassword();
+    }
     this.loggedUser = this.sessionService.getUser();
     if (this.user.accountExpirationTime) this.expiratingAccount = true;
   }
