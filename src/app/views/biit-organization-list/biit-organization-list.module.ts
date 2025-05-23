@@ -8,6 +8,7 @@ import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitOrganizationListRoutingModule} from "./biit-organization-list-routing.module";
 import {OrganizationFormModule} from "../../shared/forms/organization-form/organization-form.module";
 import {OrganizationTeamListModule} from "../../shared/lists/organization-team-list/organization-team-list.module";
+import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
 @NgModule({
   declarations: [
@@ -16,17 +17,18 @@ import {OrganizationTeamListModule} from "../../shared/lists/organization-team-l
   exports: [
     BiitOrganizationListComponent
   ],
-  imports: [
-    CommonModule,
-    TranslocoRootModule,
-    BiitOrganizationListRoutingModule,
-    BiitDatatableModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    OrganizationFormModule,
-    OrganizationTeamListModule,
-  ],
+    imports: [
+        CommonModule,
+        TranslocoRootModule,
+        BiitOrganizationListRoutingModule,
+        BiitDatatableModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        OrganizationFormModule,
+        OrganizationTeamListModule,
+        HasPermissionPipe,
+    ],
   providers: [
     DatePipe
   ]

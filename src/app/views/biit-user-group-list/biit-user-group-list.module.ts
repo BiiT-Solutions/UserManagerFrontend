@@ -11,6 +11,7 @@ import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
 import {UserRoleListModule} from "../../shared/lists/user-role-list/user-role-list.module";
 import {UserGroupUserListModule} from "../../shared/lists/user-group-user-list/user-group-user-list.module";
 import {UserGroupRoleListModule} from "../../shared/lists/user-group-role-list/user-group-role-list.module";
+import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
 @NgModule({
   declarations: [
@@ -19,20 +20,21 @@ import {UserGroupRoleListModule} from "../../shared/lists/user-group-role-list/u
   exports: [
     BiitUserGroupListComponent
   ],
-  imports: [
-    CommonModule,
-    TranslocoRootModule,
-    BiitUserGroupListRoutingModule,
-    UserGroupFormModule,
-    BiitDatatableModule,
-    UserFormModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    UserRoleListModule,
-    UserGroupUserListModule,
-    UserGroupRoleListModule
-  ],
+    imports: [
+        CommonModule,
+        TranslocoRootModule,
+        BiitUserGroupListRoutingModule,
+        UserGroupFormModule,
+        BiitDatatableModule,
+        UserFormModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        UserRoleListModule,
+        UserGroupUserListModule,
+        UserGroupRoleListModule,
+        HasPermissionPipe
+    ],
   providers: [
     DatePipe
   ]

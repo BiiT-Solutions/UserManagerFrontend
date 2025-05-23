@@ -37,6 +37,7 @@ export class RoleApplicationsListComponent implements OnInit {
   protected applicationRole: ApplicationRole;
   protected allApplications: Application[];
   protected availableApplication: Application[];
+  protected applicationRoleToAssign: ApplicationRole;
 
   constructor(private applicationRoleService: ApplicationRoleService,
               private biitSnackbarService: BiitSnackbarService,
@@ -149,4 +150,7 @@ export class RoleApplicationsListComponent implements OnInit {
     }
   }
 
+  protected onAssign(applicationRoles: ApplicationRole[]): void {
+    this.applicationRoleToAssign = applicationRoles[0];
+  }
 }

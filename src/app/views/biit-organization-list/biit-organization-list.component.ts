@@ -6,6 +6,7 @@ import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
+import {Permission} from "../../config/rbac/permission";
 
 @Component({
   selector: 'app-biit-organization-list',
@@ -124,4 +125,6 @@ export class BiitOrganizationListComponent implements OnInit {
   protected onManage(selectedRows: Organization[]): void {
     this.manage = selectedRows[0];
   }
+
+    protected readonly Permission = Permission;
 }

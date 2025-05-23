@@ -7,6 +7,7 @@ import {combineLatest} from "rxjs";
 import {RoleFormType} from "../../shared/forms/role-form/role-form.component";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
+import {Permission} from "../../config/rbac/permission";
 
 @Component({
   selector: 'app-biit-role-list',
@@ -129,4 +130,6 @@ export class BiitRoleListComponent {
       this.role = roles[0];
     }
   }
+
+  protected readonly Permission = Permission;
 }

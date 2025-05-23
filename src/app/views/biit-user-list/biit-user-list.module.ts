@@ -10,6 +10,7 @@ import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
 import {UserRoleListModule} from "../../shared/lists/user-role-list/user-role-list.module";
 import {BiitIconModule} from "biit-ui/icon";
 import {UserGroupListModule} from "../../shared/lists/user-group-list/user-group-list.module";
+import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {UserGroupListModule} from "../../shared/lists/user-group-list/user-group
         BiitIconButtonModule,
         UserRoleListModule,
         BiitIconModule,
-        UserGroupListModule
+        UserGroupListModule,
+        HasPermissionPipe
     ],
   providers: [
     DatePipe

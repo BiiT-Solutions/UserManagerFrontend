@@ -6,6 +6,7 @@ import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
+import {Permission} from "../../config/rbac/permission";
 
 @Component({
   selector: 'app-biit-user-group-list',
@@ -127,4 +128,6 @@ export class BiitUserGroupListComponent implements OnInit {
   protected onAssignUsers(selectedRows: UserGroup[]): void {
     this.assignUsers = selectedRows[0];
   }
+
+    protected readonly Permission = Permission;
 }

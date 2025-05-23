@@ -6,6 +6,7 @@ import {DatatableColumn} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
+import {Permission} from "../../config/rbac/permission";
 
 @Component({
   selector: 'app-biit-service-list',
@@ -135,4 +136,6 @@ export class BiitServiceListComponent implements OnInit {
   protected onAssign(selectedRows: BackendService[]): void {
     this.assignService = selectedRows[0];
   }
+
+    protected readonly Permission = Permission;
 }

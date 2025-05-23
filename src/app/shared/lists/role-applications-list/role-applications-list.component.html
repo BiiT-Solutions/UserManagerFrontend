@@ -16,6 +16,11 @@
             (click)="onDelete(application_roles.selectedRows, false)"
             [disabled]="!application_roles.selectedRows.length"
     ></button>
+    <button biit-icon icon="linkage"
+            [title]="t('t.assign')"
+            (click)="onAssign(application_roles.selectedRows)"
+            [disabled]="application_roles.selectedRows.length !== 1"
+    ></button>
   </biit-datatable>
 
   <biit-popup *ngIf="applicationRole"
@@ -49,5 +54,14 @@
       </div>
     </div>
 
+  </biit-popup>
+
+  <biit-popup *ngIf="applicationRoleToAssign"
+              [title]="t('t.background_services')"
+              (onClosed)="applicationRoleToAssign = null"
+              closable
+              sixty-view
+  >
+    <biit-aplication-role-services [applicationRole]="applicationRoleToAssign" style="width: 100%;"/>
   </biit-popup>
 </ng-container>

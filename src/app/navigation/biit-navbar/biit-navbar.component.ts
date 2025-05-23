@@ -4,7 +4,10 @@ import {provideTranslocoScope, TranslocoService} from '@ngneat/transloco';
 import {Constants} from '../../shared/constants';
 import {SessionService} from "user-manager-structure-lib";
 import {ContextMenuComponent, ContextMenuService} from '@perfectmemory/ngx-contextmenu'
-import {combineLatest} from "rxjs";
+import {AuthGuard} from '../../services/auth-guard.service';
+import {Permission} from "../../config/rbac/permission";
+import {User} from "authorization-services-lib";
+import {PermissionService} from "../../services/permission.service";
 
 @Component({
   selector: 'biit-navbar',
@@ -17,35 +20,78 @@ export class BiitNavbarComponent implements AfterViewInit {
   @ViewChild('contextMenu') contextMenu: ContextMenuComponent<void>;
   @ViewChild('navUser', {read: ElementRef}) navUser: ElementRef;
   routes: Route[] = [];
+  user: User;
 
   constructor(private translocoService: TranslocoService,
               protected sessionService: SessionService,
+              private permissionService: PermissionService,
               private contextMenuService: ContextMenuService<void>,
-              protected router: Router) {}
+              protected router: Router) {
+  }
 
   ngAfterViewInit() {
     this.setMenu();
   }
 
   private setMenu(): void {
-    this.routes = [];
-    combineLatest([
-      this.translocoService.selectTranslate('users', {},  {scope: 'components/main'}),
-      this.translocoService.selectTranslate('groups', {},  {scope: 'components/main'}),
-      this.translocoService.selectTranslate('roles', {},  {scope: 'components/main'}),
-      this.translocoService.selectTranslate('applications', {},  {scope: 'components/main'}),
-      this.translocoService.selectTranslate('services', {},  {scope: 'components/main'}),
-      this.translocoService.selectTranslate('organizations', {},  {scope: 'components/main'})
-    ]).subscribe({
-      next: ([users, groups, roles, applications, services, organizations]) => {
-        this.routes.push({path: Constants.PATHS.USERS, title: users});
-        this.routes.push({path: Constants.PATHS.GROUPS, title: groups});
-        this.routes.push({path: Constants.PATHS.ROLES, title: roles});
-        this.routes.push({path: Constants.PATHS.APPLICATIONS, title: applications});
-        this.routes.push({path: Constants.PATHS.SERVICES, title: services});
-        this.routes.push({path: Constants.PATHS.ORGANIZATIONS, title: organizations});
-      }
+    this.routes = [
+      {
+        path: Constants.PATHS.USERS,
+        canActivate: [AuthGuard],
+        title: 'users',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.USERS.VIEW)
+        }
+      },
+      {
+        path: Constants.PATHS.GROUPS,
+        canActivate: [AuthGuard],
+        title: 'groups',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.ROLE_GROUPS.VIEW)
+        }
+      },
+      {
+        path: Constants.PATHS.ROLES,
+        canActivate: [AuthGuard],
+        title: 'roles',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.ROLES.VIEW)
+        }
+      },
+      {
+        path: Constants.PATHS.APPLICATIONS,
+        canActivate: [AuthGuard],
+        title: 'applications',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.APPLICATIONS.VIEW)
+        }
+      },
+      {
+        path: Constants.PATHS.SERVICES,
+        canActivate: [AuthGuard],
+        title: 'services',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.SERVICES.VIEW)
+        }
+      },
+      {
+        path: Constants.PATHS.ORGANIZATIONS,
+        canActivate: [AuthGuard],
+        title: 'organizations',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.ORGANIZATIONS.VIEW)
+        }
+      },
+    ];
+    this.routes.forEach(route => {
+      this.translocoService.selectTranslate(route.title as string, {}, {scope: 'components/main'}).subscribe(value => route.title = value);
+
+      route.children?.forEach(child => {
+        this.translocoService.selectTranslate(child.title as string, {}, {scope: 'components/main'}).subscribe(value => child.title = value);
+      })
     });
+    this.user = this.sessionService.getUser();
   }
 
   protected onContextMenu($event: Event): void {

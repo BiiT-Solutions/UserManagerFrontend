@@ -7,6 +7,7 @@ import {combineLatest} from "rxjs";
 import {ApplicationFormType} from "../../shared/forms/application-form/application-form.component";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
+import {Permission} from "../../config/rbac/permission";
 
 @Component({
   selector: 'app-biit-application-list',
@@ -127,4 +128,6 @@ export class BiitApplicationListComponent {
   onAssign(applications: Application[]): void {
     this.application = applications[0];
   }
+
+    protected readonly Permission = Permission;
 }

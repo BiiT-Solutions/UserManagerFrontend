@@ -9,6 +9,7 @@ import {BiitPopupModule} from "biit-ui/popup";
 import {RoleFormModule} from "../../shared/forms/role-form/role-form.module";
 import {ApplicationFormModule} from "../../shared/forms/application-form/application-form.module";
 import {ApplicationRolesListModule} from "../../shared/lists/application-roles-list/application-roles-list.module";
+import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
 @NgModule({
   declarations: [
@@ -17,18 +18,19 @@ import {ApplicationRolesListModule} from "../../shared/lists/application-roles-l
   exports: [
     BiitApplicationListComponent
   ],
-  imports: [
-    CommonModule,
-    BiitApplicationListRoutingModule,
-    TranslocoModule,
-    BiitDatatableModule,
-    BiitPopupModule,
-    BiitButtonModule,
-    BiitIconButtonModule,
-    RoleFormModule,
-    ApplicationFormModule,
-    ApplicationRolesListModule
-  ],
+    imports: [
+        CommonModule,
+        BiitApplicationListRoutingModule,
+        TranslocoModule,
+        BiitDatatableModule,
+        BiitPopupModule,
+        BiitButtonModule,
+        BiitIconButtonModule,
+        RoleFormModule,
+        ApplicationFormModule,
+        ApplicationRolesListModule,
+        HasPermissionPipe
+    ],
   providers: [
     DatePipe
   ]

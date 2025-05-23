@@ -6,6 +6,8 @@ import {AvailableLangs, TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/translo
 import {Route, Router} from "@angular/router";
 import {completeIconSet} from "biit-icons-collection";
 import {BiitIconService} from "biit-ui/icon";
+import {PermissionService} from "./services/permission.service";
+import {User} from "authorization-services-lib";
 
 @Component({
   selector: 'app-root',
@@ -25,12 +27,14 @@ export class AppComponent {
               biitSnackbarService: BiitSnackbarService,
               biitIconService: BiitIconService,
               protected sessionService: SessionService,
+              private permissionService: PermissionService,
               private router: Router,
               private translocoService: TranslocoService) {
     this.setLanguage();
     userManagerRootService.serverUrl = new URL(`${Environment.ROOT_URL}${Environment.USER_MANAGER_PATH}`);
     biitSnackbarService.setPosition(BiitSnackbarVerticalPosition.TOP, BiitSnackbarHorizontalPosition.CENTER);
     biitIconService.registerIcons(completeIconSet);
+    this.setPermissions();
   }
 
   private setLanguage(): void {
@@ -40,6 +44,14 @@ export class AppComponent {
     if (language) {
       this.translocoService.setActiveLang(language);
     }
+  }
+
+  private setPermissions(): void {
+    const user: User = this.sessionService.getUser();
+    if (!user) {
+      return;
+    }
+    this.permissionService.setRole(user.applicationRoles);
   }
 
   logout() {

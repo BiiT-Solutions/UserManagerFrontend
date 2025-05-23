@@ -92,7 +92,15 @@ export class ApplicationRolesListComponent implements OnInit {
 
   protected onAdd(): void {
     const ids: string[] = this.roles.map(role => role.id.role.id);
-    this.availableRoles = this.allRoles.filter(role => !ids.includes(role.id));
+    this.availableRoles = this.allRoles.filter(role => !ids.includes(role.id)).sort((a, b) => {
+      if (a.uniqueName < b.uniqueName) {
+        return -1;
+      } else if (a.uniqueName > b.uniqueName) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     if (this.availableRoles.length) {
       this.applicationRole = new ApplicationRole();
       this.applicationRole.id = new ApplicationRoleId();

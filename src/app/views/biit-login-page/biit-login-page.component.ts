@@ -8,6 +8,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginRequest, User} from "authorization-services-lib";
 import {ErrorHandler} from "biit-ui/utils";
+import {PermissionService} from "../../services/permission.service";
 
 @Component({
   selector: 'biit-login-page',
@@ -29,6 +30,7 @@ export class BiitLoginPageComponent implements OnInit {
               private sessionService: SessionService,
               private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
+              private permissionService: PermissionService,
               private activateRoute: ActivatedRoute,
               private router: Router,
               private translocoService: TranslocoService) {
@@ -60,6 +62,7 @@ export class BiitLoginPageComponent implements OnInit {
         this.sessionService.setToken(token, expiration, login.remember, true);
         this.sessionService.setUser(user);
         this.router.navigate([Constants.PATHS.USERS]);
+        this.permissionService.setRole(user.applicationRoles)
       },
       error: error => ErrorHandler.notify(error, this.translocoService, this.biitSnackbarService)
     }).add(() => this.waiting = false);
@@ -80,6 +83,7 @@ export class BiitLoginPageComponent implements OnInit {
       }
       if (params[Constants.PATHS.QUERY.LOGOUT] !== undefined) {
         this.sessionService.clearToken();
+        this.permissionService.clear();
         this.translocoService.selectTranslate(Constants.PATHS.QUERY.LOGOUT, {},  {scope: 'biit-ui/utils'}).subscribe(msg => {
           this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS, null, 5);
         });

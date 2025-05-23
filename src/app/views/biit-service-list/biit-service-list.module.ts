@@ -10,25 +10,27 @@ import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
 import {UtilsModule} from "../../shared/utils/utils.module";
 import {FormsModule} from "@angular/forms";
 import {ServiceRoleListModule} from "../../shared/lists/service-role-list/service-role-list.module";
+import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
 @NgModule({
   declarations: [
     BiitServiceListComponent
   ],
-  imports: [
-    CommonModule,
-    BiitServiceListRoutingModule,
-    BiitIconButtonModule,
-    BiitDatatableModule,
-    TranslocoModule,
-    BiitPopupModule,
-    BiitInputTextModule,
-    UtilsModule,
-    FormsModule,
-    BiitTextareaModule,
-    BiitButtonModule,
-    ServiceRoleListModule
-  ],
+    imports: [
+        CommonModule,
+        BiitServiceListRoutingModule,
+        BiitIconButtonModule,
+        BiitDatatableModule,
+        TranslocoModule,
+        BiitPopupModule,
+        BiitInputTextModule,
+        UtilsModule,
+        FormsModule,
+        BiitTextareaModule,
+        BiitButtonModule,
+        ServiceRoleListModule,
+        HasPermissionPipe
+    ],
   providers: [
     DatePipe
   ]
