@@ -17,11 +17,9 @@ export class PermissionService {
   }
 
   public hasPermission(permission: Permission): boolean {
-    console.log("------", this.permissions)
     if (!this.permissions) {
       return false;
     }
-    console.log(this.permissions.getPermissions())
     return this.permissions.getPermissions().has(permission);
   }
 
