@@ -12,9 +12,11 @@
   </div>
 </div>
 <context-menu #contextMenu dir="rtl">
-  <ng-template contextMenuItem id="usermanager-menu-logout"
+  <ng-template contextMenuItem
                *transloco="let t"
                (execute)="router.navigateByUrl('/login?logout')">
-    {{t('t.logout')}}
+    <span id="usermanager-menu-logout">
+      {{ t('t.logout') }}
+    </span>
   </ng-template>
 </context-menu>
