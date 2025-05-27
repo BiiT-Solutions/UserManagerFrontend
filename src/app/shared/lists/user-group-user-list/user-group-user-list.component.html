@@ -23,10 +23,10 @@
               dark-bg no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_assign')}}</div>
+      <div>{{ t('t.confirm_assign') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onAssign(selected, true)">{{t('t.assign')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="assign-button" biit-button primary (click)="onAssign(selected, true)">{{ t('t.assign') }}</button>
       </div>
     </div>
 
@@ -36,10 +36,11 @@
               dark-bg no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_unassign')}}</div>
+      <div>{{ t('t.confirm_unassign') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onRemove(selected, true)">{{t('t.unassign')}}</button>
+        <button id="unassign-cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="unassign-button" biit-button primary (click)="onRemove(selected, true)">{{ t('t.unassign') }}
+        </button>
       </div>
     </div>
 

@@ -25,8 +25,8 @@
     <div class="vertical">
       <div style="text-align: center">{{t('t.confirm_assign_groups')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="assigningGroups = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="assignGroup(user_groups.selectedRows, true)">{{t('t.assign')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="assigningGroups = null">{{t('t.cancel')}}</button>
+        <button id="assign-button" biit-button primary (click)="assignGroup(user_groups.selectedRows, true)">{{t('t.assign')}}</button>
       </div>
     </div>
   </biit-popup>
@@ -37,8 +37,8 @@
     <div class="vertical">
       <div style="text-align: center">{{t('t.confirm_unassign_groups')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="unassigningGroups = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="unassignGroup(user_groups.selectedRows, true)">{{t('t.unassign')}}</button>
+        <button id="unassign-cancel-button" biit-button secondary (click)="unassigningGroups = null">{{t('t.cancel')}}</button>
+        <button id="unassign-button" biit-button primary (click)="unassignGroup(user_groups.selectedRows, true)">{{t('t.unassign')}}</button>
       </div>
     </div>
   </biit-popup>

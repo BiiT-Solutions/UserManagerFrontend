@@ -17,12 +17,12 @@
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="role != null" [title]="t('t.create_role')">
+  <biit-popup id="create-role" *ngIf="role != null" [title]="t('t.create_role')">
     <div>
       <biit-input-text [placeholder]="t('t.name')" [(ngModel)]="role"></biit-input-text>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onSave()">{{t('t.save')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
+        <button id="save-button" biit-button primary (click)="onSave()">{{t('t.save')}}</button>
       </div>
     </div>
   </biit-popup>
@@ -33,8 +33,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 

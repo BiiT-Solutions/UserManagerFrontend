@@ -36,18 +36,18 @@
               closable sixty-view
   >
     <div class="form">
-      <biit-input-text style="width: 100%"
+      <biit-input-text id="service-name" style="width: 100%"
                        [placeholder]="t('t.name')"
                        [(ngModel)]="editService.name"
                        [required] = "true"
                        [disabled]="mode == 'EDIT'"
       />
-      <biit-textarea
+      <biit-textarea  id="service-description"
         [(ngModel)]="editService.description"
         [placeholder]="t('t.description')"
         class="description"
       />
-      <div class="form-bottom">
+      <div id="save-button" class="form-bottom">
         <button biit-button primary style="display: block" (click)="onSave()">
           {{t('t.save')}}
         </button>
@@ -62,8 +62,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="delete-button" biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 

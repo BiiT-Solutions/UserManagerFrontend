@@ -36,8 +36,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="cancel-delete" biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 

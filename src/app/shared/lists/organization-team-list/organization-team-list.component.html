@@ -34,8 +34,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onRemoveTeam(selected, true)">{{t('t.delete')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="remove-button" biit-button primary (click)="onRemoveTeam(selected, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 
@@ -102,8 +102,8 @@
       <div class="vertical">
         <div>{{t('t.confirm_assign')}}</div>
         <div class="flex-grow horizontal buttons-row">
-          <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-          <button biit-button primary (click)="onAssignUser(selectedUsers, true)">{{t('t.assign')}}</button>
+          <button id="confirm-assign-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+          <button id="confirm-assign-button" biit-button primary (click)="onAssignUser(selectedUsers, true)">{{t('t.assign')}}</button>
         </div>
       </div>
 
@@ -115,8 +115,8 @@
       <div class="vertical">
         <div>{{('t.confirm_unassign')}}</div>
         <div class="flex-grow horizontal buttons-row">
-          <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-          <button biit-button primary (click)="onUnassignUser(selectedUsers, true)">{{t('t.unassign')}}</button>
+          <button id="confirm-unassign-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+          <button id="confirm-unassign-button" biit-button primary (click)="onUnassignUser(selectedUsers, true)">{{t('t.unassign')}}</button>
         </div>
       </div>
 

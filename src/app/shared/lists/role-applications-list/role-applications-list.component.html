@@ -36,8 +36,8 @@
         [(ngModel)]="applicationRole.id.application"
         [primitive]="false" label="id"></biit-dropdown>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="assignApplication()">{{t('t.assign')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
+        <button id="assign-button" biit-button primary (click)="assignApplication()">{{t('t.assign')}}</button>
       </div>
     </div>
 
@@ -49,8 +49,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 

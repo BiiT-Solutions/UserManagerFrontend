@@ -40,7 +40,7 @@
           [primitive]="false" label="name"></biit-dropdown>
       </div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="applicationBackendServiceRole = null">{{t('t.cancel')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="applicationBackendServiceRole = null">{{t('t.cancel')}}</button>
         <button biit-button primary (click)="assignRole()">{{t('t.assign')}}</button>
       </div>
     </div>
@@ -51,8 +51,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 
