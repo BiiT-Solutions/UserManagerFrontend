@@ -6,16 +6,16 @@
                   [pageSizeList]="pageSizes"
                   [loading]="loading"
                   selectable>
-    <button biit-icon icon="plus"
+    <button id="button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onAdd()"
     ></button>
-    <button biit-icon icon="minus"
+    <button id="button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(application_roles.selectedRows, false)"
             [disabled]="!application_roles.selectedRows.length"
     ></button>
-    <button biit-icon icon="linkage"
+    <button id="button-linkage" biit-icon icon="linkage"
             [title]="t('t.assign')"
             (click)="onAssign(application_roles.selectedRows)"
             [disabled]="application_roles.selectedRows.length !== 1"

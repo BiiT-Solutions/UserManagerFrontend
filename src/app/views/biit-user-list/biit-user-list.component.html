@@ -9,26 +9,26 @@
                     scrollbarH
                     selectable
     >
-      <button biit-icon icon="plus" *ngIf="Permission.USERS.CREATE | hasPermission"
+      <button id="button-plus" biit-icon icon="plus" *ngIf="Permission.USERS.CREATE | hasPermission"
               [title]="t('t.add')"
               (click)="onAdd()"
       ></button>
-      <button biit-icon icon="minus" *ngIf="Permission.USERS.DELETE | hasPermission"
+      <button id="button-minus" biit-icon icon="minus" *ngIf="Permission.USERS.DELETE | hasPermission"
               [title]="t('t.delete')"
               (click)="onDelete(table.selectedRows, false)"
               [disabled]="!table.selectedRows.length"
       ></button>
-      <button biit-icon icon="edit" *ngIf="Permission.USERS.EDIT | hasPermission"
+      <button id="button-edit" biit-icon icon="edit" *ngIf="Permission.USERS.EDIT | hasPermission"
               [title]="t('t.edit')"
               (click)="onEdit(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
       ></button>
-      <button biit-icon icon="linkage" *ngIf="Permission.USERS.PERMISSIONS | hasPermission"
+      <button id="button-linkage" biit-icon icon="linkage" *ngIf="Permission.USERS.PERMISSIONS | hasPermission"
               [title]="t('t.assign_roles')"
               (click)="onAssignRole(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
       ></button>
-      <button biit-icon icon="user_group" *ngIf="Permission.ROLE_GROUPS.ASSIGN | hasPermission"
+      <button id="button-group" biit-icon icon="user_group" *ngIf="Permission.ROLE_GROUPS.ASSIGN | hasPermission"
               [title]="t('t.assign_groups')"
               (click)="onAssignGroup(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"

@@ -8,21 +8,21 @@
                     [loading]="loading"
                     selectable
     >
-      <button biit-icon icon="plus" *ngIf="Permission.APPLICATIONS.CREATE | hasPermission"
+      <button id="button-plus" biit-icon icon="plus" *ngIf="Permission.APPLICATIONS.CREATE | hasPermission"
               [title]="t('t.add')"
               (click)="onAdd()"
       ></button>
-      <button biit-icon icon="minus" *ngIf="Permission.APPLICATIONS.DELETE | hasPermission"
+      <button id="button-minus" biit-icon icon="minus" *ngIf="Permission.APPLICATIONS.DELETE | hasPermission"
               [title]="t('t.delete')"
               (click)="onDelete(table.selectedRows, false)"
               [disabled]="!table.selectedRows.length"
       ></button>
-      <button biit-icon icon="edit" *ngIf="Permission.APPLICATIONS.EDIT | hasPermission"
+      <button id="button-edit" biit-icon icon="edit" *ngIf="Permission.APPLICATIONS.EDIT | hasPermission"
               [title]="t('t.edit')"
               (click)="onEdit(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
       ></button>
-      <button biit-icon icon="linkage" *ngIf="Permission.APPLICATIONS.PERMISSIONS | hasPermission"
+      <button id="button-linkage" biit-icon icon="linkage" *ngIf="Permission.APPLICATIONS.PERMISSIONS | hasPermission"
               [title]="t('t.assign')"
               (click)="onAssign(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
