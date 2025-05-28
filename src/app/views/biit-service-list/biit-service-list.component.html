@@ -48,7 +48,7 @@
         class="description"
       />
       <div class="form-bottom">
-        <button id="save-button" biit-button primary style="display: block" (click)="onSave()">
+        <button id="popup-service-save-button" biit-button primary style="display: block" (click)="onSave()">
           {{t('t.save')}}
         </button>
       </div>
@@ -62,8 +62,8 @@
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button id="delete-button" biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
       </div>
     </div>
 

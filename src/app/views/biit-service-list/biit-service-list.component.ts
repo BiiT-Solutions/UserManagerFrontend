@@ -98,7 +98,7 @@ export class BiitServiceListComponent implements OnInit {
       this.selected = services;
     } else {
       this.confirm = null;
-      combineLatest(services.map(service => this.backendService.deleteById(service.id)))
+      combineLatest(services.map(service => this.backendService.deleteById(service.name)))
         .subscribe({
           next: (): void => {
             this.loadServices();

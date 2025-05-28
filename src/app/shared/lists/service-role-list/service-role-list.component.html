@@ -6,23 +6,23 @@
                   [pageSizeList]="pageSizes"
                   [loading]="loading"
                   selectable>
-    <button id="button-plus" biit-icon icon="plus"
+    <button id="popup-service-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onAdd()"
     ></button>
-    <button id="button-minus" biit-icon icon="minus"
+    <button id="popup-service-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(service_roles.selectedRows, false)"
             [disabled]="!service_roles.selectedRows.length"
     ></button>
   </biit-datatable>
 
-  <biit-popup id="create-role" *ngIf="role != null" [title]="t('t.create_role')">
+  <biit-popup id="create-service-role" *ngIf="role != null" [title]="t('t.create_role')">
     <div>
       <biit-input-text [placeholder]="t('t.name')" [(ngModel)]="role"></biit-input-text>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
-        <button id="save-button" biit-button primary (click)="onSave()">{{t('t.save')}}</button>
+        <button id="popup-cancel-button" biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
+        <button id="popup-save-button" biit-button primary (click)="onSave()">{{t('t.save')}}</button>
       </div>
     </div>
   </biit-popup>

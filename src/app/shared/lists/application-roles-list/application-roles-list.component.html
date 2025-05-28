@@ -6,29 +6,29 @@
                   [pageSizeList]="pageSizes"
                   [loading]="loading"
                   selectable>
-    <button id="button-plus" biit-icon icon="plus"
+    <button id="popup-application-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onAdd()"
     ></button>
-    <button id="button-minus" biit-icon icon="minus"
+    <button id="popup-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(application_roles.selectedRows, false)"
             [disabled]="!application_roles.selectedRows.length"
     ></button>
-    <button id="button-linkage" biit-icon icon="linkage"
+    <button id="popup-button-linkage" biit-icon icon="linkage"
             [title]="t('t.assign')"
             (click)="onAssign(application_roles.selectedRows)"
             [disabled]="application_roles.selectedRows.length !== 1"
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="applicationRole"
+  <biit-popup *ngIf="applicationRole" id="create-application-role"
               (onClosed)="applicationRole = null"
               [title]="t('t.assign_role')"
               closable
   >
     <div class="vertical" style="margin-top: 0.5rem;">
-      <biit-dropdown
+      <biit-dropdown id="role-selector"
         [title]="t('t.roles')"
         [required]="true"
         [data]="availableRoles"

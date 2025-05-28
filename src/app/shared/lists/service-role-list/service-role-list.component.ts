@@ -18,7 +18,7 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
@@ -39,6 +39,7 @@ export class ServiceRoleListComponent implements OnInit {
               private biitSnackbarService: BiitSnackbarService,
               private transloco: TranslocoService) {
   }
+
   ngOnInit(): void {
     combineLatest(
       [
@@ -57,10 +58,10 @@ export class ServiceRoleListComponent implements OnInit {
     this.backendServiceRoleService.getByBackendServiceName(this.service.name).subscribe({
       next: data => {
         this.serviceRoles = data.map(BackendServiceRole.clone);
-        this.serviceRoles.sort((a,b) => {
-          if ( a.id.name < b.id.name ){
+        this.serviceRoles.sort((a, b) => {
+          if (a.id.name < b.id.name) {
             return -1;
-          } else if ( a.id.name > b.id.name ){
+          } else if (a.id.name > b.id.name) {
             return 1;
           } else {
             return 0;
@@ -92,20 +93,23 @@ export class ServiceRoleListComponent implements OnInit {
             );
           },
           error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
-      })
+        })
     }
   }
 
   protected onSave(): void {
     const role: BackendServiceRole = new BackendServiceRole();
-    role.id = new BackendServiceRoleId();
-    role.id.name = this.role;
-    role.id.backendService = this.service;
-    this.backendServiceRoleService.create(role).subscribe({
-      next: (): void => {
-        this.loadServiceRoles();
-      },
-      error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService),
-    }).add(() => this.role = undefined);
+    if (this.role) {
+      console.log(role)
+      role.id = new BackendServiceRoleId();
+      role.id.name = this.role;
+      role.id.backendService = this.service;
+      this.backendServiceRoleService.create(role).subscribe({
+        next: (): void => {
+          this.loadServiceRoles();
+        },
+        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService),
+      }).add(() => this.role = undefined);
+    }
   }
 }
