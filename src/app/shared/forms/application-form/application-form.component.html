@@ -6,7 +6,7 @@
   >
     <div class="form">
       <div class="tab-row-single">
-        <biit-input-text
+        <biit-input-text id="application-name"
           [placeholder]="t('t.name')"
           [(ngModel)]="application.id"
           [required] = "true"
@@ -15,7 +15,7 @@
         ></biit-input-text>
       </div>
       <div class="tab-row-single">
-        <biit-textarea
+        <biit-textarea id="application-description"
           [(ngModel)]="application.description"
           [placeholder]="t('t.description')"
           style="display: block"
