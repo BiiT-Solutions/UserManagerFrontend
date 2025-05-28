@@ -7,37 +7,37 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="button-plus" biit-icon icon="plus"
+    <button id="application-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onAdd()"
     ></button>
-    <button id="button-minus" biit-icon icon="minus"
+    <button id="application-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(application_roles.selectedRows, false)"
             [disabled]="!application_roles.selectedRows.length"
     ></button>
-    <button id="button-linkage" biit-icon icon="linkage"
+    <button id="application-button-linkage" biit-icon icon="linkage"
             [title]="t('t.assign')"
             (click)="onAssign(application_roles.selectedRows)"
             [disabled]="application_roles.selectedRows.length !== 1"
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="applicationRole"
+  <biit-popup *ngIf="applicationRole" id="assign-application-popup"
               (onClosed)="applicationRole = null"
               [title]="t('t.assign_application')"
               closable
   >
     <div class="vertical" style="margin-top: 0.5rem;">
-      <biit-dropdown
+      <biit-dropdown id="application-selector"
         [title]="t('t.applications')"
         [required]="true"
         [data]="availableApplication"
         [(ngModel)]="applicationRole.id.application"
         [primitive]="false" label="id"></biit-dropdown>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
-        <button id="assign-button" biit-button primary (click)="assignApplication()">{{t('t.assign')}}</button>
+        <button id="cancel-application-button" biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
+        <button id="assign-application-button" biit-button primary (click)="assignApplication()">{{t('t.assign')}}</button>
       </div>
     </div>
 

@@ -6,7 +6,7 @@
   >
     <div class="form">
       <div class="tab-row-single">
-        <biit-input-text
+        <biit-input-text id="role-name"
           [placeholder]="t('t.name')"
           [(ngModel)]="role.id"
           [required] = "true"
@@ -15,13 +15,13 @@
         ></biit-input-text>
       </div>
       <div class="tab-row-single">
-        <biit-textarea
+        <biit-textarea id="role-description"
           [(ngModel)]="role.description"
           [placeholder]="t('t.description')"
           style="display: block"
         ></biit-textarea>
       </div>
-      <div class="form-bottom">
+      <div class="form-bottom" id="save-role-button">
         <button biit-button primary style="display: block" (click)="onSave()">
           {{t('save')}}
         </button>

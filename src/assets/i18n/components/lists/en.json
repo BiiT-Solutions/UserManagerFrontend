@@ -19,7 +19,7 @@
   "description": "Description",
   "confirm_delete": "Are you sure you want to proceed with deleting?",
   "assign_role": "Assign role",
-  "assign_application": "Assign role",
+  "assign_application": "Assign Application",
   "no_roles_available": "No roles available to assign.",
   "no_applications_available": "No roles available to assign.",
   "no_role_selected": "Please, select a role first.",
