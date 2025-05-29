@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div class="table-view">
-    <biit-datatable #table
+    <biit-datatable id="role-table" #table
                     [columns]="columns"
                     [data]="roles"
                     [pageSize]="pageSize"
@@ -30,8 +30,8 @@
     </biit-datatable>
   </div>
 
-  <biit-popup
-    *ngIf="confirm === 'DELETE'" dark-bg no-header>
+  <biit-popup id="confirmation-delete-popup"
+              *ngIf="confirm === 'DELETE'" dark-bg no-header>
     <div class="vertical">
       <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
@@ -50,7 +50,7 @@
                   (onSaved)="onSaved()"
   ></biit-role-form>
 
-  <biit-popup *ngIf="role" [title]="role.id + ' ' +  t('t.applications')" (onClosed)="role = null" sixty-view closable>
+  <biit-popup id="role-popup" *ngIf="role" [title]="role.id + ' ' +  t('t.applications')" (onClosed)="role = null" sixty-view closable>
     <biit-role-applications-list
       [role]="role"
       style="width: 100%"

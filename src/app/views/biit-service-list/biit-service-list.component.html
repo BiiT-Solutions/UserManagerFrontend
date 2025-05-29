@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div class="table-view">
-    <biit-datatable #table
+    <biit-datatable id="service-table" #table
                     [columns]="columns"
                     [data]="services"
                     [pageSize]="pageSize"
@@ -30,7 +30,7 @@
     </biit-datatable>
   </div>
 
-  <biit-popup *ngIf="editService"
+  <biit-popup id="service-popup" *ngIf="editService"
               [title]="mode === 'EDIT' ? t('t.edit_service') : t('t.new_service')"
               (onClosed)="editService = null"
               closable sixty-view
@@ -39,37 +39,38 @@
       <biit-input-text id="service-name" style="width: 100%"
                        [placeholder]="t('t.name')"
                        [(ngModel)]="editService.name"
-                       [required] = "true"
+                       [required]="true"
                        [disabled]="mode == 'EDIT'"
       />
-      <biit-textarea  id="service-description"
-        [(ngModel)]="editService.description"
-        [placeholder]="t('t.description')"
-        class="description"
+      <biit-textarea id="service-description"
+                     [(ngModel)]="editService.description"
+                     [placeholder]="t('t.description')"
+                     class="description"
       />
       <div class="form-bottom">
         <button id="popup-service-save-button" biit-button primary style="display: block" (click)="onSave()">
-          {{t('t.save')}}
+          {{ t('t.save') }}
         </button>
       </div>
     </div>
 
   </biit-popup>
 
-  <biit-popup *ngIf="confirm === 'DELETE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'"
               dark-bg no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_delete')}}</div>
+      <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selected, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selected, true)">{{ t('t.delete') }}
+        </button>
       </div>
     </div>
 
   </biit-popup>
 
-  <biit-popup *ngIf="assignService"
+  <biit-popup id="role-popup" *ngIf="assignService"
               [title]="assignService.name + ' ' + ('roles' | transloco)"
               (onClosed)="assignService = null"
               closable sixty-view

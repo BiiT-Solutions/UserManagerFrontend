@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable #teamsTable
+  <biit-datatable id="teams-table" #teamsTable
                   [columns]="columns"
                   [data]="teams"
                   [pageSize]="10"
@@ -28,7 +28,7 @@
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="confirm === 'REMOVE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'REMOVE'"
               no-header
   >
     <div class="vertical">
@@ -75,7 +75,7 @@
               [title]="t('t.assign_users') + ': ' + manageTeam.name"
               (onClosed)="manageTeam = undefined; users = undefined;"
   >
-    <biit-datatable #usersTable
+    <biit-datatable id="users-table" #usersTable
                     [columns]="userColumns"
                     [data]="users"
                     [pageSize]="pageSize"
@@ -96,7 +96,7 @@
       ></button>
     </biit-datatable>
 
-    <biit-popup *ngIf="confirm === 'ASSIGN'"
+    <biit-popup id="confirmation-assign-popup" *ngIf="confirm === 'ASSIGN'"
                 no-header
     >
       <div class="vertical">
@@ -109,7 +109,7 @@
 
     </biit-popup>
 
-    <biit-popup *ngIf="confirm === 'UNASSIGN'"
+    <biit-popup id="confirmation-unassign-popup" *ngIf="confirm === 'UNASSIGN'"
                 no-header
     >
       <div class="vertical">

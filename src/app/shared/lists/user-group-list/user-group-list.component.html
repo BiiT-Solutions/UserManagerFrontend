@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable #user_groups
+  <biit-datatable id="user-groups-table" #user_groups
                   [columns]="columns"
                   [data]="userGroups"
                   [pageSize]="pageSize"
@@ -19,26 +19,32 @@
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="assigningGroups"
+  <biit-popup id="user-group-assign-popup" *ngIf="assigningGroups"
               no-header
   >
     <div class="vertical">
-      <div style="text-align: center">{{t('t.confirm_assign_groups')}}</div>
+      <div style="text-align: center">{{ t('t.confirm_assign_groups') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="assigningGroups = null">{{t('t.cancel')}}</button>
-        <button id="assign-button" biit-button primary (click)="assignGroup(user_groups.selectedRows, true)">{{t('t.assign')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="assigningGroups = null">{{ t('t.cancel') }}</button>
+        <button id="assign-button" biit-button primary
+                (click)="assignGroup(user_groups.selectedRows, true)">{{ t('t.assign') }}
+        </button>
       </div>
     </div>
   </biit-popup>
 
-  <biit-popup *ngIf="unassigningGroups"
+  <biit-popup id="user-group-unassign-popup" *ngIf="unassigningGroups"
               no-header
   >
     <div class="vertical">
-      <div style="text-align: center">{{t('t.confirm_unassign_groups')}}</div>
+      <div style="text-align: center">{{ t('t.confirm_unassign_groups') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="unassign-cancel-button" biit-button secondary (click)="unassigningGroups = null">{{t('t.cancel')}}</button>
-        <button id="unassign-button" biit-button primary (click)="unassignGroup(user_groups.selectedRows, true)">{{t('t.unassign')}}</button>
+        <button id="unassign-cancel-button" biit-button secondary
+                (click)="unassigningGroups = null">{{ t('t.cancel') }}
+        </button>
+        <button id="unassign-button" biit-button primary
+                (click)="unassignGroup(user_groups.selectedRows, true)">{{ t('t.unassign') }}
+        </button>
       </div>
     </div>
   </biit-popup>

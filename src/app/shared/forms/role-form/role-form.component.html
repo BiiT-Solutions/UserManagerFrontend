@@ -1,5 +1,6 @@
 <ng-container *transloco="let t">
-  <biit-popup *ngIf="type !== RoleFormType.ASSIGN"
+  <biit-popup id="role-popup"
+              *ngIf="type !== RoleFormType.ASSIGN"
               [title]="t('t.'+type)"
               (onClosed)="onClosed.emit()"
               closable sixty-view
@@ -21,8 +22,8 @@
           style="display: block"
         ></biit-textarea>
       </div>
-      <div class="form-bottom" id="save-role-button">
-        <button biit-button primary style="display: block" (click)="onSave()">
+      <div class="form-bottom">
+        <button id="save-role-button" biit-button primary style="display: block" (click)="onSave()">
           {{t('save')}}
         </button>
       </div>

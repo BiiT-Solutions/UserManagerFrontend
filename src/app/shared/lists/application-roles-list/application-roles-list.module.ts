@@ -7,7 +7,7 @@ import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitDropdownModule} from "biit-ui/inputs";
 import {FormsModule} from "@angular/forms";
-import {AplicationRoleServicesModule} from "../aplication-role-services/aplication-role-services.module";
+import {ApplicationRoleServicesModule} from "../application-role-services/application-role-services.module";
 
 
 
@@ -27,7 +27,7 @@ import {AplicationRoleServicesModule} from "../aplication-role-services/aplicati
     BiitDropdownModule,
     BiitButtonModule,
     FormsModule,
-    AplicationRoleServicesModule
+    ApplicationRoleServicesModule
   ]
 })
 export class ApplicationRolesListModule { }

@@ -1,39 +1,39 @@
 <ng-container *transloco="let t">
-  <biit-datatable #application_roles
+  <biit-datatable id="role-table" #application_roles
                   [columns]="columns"
                   [data]="roles"
                   [pageSize]="pageSize"
                   [pageSizeList]="pageSizes"
                   [loading]="loading"
                   selectable>
-    <button id="popup-application-button-plus" biit-icon icon="plus"
+    <button id="popup-application-roles-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onAdd()"
     ></button>
-    <button id="popup-application-button-minus" biit-icon icon="minus"
+    <button id="popup-application-roles-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(application_roles.selectedRows, false)"
             [disabled]="!application_roles.selectedRows.length"
     ></button>
-    <button id="popup-application-button-linkage" biit-icon icon="linkage"
+    <button id="popup-application-roles-button-linkage" biit-icon icon="linkage"
             [title]="t('t.assign')"
             (click)="onAssign(application_roles.selectedRows)"
             [disabled]="application_roles.selectedRows.length !== 1"
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="applicationRole" id="create-application-role"
+  <biit-popup id="application-role-selector-popup" *ngIf="applicationRole"
               (onClosed)="applicationRole = null"
               [title]="t('t.assign_role')"
               closable
   >
     <div class="vertical" style="margin-top: 0.5rem;">
       <biit-dropdown id="role-selector"
-        [title]="t('t.roles')"
-        [required]="true"
-        [data]="availableRoles"
-        [(ngModel)]="applicationRole.id.role"
-        [primitive]="false" label="id"></biit-dropdown>
+                     [title]="t('t.roles')"
+                     [required]="true"
+                     [data]="availableRoles"
+                     [(ngModel)]="applicationRole.id.role"
+                     [primitive]="false" label="id"></biit-dropdown>
       <div class="flex-grow horizontal buttons-row">
         <button id="cancel-button" biit-button secondary (click)="applicationRole = null">{{ t('t.cancel') }}</button>
         <button id="assign-button" biit-button primary (click)="assignRole()">{{ t('t.assign') }}</button>
@@ -42,8 +42,7 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="confirm === 'DELETE'"
-              dark-bg no-header
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'" dark-bg no-header
   >
     <div class="vertical">
       <div>{{ t('t.confirm_delete') }}</div>
@@ -57,12 +56,12 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="applicationRoleToAssign"
+  <biit-popup id="application-role-assign-popup" *ngIf="applicationRoleToAssign"
               [title]="t('t.background_services')"
               (onClosed)="applicationRoleToAssign = null"
               closable
               sixty-view
   >
-    <biit-aplication-role-services [applicationRole]="applicationRoleToAssign" style="width: 100%;"/>
+    <biit-application-role-services [applicationRole]="applicationRoleToAssign" style="width: 100%;"/>
   </biit-popup>
 </ng-container>

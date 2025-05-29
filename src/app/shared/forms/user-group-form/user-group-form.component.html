@@ -1,5 +1,6 @@
 <ng-container *transloco="let t">
-  <biit-popup [title]="userGroup.id ? t('t.editUserGroup') : t('t.newUserGroup')"
+  <biit-popup id="user-group-popup"
+              [title]="userGroup.id ? t('t.editUserGroup') : t('t.newUserGroup')"
               (onClosed)="onClosed.emit()"
               closable sixty-view
   >
@@ -21,7 +22,7 @@
       </div>
       <div class="form-bottom">
         <button biit-button primary style="display: block" (click)="onSave()">
-          {{t('save')}}
+          {{ t('save') }}
         </button>
       </div>
     </div>

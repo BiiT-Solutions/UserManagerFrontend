@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div class="table-view">
-    <biit-datatable #table
+    <biit-datatable #table  id="users-table"
                     [columns]="columns"
                     [data]="users"
                     [pageSize]="pageSize"
@@ -42,7 +42,7 @@
                   (onSaved)="onSaved()"
   />
 
-  <biit-popup *ngIf="confirm === 'DELETE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'"
               no-header
   >
     <div class="vertical">
@@ -55,7 +55,7 @@
     </div>
   </biit-popup>
 
-  <biit-popup *ngIf="assignRole"
+  <biit-popup id="role-popup"  *ngIf="assignRole"
               [title]="t('t.assign_roles')"
               (onClosed)="assignRole = null"
               sixty-view
@@ -64,7 +64,7 @@
     <biit-user-role-list [user]="assignRole" style="width: 100%"/>
   </biit-popup>
 
-  <biit-popup *ngIf="assignGroup"
+  <biit-popup id="user-group-popup"  *ngIf="assignGroup"
               [title]="t('t.assign_groups')"
               (onClosed)="assignGroup = null"
               sixty-view

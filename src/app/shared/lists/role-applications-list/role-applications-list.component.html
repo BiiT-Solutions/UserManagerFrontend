@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable #application_roles
+  <biit-datatable id="application-role-table" #application_roles
                   [columns]="columns"
                   [data]="applicationRoles"
                   [pageSize]="pageSize"
@@ -43,7 +43,7 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="confirm === 'DELETE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'"
               dark-bg no-header
   >
     <div class="vertical">
@@ -56,12 +56,13 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="applicationRoleToAssign"
+  <biit-popup id="service-role-popup"
+              *ngIf="applicationRoleToAssign"
               [title]="t('t.background_services')"
               (onClosed)="applicationRoleToAssign = null"
               closable
               sixty-view
   >
-    <biit-aplication-role-services [applicationRole]="applicationRoleToAssign" style="width: 100%;"/>
+    <biit-application-role-services [applicationRole]="applicationRoleToAssign" style="width: 100%;"/>
   </biit-popup>
 </ng-container>

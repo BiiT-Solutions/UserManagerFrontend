@@ -1,5 +1,6 @@
 <ng-container *transloco="let t">
-  <biit-popup [title]="organization.id ? t('t.edit_organization') : t('t.new_organization')"
+  <biit-popup id="organization-popup"
+              [title]="organization.id ? t('t.edit_organization') : t('t.new_organization')"
               (onClosed)="onClosed.emit()"
               closable sixty-view
   >
@@ -22,7 +23,7 @@
       </div>
       <div class="form-bottom">
         <button biit-button primary style="display: block" (click)="onSave()">
-          {{t('save')}}
+          {{ t('save') }}
         </button>
       </div>
     </div>

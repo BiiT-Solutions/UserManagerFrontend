@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div class="table-view">
-    <biit-datatable #table
+    <biit-datatable id="organization-table" #table
                     [columns]="columns"
                     [data]="organizations"
                     [pageSize]="pageSize"
@@ -36,7 +36,7 @@
                           (onSaved)="onSaved()"
   >
   </biit-organization-form>
-  <biit-popup *ngIf="confirm === 'DELETE'" no-header
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'" no-header
   >
     <div class="vertical">
       <div>{{t('t.confirm_delete')}}</div>
@@ -48,7 +48,7 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="manage"
+  <biit-popup id="team-popup" *ngIf="manage"
               [title]="t('t.teams')"
               (onClosed)="manage = null"
               sixty-view

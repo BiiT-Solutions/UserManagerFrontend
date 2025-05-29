@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable #user_roles
+  <biit-datatable id="user-role-table" #user_roles
                   [columns]="columns"
                   [data]="roles"
                   [pageSize]="pageSize"
@@ -18,20 +18,21 @@
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="confirm === 'DELETE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'"
               dark-bg no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_delete')}}</div>
+      <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button id="delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{ t('t.delete') }}
+        </button>
       </div>
     </div>
 
   </biit-popup>
 
-  <biit-popup *ngIf="applicationRole"
+  <biit-popup id="user-role-popup" *ngIf="applicationRole"
               (onClosed)="applicationRole = null"
               [title]="t('t.assign_role')"
               closable
@@ -54,8 +55,9 @@
           [primitive]="false" label="id"></biit-dropdown>
       </div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="role-cancel-button" biit-button secondary (click)="applicationRole = null">{{t('t.cancel')}}</button>
-        <button id="role-assign-button" biit-button primary (click)="assignRole()">{{t('t.assign')}}</button>
+        <button id="role-cancel-button" biit-button secondary (click)="applicationRole = null">{{ t('t.cancel') }}
+        </button>
+        <button id="role-assign-button" biit-button primary (click)="assignRole()">{{ t('t.assign') }}</button>
       </div>
     </div>
   </biit-popup>

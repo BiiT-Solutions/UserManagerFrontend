@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable #userTable
+  <biit-datatable id="user-table" #userTable
                   [columns]="columns"
                   [data]="users"
                   [pageSize]="pageSize"
@@ -19,7 +19,7 @@
     ></button>
   </biit-datatable>
 
-  <biit-popup *ngIf="confirm === 'ASSIGN'"
+  <biit-popup id="confirmation-popup" *ngIf="confirm === 'ASSIGN'"
               dark-bg no-header
   >
     <div class="vertical">
@@ -32,7 +32,7 @@
 
   </biit-popup>
 
-  <biit-popup *ngIf="confirm === 'REMOVE'"
+  <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'REMOVE'"
               dark-bg no-header
   >
     <div class="vertical">

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AplicationRoleServicesComponent} from './aplication-role-services.component';
+import {ApplicationRoleServicesComponent} from './application-role-services.component';
 import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
 import {BiitDatatableModule} from "biit-ui/table";
 import {TranslocoModule} from "@ngneat/transloco";
@@ -11,10 +11,10 @@ import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AplicationRoleServicesComponent
+    ApplicationRoleServicesComponent
   ],
   exports: [
-    AplicationRoleServicesComponent
+    ApplicationRoleServicesComponent
   ],
   imports: [
     CommonModule,
@@ -27,4 +27,4 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ]
 })
-export class AplicationRoleServicesModule { }
+export class ApplicationRoleServicesModule { }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AplicationRoleServicesComponent } from './aplication-role-services.component';
+import { ApplicationRoleServicesComponent } from './application-role-services.component';
 
 describe('AplicationRoleServicesComponent', () => {
-  let component: AplicationRoleServicesComponent;
-  let fixture: ComponentFixture<AplicationRoleServicesComponent>;
+  let component: ApplicationRoleServicesComponent;
+  let fixture: ComponentFixture<ApplicationRoleServicesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AplicationRoleServicesComponent ]
+      declarations: [ ApplicationRoleServicesComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AplicationRoleServicesComponent);
+    fixture = TestBed.createComponent(ApplicationRoleServicesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

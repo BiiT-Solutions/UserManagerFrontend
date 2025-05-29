@@ -14,9 +14,9 @@ import {combineLatest} from "rxjs";
 import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
-  selector: 'biit-aplication-role-services',
-  templateUrl: './aplication-role-services.component.html',
-  styleUrls: ['./aplication-role-services.component.scss'],
+  selector: 'biit-application-role-services',
+  templateUrl: './application-role-services.component.html',
+  styleUrls: ['./application-role-services.component.scss'],
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
@@ -25,7 +25,7 @@ import {ErrorHandler} from "biit-ui/utils";
     }
   ]
 })
-export class AplicationRoleServicesComponent implements OnInit{
+export class ApplicationRoleServicesComponent implements OnInit{
 
   @Input() applicationRole: ApplicationRole;
 
