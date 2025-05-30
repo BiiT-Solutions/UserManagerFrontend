@@ -7,21 +7,21 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="button-plus" biit-icon icon="plus"
+    <button id="organization-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onCommand(undefined, 'ADD')"
     ></button>
-    <button id="button-minus" biit-icon icon="minus"
+    <button id="organization-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             [disabled]="teamsTable.selectedRows.length < 1"
             (click)="onRemoveTeam(teamsTable.selectedRows,false)"
     ></button>
-    <button id="button-edit" biit-icon icon="edit"
+    <button id="organization-button-edit" biit-icon icon="edit"
             [title]="t('t.edit')"
             [disabled]="teamsTable.selectedRows.length !== 1"
             (click)="onCommand(teamsTable.selectedRows[0], 'EDIT')"
     ></button>
-    <button id="button-user" biit-icon icon="user_single"
+    <button id="organization-button-user" biit-icon icon="user_single"
             [title]="t('t.assign')"
             [disabled]="teamsTable.selectedRows.length !== 1"
             (click)="onManageTeam(teamsTable.selectedRows[0])"

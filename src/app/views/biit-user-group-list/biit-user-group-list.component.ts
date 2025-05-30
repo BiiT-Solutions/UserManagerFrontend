@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatatableColumn} from "biit-ui/table";
-import {SessionService, UserGroup, UserGroupService} from "user-manager-structure-lib";
+import {UserGroup, UserGroupService} from "user-manager-structure-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
@@ -15,7 +15,7 @@ import {Permission} from "../../config/rbac/permission";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
@@ -37,7 +37,6 @@ export class BiitUserGroupListComponent implements OnInit {
 
   constructor(private userGroupService: UserGroupService,
               private biitSnackbarService: BiitSnackbarService,
-              private sessionService: SessionService,
               private _datePipe: DatePipe,
               private transloco: TranslocoService) {
   }
@@ -51,15 +50,17 @@ export class BiitUserGroupListComponent implements OnInit {
       [
         this.transloco.selectTranslate('id'),
         this.transloco.selectTranslate('name'),
+        this.transloco.selectTranslate('description'),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),
         this.transloco.selectTranslate('updatedAt'),
       ]
-    ).subscribe(([id, name, createdBy, createdAt, updatedBy, updatedAt]) => {
+    ).subscribe(([id, name, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
         new DatatableColumn(id, 'id', false, 80),
         new DatatableColumn(name, 'name'),
+        new DatatableColumn(description, 'description'),
         new DatatableColumn(createdBy, 'createdBy', false),
         new DatatableColumn(createdAt, 'createdAt', undefined, undefined, undefined, this.datePipe()),
         new DatatableColumn(updatedBy, 'updatedBy', false),
@@ -71,13 +72,13 @@ export class BiitUserGroupListComponent implements OnInit {
 
   private loadData(): void {
     this.loading = true;
-    this.userGroupService.getAll().subscribe( {
+    this.userGroupService.getAll().subscribe({
       next: (userGroups: UserGroup[]): void => {
         this.userGroups = userGroups.map(userGroup => UserGroup.clone(userGroup));
-        this.userGroups.sort((a,b) => {
-          if ( a.name < b.name ){
+        this.userGroups.sort((a, b) => {
+          if (a.name < b.name) {
             return -1;
-          } else if ( a.name > b.name ){
+          } else if (a.name > b.name) {
             return 1;
           } else {
             return 0;
@@ -129,5 +130,5 @@ export class BiitUserGroupListComponent implements OnInit {
     this.assignUsers = selectedRows[0];
   }
 
-    protected readonly Permission = Permission;
+  protected readonly Permission = Permission;
 }

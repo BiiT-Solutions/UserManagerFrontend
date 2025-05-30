@@ -6,7 +6,7 @@
   >
     <div class="form">
       <div class="tab-row-single">
-        <biit-input-text
+        <biit-input-text id="group-name"
           [placeholder]="t('name')"
           [(ngModel)]="userGroup.name"
           [required]="true"
@@ -14,14 +14,15 @@
         ></biit-input-text>
       </div>
       <div class="tab-row-single">
-        <biit-textarea
+        <biit-textarea id="group-description"
           [(ngModel)]="userGroup.description"
           [placeholder]="t('description')"
           style="display: block"
         ></biit-textarea>
       </div>
       <div class="form-bottom">
-        <button biit-button primary style="display: block" (click)="onSave()">
+        <button id="popup-group-save-button"
+          biit-button primary style="display: block" (click)="onSave()">
           {{ t('save') }}
         </button>
       </div>

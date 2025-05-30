@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div class="table-view">
-    <biit-datatable id="service-table" #table
+    <biit-datatable id="user-groups-table" #table
                     [columns]="columns"
                     [data]="userGroups"
                     [pageSize]="pageSize"
@@ -48,8 +48,8 @@
     <div class="vertical">
       <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
-        <button id="delete-button" biit-button primary (click)="onDelete(selected, true)">{{ t('t.delete') }}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selected, true)">{{ t('t.delete') }}</button>
       </div>
     </div>
   </biit-popup>
