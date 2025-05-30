@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <biit-datatable id="user-table" #userTable
+  <biit-datatable id="users-table" #userTable
                   [columns]="columns"
                   [data]="users"
                   [pageSize]="pageSize"
@@ -7,12 +7,12 @@
                   [loading]="loading"
                   selectable scrollbarH
   >
-    <button biit-icon icon="user_add"
+    <button  id="popup-assign-button" biit-icon icon="user_add"
             [title]="t('t.assign')"
             [disabled]="!userTable.selectedRows.length"
             (click)="onAssign(userTable.selectedRows, false)"
     ></button>
-    <button biit-icon icon="user_remove"
+    <button  id="popup-unassign-button" biit-icon icon="user_remove"
             [title]="t('t.unassign')"
             [disabled]="!userTable.selectedRows.length"
             (click)="onRemove(userTable.selectedRows, false)"

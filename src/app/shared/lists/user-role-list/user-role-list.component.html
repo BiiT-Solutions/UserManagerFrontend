@@ -7,11 +7,11 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="button-plus" biit-icon icon="plus"
+    <button id="user-role-button-plus" biit-icon icon="plus"
             (click)="onAdd()"
             [title]="t('t.add')"
     ></button>
-    <button id="button-minus" biit-icon icon="minus"
+    <button id="user-role-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             (click)="onDelete(user_roles.selectedRows, false)"
             [disabled]="!user_roles.selectedRows.length"
@@ -39,14 +39,14 @@
   >
     <div class="vertical" style="margin-top: 0.5rem;">
       <div class="horizontal gap">
-        <biit-dropdown
+        <biit-dropdown id="application-selector"
           [title]="t('t.applications')"
           [required]="true"
           [data]="allApplications"
           [(ngModel)]="applicationRole.id.application"
           (ngModelChange)="loadApplicationRoles($event)"
           [primitive]="false" label="id"></biit-dropdown>
-        <biit-dropdown
+        <biit-dropdown id="role-selector"
           [title]="t('t.roles')"
           [required]="true"
           [disabled]="!allApplicationRoles || !allApplicationRoles.length"

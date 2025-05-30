@@ -63,7 +63,7 @@
     <biit-user-group-role-list [userGroup]="assignAppRoles" style="width: 100%"/>
   </biit-popup>
 
-  <biit-popup id="user-popup" *ngIf="assignUsers"
+  <biit-popup id="assign-users-to-group" *ngIf="assignUsers"
               [title]="t('t.assign_users')"
               (onClosed)="assignUsers = null"
               sixty-view
