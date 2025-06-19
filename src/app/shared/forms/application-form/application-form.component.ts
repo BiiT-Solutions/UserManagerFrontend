@@ -44,6 +44,17 @@ export class ApplicationFormComponent {
       {
         next: (application: Application): void => {
           this.onSaved.emit(Application.clone(application));
+          let message: string;
+          if (this.type == ApplicationFormType.CREATE) {
+            message = 'request_success';
+          } else {
+            message = 'update_request_success';
+          }
+          this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }

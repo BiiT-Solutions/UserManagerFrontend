@@ -107,6 +107,11 @@ export class ServiceRoleListComponent implements OnInit {
       this.backendServiceRoleService.create(role).subscribe({
         next: (): void => {
           this.loadServiceRoles();
+          this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService),
       }).add(() => this.role = undefined);

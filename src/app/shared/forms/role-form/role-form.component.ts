@@ -3,7 +3,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import { FormValidationFields } from '../../validations/form-validation-fields';
+import {FormValidationFields} from '../../validations/form-validation-fields';
 import {ErrorHandler} from "biit-ui/utils";
 
 @Component({
@@ -13,7 +13,7 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
@@ -33,7 +33,9 @@ export class RoleFormComponent {
   constructor(private roleService: RoleService,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
-              ) { }
+  ) {
+  }
+
   protected onSave(): void {
     if (!this.validate()) {
       this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
@@ -44,11 +46,23 @@ export class RoleFormComponent {
       {
         next: (role: Role): void => {
           this.onSaved.emit(Role.clone(role));
+          let message: string;
+          if (this.type == RoleFormType.CREATE) {
+            message = 'request_success';
+          } else {
+            message = 'update_request_success';
+          }
+          this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }
+
   protected validate(): boolean {
     this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;

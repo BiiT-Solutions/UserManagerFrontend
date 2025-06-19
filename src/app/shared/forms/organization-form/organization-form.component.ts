@@ -13,7 +13,7 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
@@ -32,7 +32,8 @@ export class OrganizationFormComponent {
               protected sessionService: SessionService,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
-              ) { }
+  ) {
+  }
 
   protected onSave(): void {
     if (!this.validate()) {
@@ -44,11 +45,23 @@ export class OrganizationFormComponent {
       {
         next: (organization: Organization): void => {
           this.onSaved.emit(Organization.clone(organization));
+          let message: string;
+          if (!this.organization.id) {
+            message = 'request_success';
+          } else {
+            message = 'update_request_success';
+          }
+          this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
+            translation => {
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+            }
+          );
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
     );
   }
+
   protected validate(): boolean {
     this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;

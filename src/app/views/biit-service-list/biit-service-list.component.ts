@@ -15,7 +15,7 @@ import {Permission} from "../../config/rbac/permission";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
@@ -45,14 +45,14 @@ export class BiitServiceListComponent implements OnInit {
 
   ngOnInit(): void {
     combineLatest(
-        [
-          this.transloco.selectTranslate('name', {}),
-          this.transloco.selectTranslate('description'),
-          this.transloco.selectTranslate('createdBy'),
-          this.transloco.selectTranslate('createdAt'),
-          this.transloco.selectTranslate('updatedBy'),
-          this.transloco.selectTranslate('updatedAt'),
-        ]
+      [
+        this.transloco.selectTranslate('name', {}),
+        this.transloco.selectTranslate('description'),
+        this.transloco.selectTranslate('createdBy'),
+        this.transloco.selectTranslate('createdAt'),
+        this.transloco.selectTranslate('updatedBy'),
+        this.transloco.selectTranslate('updatedAt'),
+      ]
     ).subscribe(([name, description, createdBy, createdAt, updatedBy, updatedAt]) => {
       this.columns = [
         new DatatableColumn(name, 'name'),
@@ -72,10 +72,10 @@ export class BiitServiceListComponent implements OnInit {
     this.backendService.getAll().subscribe({
       next: (services: BackendService[]): void => {
         this.services = services.map(BackendService.clone);
-        this.services.sort((a,b) => {
-          if ( a.name < b.name ){
+        this.services.sort((a, b) => {
+          if (a.name < b.name) {
             return -1;
-          } else if ( a.name > b.name ){
+          } else if (a.name > b.name) {
             return 1;
           } else {
             return 0;
@@ -102,14 +102,14 @@ export class BiitServiceListComponent implements OnInit {
         .subscribe({
           next: (): void => {
             this.loadServices();
-            this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
+            this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
                 this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
               }
             );
           },
           error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
-      });
+        });
     }
   }
 
@@ -128,6 +128,17 @@ export class BiitServiceListComponent implements OnInit {
       next: (): void => {
         this.editService = undefined;
         this.loadServices();
+        let message: string;
+        if (this.mode === "NEW") {
+          message = 'request_success';
+        } else {
+          message = 'update_request_success';
+        }
+        this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
+          translation => {
+            this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+          }
+        );
       },
       error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });
@@ -137,5 +148,5 @@ export class BiitServiceListComponent implements OnInit {
     this.assignService = selectedRows[0];
   }
 
-    protected readonly Permission = Permission;
+  protected readonly Permission = Permission;
 }
