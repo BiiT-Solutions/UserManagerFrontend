@@ -58,7 +58,7 @@ export class UserFormComponent implements OnInit {
 
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING);
       return;
     }
     if (this.user.id && this.user.password && this.user.password === this.pwdVerification) {
@@ -67,9 +67,9 @@ export class UserFormComponent implements OnInit {
         this.userService.updatePassword(this.user.username, passwordRequest) : this.userService.updateCurrentPassword(passwordRequest);
       observable.subscribe({
         next: (): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.SUCCESS, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_success'), NotificationType.SUCCESS);
         }, error: (): void => {
-          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_failed'), NotificationType.WARNING, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.password_change_failed'), NotificationType.WARNING);
         }
       })
     }
@@ -78,7 +78,7 @@ export class UserFormComponent implements OnInit {
       {
         next: (user: User): void => {
           this.onSaved.emit(User.clone(user));
-          this.biitSnackbarService.showNotification(this.transloco.translate('t.user_created_success'), NotificationType.SUCCESS, null, 5);
+          this.biitSnackbarService.showNotification(this.transloco.translate('t.user_created_success'), NotificationType.SUCCESS);
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }

@@ -53,7 +53,7 @@ export class BiitLoginPageComponent implements OnInit {
         if (!this.canAccess(user)) {
           this.waiting = false;
           this.translocoService.selectTranslate('403', {}, {scope:'biit-ui/utils'}).subscribe(msg => {
-            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR, null, 5);
+            this.biitSnackbarService.showNotification(msg, NotificationType.ERROR);
           });
           return;
         }
@@ -77,7 +77,7 @@ export class BiitLoginPageComponent implements OnInit {
       const queryParams: {[key: string]: string} = {};
       if (params[Constants.PATHS.QUERY.EXPIRED] !== undefined) {
         this.translocoService.selectTranslate(Constants.PATHS.QUERY.EXPIRED, {},  {scope: 'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.INFO, null, 5);
+          this.biitSnackbarService.showNotification(msg, NotificationType.INFO);
         });
         queryParams[Constants.PATHS.QUERY.EXPIRED] = null;
       }
@@ -85,7 +85,7 @@ export class BiitLoginPageComponent implements OnInit {
         this.sessionService.clearToken();
         this.permissionService.clear();
         this.translocoService.selectTranslate(Constants.PATHS.QUERY.LOGOUT, {},  {scope: 'biit-ui/utils'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS, null, 5);
+          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS);
         });
         queryParams[Constants.PATHS.QUERY.LOGOUT] = null;
       }
@@ -97,7 +97,7 @@ export class BiitLoginPageComponent implements OnInit {
     this.userService.resetPassword(email).subscribe({
       next: () => {
         this.translocoService.selectTranslate('success', {},  {scope: 'biit-ui/login'}).subscribe(msg => {
-          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS, null, 5);
+          this.biitSnackbarService.showNotification(msg, NotificationType.SUCCESS);
         });
       },
       error: error => ErrorHandler.notify(error, this.translocoService, this.biitSnackbarService)

@@ -113,7 +113,7 @@ export class UserGroupListComponent implements AfterViewInit, AfterViewChecked {
       next: (): void => {
         this.loadData();
         this.assigningGroups = null;
-        this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_assign_success'), NotificationType.SUCCESS, null, 5);
+        this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_assign_success'), NotificationType.SUCCESS);
       },
       error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });
@@ -128,7 +128,7 @@ export class UserGroupListComponent implements AfterViewInit, AfterViewChecked {
       next: (): void => {
         this.loadData();
         this.unassigningGroups = null;
-        this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_unassign_success'), NotificationType.SUCCESS, null, 5);
+        this.biitSnackbarService.showNotification(this.transloco.translate('t.user_groups_unassign_success'), NotificationType.SUCCESS);
       },
       error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
     });

@@ -139,7 +139,7 @@ export class UserGroupUserListComponent implements AfterViewInit, AfterViewCheck
           this.loadData();
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
             }
           );
         },
@@ -161,7 +161,7 @@ export class UserGroupUserListComponent implements AfterViewInit, AfterViewCheck
           this.loadData();
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
             }
           );
         },

@@ -38,7 +38,7 @@ export class RoleFormComponent {
 
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING);
       return;
     }
     const observable: Observable<Role> = this.type == RoleFormType.CREATE ? this.roleService.create(this.role) : this.roleService.update(this.role);
@@ -54,7 +54,7 @@ export class RoleFormComponent {
           }
           this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
             }
           );
         },

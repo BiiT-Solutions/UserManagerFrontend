@@ -36,7 +36,7 @@ export class ApplicationFormComponent {
               ) { }
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null, 5);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING);
       return;
     }
     const observable: Observable<Application> = this.type == ApplicationFormType.CREATE ? this.applicationService.create(this.application) : this.applicationService.update(this.application);
@@ -52,7 +52,7 @@ export class ApplicationFormComponent {
           }
           this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
             }
           );
         },

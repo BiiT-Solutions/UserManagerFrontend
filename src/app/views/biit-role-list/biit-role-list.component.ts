@@ -105,7 +105,7 @@ export class BiitRoleListComponent {
           this.loadData();
           this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null, 5);
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
               }
           );
         },
