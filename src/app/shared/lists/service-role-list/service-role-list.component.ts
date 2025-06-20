@@ -88,7 +88,7 @@ export class ServiceRoleListComponent implements OnInit {
             this.loadServiceRoles();
             this.transloco.selectTranslate('request_completed_successfully', {}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
               }
             );
           },
@@ -109,7 +109,7 @@ export class ServiceRoleListComponent implements OnInit {
           this.loadServiceRoles();
           this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },

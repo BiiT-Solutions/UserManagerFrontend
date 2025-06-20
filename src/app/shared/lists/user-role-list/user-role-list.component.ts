@@ -150,7 +150,7 @@ export class UserRoleListComponent implements OnInit {
             this.loadRoles();
             this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
               }
             );
           },
@@ -168,7 +168,7 @@ export class UserRoleListComponent implements OnInit {
     if (!this.applicationRole.id.role) {
       this.transloco.selectTranslate('provide_required_fields').subscribe(
         translation => {
-          this.biitSnackbarService.showNotification(translation, NotificationType.ERROR);
+          this.biitSnackbarService.showNotification(translation, NotificationType.ERROR, null);
         }
       );
       return;
@@ -179,7 +179,7 @@ export class UserRoleListComponent implements OnInit {
         this.applicationRole = null;
         this.transloco.selectTranslate('request_success', {}, {scope:'biit-ui/utils'}).subscribe(
           translation => {
-            this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+            this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
           }
         );
       },

@@ -201,7 +201,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
 
   protected onSaveTeam(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING);
+      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING, null);
       return;
     }
     const observable: Observable<Team> = this.targetTeam.id ? this.teamService.update(this.targetTeam) : this.teamService.create(this.targetTeam);
@@ -223,7 +223,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.confirm = undefined;
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },
@@ -246,7 +246,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.loadData();
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },
@@ -268,7 +268,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.loadUserData();
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },
@@ -288,7 +288,7 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.loadUserData();
           this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },

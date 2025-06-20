@@ -37,7 +37,7 @@ export class UserGroupFormComponent {
 
   protected onSave(): void {
     if (!this.validate()) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING);
+      this.biitSnackbarService.showNotification(this.transloco.translate('validation_failed'), NotificationType.WARNING, null);
       return;
     }
     const observable: Observable<UserGroup> = this.userGroup.id ? this.userGroupService.update(this.userGroup) : this.userGroupService.create(this.userGroup);
@@ -53,7 +53,7 @@ export class UserGroupFormComponent {
           }
           this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },

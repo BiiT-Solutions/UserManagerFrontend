@@ -104,7 +104,7 @@ export class BiitServiceListComponent implements OnInit {
             this.loadServices();
             this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
               translation => {
-                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+                this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
               }
             );
           },
@@ -136,7 +136,7 @@ export class BiitServiceListComponent implements OnInit {
         }
         this.transloco.selectTranslate(message, {}, {scope: 'biit-ui/utils'}).subscribe(
           translation => {
-            this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+            this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
           }
         );
       },

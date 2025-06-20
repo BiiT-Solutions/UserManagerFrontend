@@ -106,7 +106,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
 
   protected onDelete(users: User[], confirmed: boolean): void {
     if (users.some(user => user.email === this.sessionService.getUser().email)) {
-      this.biitSnackbarService.showNotification(this.transloco.translate('t.you_cannot_delete_yourself'), NotificationType.WARNING);
+      this.biitSnackbarService.showNotification(this.transloco.translate('t.you_cannot_delete_yourself'), NotificationType.WARNING, null);
       return;
     }
     if (!confirmed) {
@@ -119,7 +119,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
           this.loadData();
           this.transloco.selectTranslate('request_success', {}, {scope: 'biit-ui/utils'}).subscribe(
             translation => {
-              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS);
+              this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
           );
         },
