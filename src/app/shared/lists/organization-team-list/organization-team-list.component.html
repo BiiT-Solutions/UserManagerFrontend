@@ -52,8 +52,8 @@
         <biit-input-text [(ngModel)]="targetTeam.name" id="team-name"
                          [placeholder]="t('name')"
                          [required]="true"
-                         [min]=NAME_MIN_LENGTH
-                         [max]=NAME_MAX_LENGTH
+                         [minLength]=NAME_MIN_LENGTH
+                         [maxLength]=NAME_MAX_LENGTH
                          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
                                                     FormValidationFields.NAME_EXISTS]"
         ></biit-input-text>

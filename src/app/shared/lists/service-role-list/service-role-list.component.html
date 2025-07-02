@@ -21,8 +21,8 @@
     <div>
       <biit-input-text [placeholder]="t('t.name')"
                        [(ngModel)]="role"
-                       [min]=NAME_MIN_LENGTH
-                       [max]=NAME_MAX_LENGTH>
+                       [minLength]=NAME_MIN_LENGTH
+                       [maxLength]=NAME_MAX_LENGTH>
       </biit-input-text>
       <div class="flex-grow horizontal buttons-row">
         <button id="popup-cancel-button" biit-button secondary (click)="role = undefined">{{ t('t.cancel') }}</button>

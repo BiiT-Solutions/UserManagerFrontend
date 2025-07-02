@@ -39,8 +39,8 @@
       <biit-input-text id="service-name" style="width: 100%"
                        [placeholder]="t('t.name')"
                        [(ngModel)]="editService.name"
-                       [min]=NAME_MIN_LENGTH
-                       [max]=NAME_MAX_LENGTH
+                       [minLength]=NAME_MIN_LENGTH
+                       [maxLength]=NAME_MAX_LENGTH
                        [required]="true"
                        [disabled]="mode == 'EDIT'"
       />

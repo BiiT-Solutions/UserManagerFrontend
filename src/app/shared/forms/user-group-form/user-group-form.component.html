@@ -9,8 +9,8 @@
         <biit-input-text id="group-name"
                          [placeholder]="t('name')"
                          [(ngModel)]="userGroup.name"
-                         [min]=NAME_MIN_LENGTH
-                         [max]=NAME_MAX_LENGTH
+                         [minLength]=NAME_MIN_LENGTH
+                         [maxLength]=NAME_MAX_LENGTH
                          [required]="true"
                          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY, FormValidationFields.NAME_EXISTS]"
         ></biit-input-text>

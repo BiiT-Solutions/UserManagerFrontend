@@ -10,8 +10,8 @@
         <biit-input-text id="role-name"
                          [placeholder]="t('t.name')"
                          [(ngModel)]="role.id"
-                         [min]=NAME_MIN_LENGTH
-                         [max]=NAME_MAX_LENGTH
+                         [minLength]=NAME_MIN_LENGTH
+                         [maxLength]=NAME_MAX_LENGTH
                          [required]="true"
                          [disabled]="type == RoleFormType.EDIT"
                          error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"

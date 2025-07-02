@@ -9,8 +9,8 @@
         <biit-input-text id="organization-name"
                          [placeholder]="t('name')"
                          [(ngModel)]="organization.name"
-                         [min]=NAME_MIN_LENGTH
-                         [max]=NAME_MAX_LENGTH
+                         [minLength]=NAME_MIN_LENGTH
+                         [maxLength]=NAME_MAX_LENGTH
                          [required]="true"
                          [disabled]="organization.id"
                          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
