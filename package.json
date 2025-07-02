@@ -1,6 +1,6 @@
 {
   "name": "user-manager-ui",
-  "version": "0.1.309",
+  "version": "0.1.314",
   "scripts": {
     "ng": "ng",
     "start": "npm run prepare:translations && ng serve",
