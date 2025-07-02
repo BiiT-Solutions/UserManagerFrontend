@@ -88,12 +88,12 @@
                     selectable scrollbarH
                     style="width: 100%"
     >
-      <button biit-icon icon="user_add"
+      <button biit-icon icon="user_add" id="assign-user"
               [title]="t('t.assign')"
               [disabled]="!usersTable.selectedRows.length"
               (click)="onAssignUser(usersTable.selectedRows, false)"
       ></button>
-      <button biit-icon icon="user_remove"
+      <button biit-icon icon="user_remove" id="unassign-user"
               [title]="t('t.unassign')"
               [disabled]="!usersTable.selectedRows.length"
               (click)="onUnassignUser(usersTable.selectedRows, false)"
