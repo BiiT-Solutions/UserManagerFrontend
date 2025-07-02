@@ -7,21 +7,21 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="organization-button-plus" biit-icon icon="plus"
+    <button id="organization-team-button-plus" biit-icon icon="plus"
             [title]="t('t.add')"
             (click)="onCommand(undefined, 'ADD')"
     ></button>
-    <button id="organization-button-minus" biit-icon icon="minus"
+    <button id="organization-team-button-minus" biit-icon icon="minus"
             [title]="t('t.delete')"
             [disabled]="teamsTable.selectedRows.length < 1"
             (click)="onRemoveTeam(teamsTable.selectedRows,false)"
     ></button>
-    <button id="organization-button-edit" biit-icon icon="edit"
+    <button id="organization-team-button-edit" biit-icon icon="edit"
             [title]="t('t.edit')"
             [disabled]="teamsTable.selectedRows.length !== 1"
             (click)="onCommand(teamsTable.selectedRows[0], 'EDIT')"
     ></button>
-    <button id="organization-button-user" biit-icon icon="user_single"
+    <button id="organization-team-button-user" biit-icon icon="user_single"
             [title]="t('t.assign')"
             [disabled]="teamsTable.selectedRows.length !== 1"
             (click)="onManageTeam(teamsTable.selectedRows[0])"
@@ -32,38 +32,42 @@
               no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_delete')}}</div>
+      <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button id="remove-button" biit-button primary (click)="onRemoveTeam(selected, true)">{{t('t.delete')}}</button>
+        <button id="cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="remove-button" biit-button primary (click)="onRemoveTeam(selected, true)">{{ t('t.delete') }}
+        </button>
       </div>
     </div>
 
   </biit-popup>
 
-  <biit-popup *ngIf="targetTeam"
+  <biit-popup *ngIf="targetTeam" id="team-form-popup"
               sixty-view closable
               [title]="targetTeam.id ? t('t.edit_team') : t('t.add_team')"
               (onClosed)="confirm = undefined; targetTeam = undefined;"
   >
     <div class="form">
       <div class="tab-row-single">
-        <biit-input-text [(ngModel)]="targetTeam.name"
+        <biit-input-text [(ngModel)]="targetTeam.name" id="team-name"
                          [placeholder]="t('name')"
                          [required]="true"
+                         [min]=NAME_MIN_LENGTH
+                         [max]=NAME_MAX_LENGTH
                          [error]="errors | mapGet: [FormValidationFields.NAME_MANDATORY,
                                                     FormValidationFields.NAME_EXISTS]"
         ></biit-input-text>
       </div>
       <div class="tab-row-single">
-        <biit-textarea [(ngModel)]="targetTeam.description"
+        <biit-textarea [(ngModel)]="targetTeam.description" id="team-description"
+                       [maxLength]=DESCRIPTION_MAX_LENGTH
                        [placeholder]="t('description')"
         ></biit-textarea>
       </div>
       <div class="tab-row">
         <button biit-button
                 (click)="onSaveTeam()">
-          {{t('save')}}
+          {{ t('save') }}
         </button>
       </div>
     </div>
@@ -100,10 +104,13 @@
                 no-header
     >
       <div class="vertical">
-        <div>{{t('t.confirm_assign')}}</div>
+        <div>{{ t('t.confirm_assign') }}</div>
         <div class="flex-grow horizontal buttons-row">
-          <button id="confirm-assign-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-          <button id="confirm-assign-button" biit-button primary (click)="onAssignUser(selectedUsers, true)">{{t('t.assign')}}</button>
+          <button id="confirm-assign-cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}
+          </button>
+          <button id="confirm-assign-button" biit-button primary
+                  (click)="onAssignUser(selectedUsers, true)">{{ t('t.assign') }}
+          </button>
         </div>
       </div>
 
@@ -113,10 +120,14 @@
                 no-header
     >
       <div class="vertical">
-        <div>{{('t.confirm_unassign')}}</div>
+        <div>{{ ('t.confirm_unassign') }}</div>
         <div class="flex-grow horizontal buttons-row">
-          <button id="confirm-unassign-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-          <button id="confirm-unassign-button" biit-button primary (click)="onUnassignUser(selectedUsers, true)">{{t('t.unassign')}}</button>
+          <button id="confirm-unassign-cancel-button" biit-button secondary
+                  (click)="confirm = null">{{ t('t.cancel') }}
+          </button>
+          <button id="confirm-unassign-button" biit-button primary
+                  (click)="onUnassignUser(selectedUsers, true)">{{ t('t.unassign') }}
+          </button>
         </div>
       </div>
 

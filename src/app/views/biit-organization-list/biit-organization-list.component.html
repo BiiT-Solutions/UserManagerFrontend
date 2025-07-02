@@ -22,7 +22,7 @@
               (click)="onEdit(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
       ></button>
-      <button id="button-user" biit-icon icon="user_group" *ngIf="Permission.ORGANIZATIONS.ASSIGN | hasPermission"
+      <button id="button-team" biit-icon icon="user_group" *ngIf="Permission.ORGANIZATIONS.ASSIGN | hasPermission"
               [title]="t('t.assign')"
               (click)="onManage(table.selectedRows)"
               [disabled]="table.selectedRows.length !== 1"
@@ -48,7 +48,7 @@
 
   </biit-popup>
 
-  <biit-popup id="team-popup" *ngIf="manage"
+  <biit-popup id="teams-popup" *ngIf="manage"
               [title]="t('t.teams')"
               (onClosed)="manage = null"
               sixty-view

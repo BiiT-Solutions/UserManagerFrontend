@@ -3,8 +3,8 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Application, ApplicationService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import { FormValidationFields } from '../../validations/form-validation-fields';
-import {ErrorHandler} from "biit-ui/utils";
+import {FormValidationFields} from '../../validations/form-validation-fields';
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-application-form',
@@ -13,17 +13,22 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/forms', alias: 't'}
     }
   ]
 })
 export class ApplicationFormComponent {
+
   @Input() application: Application;
   @Input() type: ApplicationFormType;
   @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSaved: EventEmitter<Application> = new EventEmitter<Application>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected DESCRIPTION_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
 
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;
@@ -33,7 +38,9 @@ export class ApplicationFormComponent {
   constructor(private applicationService: ApplicationService,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
-              ) { }
+  ) {
+  }
+
   protected onSave(): void {
     if (!this.validate()) {
       this.biitSnackbarService.showNotification(this.transloco.translate('t.validation_failed'), NotificationType.WARNING, null);
@@ -60,6 +67,7 @@ export class ApplicationFormComponent {
       }
     );
   }
+
   protected validate(): boolean {
     this.errors = new Map<FormValidationFields, string>();
     let verdict: boolean = true;

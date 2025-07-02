@@ -4,7 +4,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute} from "@angular/router";
 import {FormValidationFields} from "../../shared/validations/form-validation-fields";
 import {UserService} from "user-manager-structure-lib";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 import {BiitSnackbarService} from "biit-ui/info";
 
 @Component({
@@ -21,6 +21,8 @@ export class BiitResetPasswordComponent {
   protected readonly keyId: string;
   protected readonly Type = Type;
   protected readonly FormValidationFields = FormValidationFields;
+
+  protected PASSWORD_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
 
   protected password: string[] = ["", ""];
   protected complete = false;

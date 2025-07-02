@@ -5,7 +5,7 @@ import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {DatatableColumn} from "biit-ui/table";
 import {combineLatest, Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 import {Permission} from "../../config/rbac/permission";
 
 @Component({
@@ -21,6 +21,10 @@ import {Permission} from "../../config/rbac/permission";
   ]
 })
 export class BiitServiceListComponent implements OnInit {
+
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected DESCRIPTION_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
 
   protected loading: boolean = false;
   protected columns: DatatableColumn[] = [];

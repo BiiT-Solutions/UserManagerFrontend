@@ -9,7 +9,7 @@ import {
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-service-role-list',
@@ -24,6 +24,10 @@ import {ErrorHandler} from "biit-ui/utils";
   ]
 })
 export class ServiceRoleListComponent implements OnInit {
+
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+
   protected readonly pageSizes: number[] = [10, 25, 50, 100];
   protected pageSize: number = 10;
   protected columns: DatatableColumn[] = [];

@@ -4,7 +4,7 @@ import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {FormValidationFields} from '../../validations/form-validation-fields';
-import {ErrorHandler} from "biit-ui/utils";
+import {InputLimits, ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-role-form',
@@ -24,6 +24,11 @@ export class RoleFormComponent {
   @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSaved: EventEmitter<Role> = new EventEmitter<Role>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected DESCRIPTION_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
+
 
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;

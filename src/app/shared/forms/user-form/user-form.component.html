@@ -19,57 +19,67 @@
       >
         <div class="tab-row">
           <biit-input-text id="username"
-            [placeholder]="t('t.username')"
-            [(ngModel)]="user.username"
-            [disabled]="!!user.id"
-            [required] = "false"
-            (focusout)="user.username = user.username.trim()"
-            error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_INVALID, FormValidationFields.USERNAME_EXISTS]}}"
+                           [placeholder]="t('t.username')"
+                           [(ngModel)]="user.username"
+                           [min]=USERNAME_MIN_LENGTH
+                           [max]=USERNAME_MAX_LENGTH
+                           [disabled]="!!user.id"
+                           [required]="false"
+                           (focusout)="user.username = user.username.trim()"
+                           error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_INVALID, FormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
           <biit-input-text id="email"
-            [placeholder]="t('t.email')"
-            [(ngModel)]="user.email"
-            [type]="Type.EMAIL"
-            [required]="true"
-            (focusout)="user.email = user.email.trim()"
-            error="{{errors | mapGet: [FormValidationFields.EMAIL_MANDATORY, FormValidationFields.EMAIL_INVALID]}}"
+                           [placeholder]="t('t.email')"
+                           [(ngModel)]="user.email"
+                           [min]=EMAIL_MIN_LENGTH
+                           [max]=EMAIL_MAX_LENGTH
+                           [type]="Type.EMAIL"
+                           [required]="true"
+                           (focusout)="user.email = user.email.trim()"
+                           error="{{errors | mapGet: [FormValidationFields.EMAIL_MANDATORY, FormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text id="name"
-            [placeholder]="t('t.name')"
-            [(ngModel)]="user.name"
-            [required] = "true"
-            (focusout)="user.name = user.name.trim()"
-            error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
+                           [placeholder]="t('t.name')"
+                           [(ngModel)]="user.name"
+                           [min]=NAME_MIN_LENGTH
+                           [max]=NAME_MAX_LENGTH
+                           [required]="true"
+                           (focusout)="user.name = user.name.trim()"
+                           error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text id="lastname"
-            [placeholder]="t('t.lastname')"
-            [(ngModel)]="user.lastname"
-            [required] = "true"
-            (focusout)="user.lastname.trim()"
-            error="{{errors | mapGet: FormValidationFields.LASTNAME_MANDATORY}}"
+                           [placeholder]="t('t.lastname')"
+                           [(ngModel)]="user.lastname"
+                           [min]=LASTNAME_MIN_LENGTH
+                           [max]=LASTNAME_MAX_LENGTH
+                           [required]="true"
+                           (focusout)="user.lastname.trim()"
+                           error="{{errors | mapGet: FormValidationFields.LASTNAME_MANDATORY}}"
           ></biit-input-text>
         </div>
         <div class="tab-row" *ngIf="!user.id">
           <biit-input-text id="password"
-            [placeholder]="t('t.password')"
-            [type]="Type.PASSWORD"
-            [(ngModel)]="user.password"
-            [required]="true"
-            error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
+                           [placeholder]="t('t.password')"
+                           [type]="Type.PASSWORD"
+                           [(ngModel)]="user.password"
+                           [max]=PASSWORD_MAX_LENGTH
+                           [required]="true"
+                           error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
           ></biit-input-text>
-          <biit-input-text  id="repeat-password"
-            [placeholder]="t('t.repeatPassword')"
-            [type]="Type.PASSWORD"
-            [(ngModel)]="pwdVerification"
-            [required]="true"
-            error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
+          <biit-input-text id="repeat-password"
+                           [placeholder]="t('t.repeatPassword')"
+                           [type]="Type.PASSWORD"
+                           [(ngModel)]="pwdVerification"
+                           [max]=PASSWORD_MAX_LENGTH
+                           [required]="true"
+                           error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
         <div class="tab-row-single" *ngIf="!user.id">
           <button biit-button secondary style="display: block" (click)="generatePassword()">
-            {{t('t.generate')}}
+            {{ t('t.generate') }}
           </button>
         </div>
         <div class="tab-row" *ngIf="this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN">
@@ -84,7 +94,7 @@
             [(ngModel)]="expiratingAccount"
             (ngModelChange)="!$event ? user.accountExpirationTime = null : null"
           >
-            {{t('expiratingAccount')}}
+            {{ t('expiratingAccount') }}
           </biit-toggle>
         </div>
       </biit-tab>
@@ -96,6 +106,7 @@
           <biit-textarea
             [(ngModel)]="user.address"
             [placeholder]="t('t.address')"
+            [maxLength]="ADDRESS_MAX_LENGTH"
             style="display: block"
           ></biit-textarea>
         </div>
@@ -103,19 +114,23 @@
           <biit-input-text
             [placeholder]="t('t.city')"
             [(ngModel)]="user.city"
+            [max]=CITY_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text
             [placeholder]="t('t.postalCode')"
+            [max]=POSTALCODE_MAX_LENGTH
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text
             [placeholder]="t('t.country')"
             [(ngModel)]="user.country"
+            [max]=COUNTRY_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text
             [placeholder]="t('t.phone')"
             [(ngModel)]="user.phone"
+            [max]=PHONE_MAX_LENGTH
             error="{{errors | mapGet: [FormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
         </div>
@@ -129,6 +144,7 @@
             [placeholder]="t('t.currentPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="oldPassword"
+            [max]=PASSWORD_MAX_LENGTH
           ></biit-input-text>
         </div>
         <div class="tab-row">
@@ -137,24 +153,26 @@
             [type]="Type.PASSWORD"
             [(ngModel)]="user.password"
             error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
+            [max]=PASSWORD_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text
             [placeholder]="t('t.repeatPassword')"
             [type]="Type.PASSWORD"
             [(ngModel)]="pwdVerification"
+            [max]=PASSWORD_MAX_LENGTH
             error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
         <div class="tab-row-single">
           <button biit-button secondary style="display: block" (click)="generatePassword()">
-            {{t('t.generate')}}
+            {{ t('t.generate') }}
           </button>
         </div>
       </biit-tab>
     </biit-tab-group>
     <div class="form-bottom">
       <button id="popup-user-save-button" biit-button primary style="display: block" (click)="onSave()">
-        {{t('t.save')}}
+        {{ t('t.save') }}
       </button>
     </div>
   </div>

@@ -39,11 +39,14 @@
       <biit-input-text id="service-name" style="width: 100%"
                        [placeholder]="t('t.name')"
                        [(ngModel)]="editService.name"
+                       [min]=NAME_MIN_LENGTH
+                       [max]=NAME_MAX_LENGTH
                        [required]="true"
                        [disabled]="mode == 'EDIT'"
       />
       <biit-textarea id="service-description"
                      [(ngModel)]="editService.description"
+                     [maxLength]=DESCRIPTION_MAX_LENGTH
                      [placeholder]="t('t.description')"
                      class="description"
       />

@@ -1,21 +1,15 @@
 import {
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   Input,
-  AfterViewInit,
   QueryList,
   TemplateRef,
-  ViewChildren,
-  ChangeDetectorRef,
-  AfterViewChecked
+  ViewChildren
 } from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {
-  Organization,
-  SessionService,
-  Team,
-  TeamService,
-  UserService
-} from "user-manager-structure-lib";
+import {Organization, SessionService, Team, TeamService, UserService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {combineLatest, Observable} from "rxjs";
 import {DatatableColumn} from "biit-ui/table";
@@ -23,7 +17,7 @@ import {User} from "authorization-services-lib";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {InputLimits, ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'organization-team-list',
@@ -32,7 +26,7 @@ import {ErrorHandler} from "biit-ui/utils";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
@@ -41,6 +35,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
   @Input() organization: Organization;
   @ViewChildren('booleanCell') booleanCell: QueryList<TemplateRef<any>>;
   @ViewChildren('assignedCell') assignedCell: QueryList<TemplateRef<any>>;
+
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected DESCRIPTION_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
 
   protected columns: DatatableColumn[] = [];
   protected pageSize: number = 10;
@@ -67,7 +65,8 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
               private _datePipe: DatePipe,
               protected transloco: TranslocoService,
               private biitSnackbarService: BiitSnackbarService
-              ) { }
+  ) {
+  }
 
   datePipe() {
     return {transform: (value: any) => this._datePipe.transform(value, 'dd/MM/yyyy')}
@@ -107,9 +106,9 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
         this.transloco.selectTranslate('assigned'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('phone', {}, {scope:'components/lists'}),
-        this.transloco.selectTranslate('accountLocked', {}, {scope:'components/lists'}),
-        this.transloco.selectTranslate('accountBlocked', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('phone', {}, {scope: 'components/lists'}),
+        this.transloco.selectTranslate('accountLocked', {}, {scope: 'components/lists'}),
+        this.transloco.selectTranslate('accountBlocked', {}, {scope: 'components/lists'}),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),
@@ -166,10 +165,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       ]
     ).subscribe({
       next: (result: [users: User[], teamMembers: User[]]) => {
-        this.users = result[0].sort((a,b) => {
-          if ( a.name < b.name ){
+        this.users = result[0].sort((a, b) => {
+          if (a.name < b.name) {
             return -1;
-          } else if ( a.name > b.name ){
+          } else if (a.name > b.name) {
             return 1;
           } else {
             return 0;
@@ -209,10 +208,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       {
         next: (team: Team): void => {
           this.teams.push(Team.clone(team));
-          this.teams.sort((a,b) => {
-            if ( a.name < b.name ){
+          this.teams.sort((a, b) => {
+            if (a.name < b.name) {
               return -1;
-            } else if ( a.name > b.name ){
+            } else if (a.name > b.name) {
               return 1;
             } else {
               return 0;
@@ -221,7 +220,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
           this.teams = [...this.teams];
           this.targetTeam = undefined;
           this.confirm = undefined;
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+          this.transloco.selectTranslate('request_completed_successfully', {}, {
+            scope: '',
+            alias: 'userGroups'
+          }).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
@@ -244,7 +246,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       combineLatest(calls).subscribe({
         next: (): void => {
           this.loadData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+          this.transloco.selectTranslate('request_completed_successfully', {}, {
+            scope: '',
+            alias: 'userGroups'
+          }).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
@@ -266,7 +271,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       this.teamService.assignUsers(this.manageTeam.id, users).subscribe({
         next: (): void => {
           this.loadUserData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+          this.transloco.selectTranslate('request_completed_successfully', {}, {
+            scope: '',
+            alias: 'userGroups'
+          }).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }
@@ -286,7 +294,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
       this.teamService.unassignUsers(this.manageTeam.id, users).subscribe({
         next: (): void => {
           this.loadUserData();
-          this.transloco.selectTranslate('request_completed_successfully', {}, {scope: '', alias: 'userGroups'}).subscribe(
+          this.transloco.selectTranslate('request_completed_successfully', {}, {
+            scope: '',
+            alias: 'userGroups'
+          }).subscribe(
             translation => {
               this.biitSnackbarService.showNotification(translation, NotificationType.SUCCESS, null);
             }

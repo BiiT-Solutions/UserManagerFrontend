@@ -10,6 +10,8 @@
         <biit-input-text id="application-name"
                          [placeholder]="t('t.name')"
                          [(ngModel)]="application.id"
+                         [min]=NAME_MIN_LENGTH
+                         [max]=NAME_MAX_LENGTH
                          [required]="true"
                          [disabled]="type == ApplicationFormType.EDIT"
                          error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
@@ -17,6 +19,7 @@
       </div>
       <div class="tab-row-single">
         <biit-textarea id="application-description"
+                       [maxLength]=DESCRIPTION_MAX_LENGTH
                        [(ngModel)]="application.description"
                        [placeholder]="t('t.description')"
                        style="display: block"

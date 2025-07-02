@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";
-import {ErrorHandler} from "biit-ui/utils";
+import {InputLimits, ErrorHandler} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-form',
@@ -27,6 +27,21 @@ export class UserFormComponent implements OnInit {
   @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
   @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
+  protected USERNAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected USERNAME_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected EMAIL_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected EMAIL_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected LASTNAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
+  protected LASTNAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected PASSWORD_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
+  protected ADDRESS_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
+  protected POSTALCODE_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected PHONE_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected CITY_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected COUNTRY_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
 
   protected expiratingAccount: boolean = false;
   protected pwdVerification: string;

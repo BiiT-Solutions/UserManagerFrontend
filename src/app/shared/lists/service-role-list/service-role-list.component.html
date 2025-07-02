@@ -19,10 +19,14 @@
 
   <biit-popup id="create-service-role" *ngIf="role != null" [title]="t('t.create_role')">
     <div>
-      <biit-input-text [placeholder]="t('t.name')" [(ngModel)]="role"></biit-input-text>
+      <biit-input-text [placeholder]="t('t.name')"
+                       [(ngModel)]="role"
+                       [min]=NAME_MIN_LENGTH
+                       [max]=NAME_MAX_LENGTH>
+      </biit-input-text>
       <div class="flex-grow horizontal buttons-row">
-        <button id="popup-cancel-button" biit-button secondary (click)="role = undefined">{{t('t.cancel')}}</button>
-        <button id="popup-save-button" biit-button primary (click)="onSave()">{{t('t.save')}}</button>
+        <button id="popup-cancel-button" biit-button secondary (click)="role = undefined">{{ t('t.cancel') }}</button>
+        <button id="popup-save-button" biit-button primary (click)="onSave()">{{ t('t.save') }}</button>
       </div>
     </div>
   </biit-popup>
@@ -31,10 +35,12 @@
               dark-bg no-header
   >
     <div class="vertical">
-      <div>{{t('t.confirm_delete')}}</div>
+      <div>{{ t('t.confirm_delete') }}</div>
       <div class="flex-grow horizontal buttons-row">
-        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{t('t.cancel')}}</button>
-        <button id="confirm-delete-button" biit-button primary (click)="onDelete(selectedToDelete, true)">{{t('t.delete')}}</button>
+        <button id="confirm-cancel-button" biit-button secondary (click)="confirm = null">{{ t('t.cancel') }}</button>
+        <button id="confirm-delete-button" biit-button primary
+                (click)="onDelete(selectedToDelete, true)">{{ t('t.delete') }}
+        </button>
       </div>
     </div>
 

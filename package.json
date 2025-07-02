@@ -27,7 +27,7 @@
     "@ngneat/transloco": "^4.3.0",
     "authorization-services-lib": "latest",
     "biit-icons-collection": "latest",
-    "biit-ui": "latest",
+    "biit-ui": "0.0.459",
     "fs-extra": "^10.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
