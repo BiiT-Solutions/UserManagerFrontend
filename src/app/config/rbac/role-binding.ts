@@ -56,6 +56,17 @@ export class RoleBinding {
     Permission.ORGANIZATIONS.ASSIGN,
   ];
 
+  private readonly USERMANAGERSYSTEM_ORGANIZATION_ADMIN: Permission[] = [
+    Permission.USERS.VIEW,
+    Permission.USERS.CREATE,
+    Permission.USERS.EDIT,
+    Permission.USERS.DELETE,
+    Permission.USERS.PERMISSIONS,
+
+    Permission.ORGANIZATIONS.VIEW,
+    Permission.ORGANIZATIONS.ASSIGN,
+  ];
+
   private readonly USERMANAGERSYSTEM_VIEWER: Permission[] = [
     Permission.USERS.VIEW,
   ];
@@ -75,6 +86,8 @@ export class RoleBinding {
           return this.USERMANAGERSYSTEM_EDITOR;
         case Role.USERMANAGERSYSTEM_VIEWER:
           return this.USERMANAGERSYSTEM_VIEWER;
+        case Role.USERMANAGERSYSTEM_ORGANIZATION_ADMIN:
+          return this.USERMANAGERSYSTEM_ORGANIZATION_ADMIN;
         default:
           return [];
       }
