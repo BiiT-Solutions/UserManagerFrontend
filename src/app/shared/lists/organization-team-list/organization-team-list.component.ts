@@ -17,7 +17,7 @@ import {User} from "authorization-services-lib";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
-import {InputLimits, ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'organization-team-list',
@@ -139,7 +139,10 @@ export class OrganizationTeamListComponent implements AfterViewInit, AfterViewCh
 
   private loadData(): void {
     this.loading = true;
-
+    if (this.organization == undefined) {
+      this.loading = false;
+      return;
+    }
     this.teamService.getAllByOrganization(this.organization.id).subscribe({
       next: (teams: Team[]) => {
         this.teams = teams.sort((a, b) => {

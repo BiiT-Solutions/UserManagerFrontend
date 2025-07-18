@@ -47,4 +47,8 @@ export class Permission {
     public static readonly DELETE: string = 'ORGANIZATIONS_DELETE';
     public static readonly ASSIGN: string = 'ORGANIZATIONS_ASSIGN';
   }
+
+  public static readonly ORGANIZATIONS_TEAMS = class {
+    public static readonly VIEW: string = 'ORGANIZATIONS_TEAMS_VIEW';
+  }
 }

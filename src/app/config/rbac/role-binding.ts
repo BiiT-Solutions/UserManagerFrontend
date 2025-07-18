@@ -61,10 +61,8 @@ export class RoleBinding {
     Permission.USERS.CREATE,
     Permission.USERS.EDIT,
     Permission.USERS.DELETE,
-    Permission.USERS.PERMISSIONS,
 
-    Permission.ORGANIZATIONS.VIEW,
-    Permission.ORGANIZATIONS.ASSIGN,
+    Permission.ORGANIZATIONS_TEAMS.VIEW,
   ];
 
   private readonly USERMANAGERSYSTEM_VIEWER: Permission[] = [

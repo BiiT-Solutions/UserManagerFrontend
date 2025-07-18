@@ -36,7 +36,6 @@ export class BiitOrganizationListComponent implements OnInit {
 
   constructor(private organizationService: OrganizationService,
               private biitSnackbarService: BiitSnackbarService,
-              private sessionService: SessionService,
               private _datePipe: DatePipe,
               private transloco: TranslocoService) {
   }

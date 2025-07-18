@@ -48,6 +48,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'teams',
+    loadChildren: () => import('./views/biit-team-list/biit-team-list.module').then(m => m.BiitTeamListModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     loadChildren: () => login
   }

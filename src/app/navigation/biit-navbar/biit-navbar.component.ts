@@ -83,6 +83,14 @@ export class BiitNavbarComponent implements AfterViewInit {
           hidden: !this.permissionService.hasPermission(Permission.ORGANIZATIONS.VIEW)
         }
       },
+      {
+        path: Constants.PATHS.ORGANIZATION_TEAMS,
+        canActivate: [AuthGuard],
+        title: 'organization_teams',
+        data: {
+          hidden: !this.permissionService.hasPermission(Permission.ORGANIZATIONS_TEAMS.VIEW)
+        }
+      },
     ];
     this.routes.forEach(route => {
       this.translocoService.selectTranslate(route.title as string, {}, {scope: 'components/main'}).subscribe(value => route.title = value);
