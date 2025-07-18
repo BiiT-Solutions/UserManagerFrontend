@@ -29,7 +29,7 @@ export class UserFormComponent implements OnInit {
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
   protected USERNAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
-  protected USERNAME_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected USERNAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
   protected EMAIL_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
   protected EMAIL_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
   protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
