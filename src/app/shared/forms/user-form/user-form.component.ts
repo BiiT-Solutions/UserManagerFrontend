@@ -38,7 +38,7 @@ export class UserFormComponent implements OnInit {
   protected LASTNAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
   protected PASSWORD_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
   protected ADDRESS_MAX_LENGTH: number = InputLimits.MAX_BIG_FIELD_LENGTH;
-  protected POSTALCODE_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
+  protected POSTALCODE_MAX_LENGTH: number = InputLimits.MAX_TINY_FIELD_LENGTH;
   protected PHONE_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
   protected CITY_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
   protected COUNTRY_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
