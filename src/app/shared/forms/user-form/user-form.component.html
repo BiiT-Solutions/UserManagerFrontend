@@ -25,7 +25,7 @@
                            [maxLength]=USERNAME_MAX_LENGTH
                            [disabled]="!!user.id"
                            [required]="false"
-                           (focusout)="user.username = user.username.trim()"
+                           (focusout)="user.username = user?.username?.trim()"
                            error="{{errors | mapGet: [FormValidationFields.USERNAME_MANDATORY, FormValidationFields.USERNAME_INVALID, FormValidationFields.USERNAME_EXISTS]}}"
           ></biit-input-text>
           <biit-input-text id="email"
@@ -35,7 +35,7 @@
                            [maxLength]=EMAIL_MAX_LENGTH
                            [type]="Type.EMAIL"
                            [required]="true"
-                           (focusout)="user.email = user.email.trim()"
+                           (focusout)="user.email = user?.email?.trim()"
                            error="{{errors | mapGet: [FormValidationFields.EMAIL_MANDATORY, FormValidationFields.EMAIL_INVALID]}}"
           ></biit-input-text>
         </div>
@@ -46,7 +46,7 @@
                            [minLength]=NAME_MIN_LENGTH
                            [maxLength]=NAME_MAX_LENGTH
                            [required]="true"
-                           (focusout)="user.name = user.name.trim()"
+                           (focusout)="user.name = user?.name?.trim()"
                            error="{{errors | mapGet: FormValidationFields.NAME_MANDATORY}}"
           ></biit-input-text>
           <biit-input-text id="lastname"
@@ -55,7 +55,7 @@
                            [minLength]=LASTNAME_MIN_LENGTH
                            [maxLength]=LASTNAME_MAX_LENGTH
                            [required]="true"
-                           (focusout)="user.lastname.trim()"
+                           (focusout)="user?.lastname?.trim()"
                            error="{{errors | mapGet: FormValidationFields.LASTNAME_MANDATORY}}"
           ></biit-input-text>
         </div>
