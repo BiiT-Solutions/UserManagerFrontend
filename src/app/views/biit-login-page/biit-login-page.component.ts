@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BiitLogin} from "biit-ui/models";
 import {AuthService, SessionService, UserService} from "user-manager-structure-lib";
 import {Constants} from "../../shared/constants";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -64,7 +64,10 @@ export class BiitLoginPageComponent implements OnInit {
         this.router.navigate([Constants.PATHS.USERS]);
         this.permissionService.setRole(user.applicationRoles)
       },
-      error: error => ErrorHandler.notify(error, this.translocoService, this.biitSnackbarService)
+      error: (error: HttpErrorResponse) => {
+        console.log('Received http code: ', error.status);
+        ErrorHandler.notify(error, this.translocoService, this.biitSnackbarService);
+      }
     }).add(() => this.waiting = false);
   }
 
