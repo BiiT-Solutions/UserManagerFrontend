@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";
-import {InputLimits, ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-form',
@@ -55,6 +55,7 @@ export class UserFormComponent implements OnInit {
   protected readonly AppRole = AppRole;
 
   protected today = new Date();
+  protected saving: boolean = false;
 
   constructor(private userService: UserService,
               protected sessionService: SessionService,
@@ -88,6 +89,7 @@ export class UserFormComponent implements OnInit {
         }
       })
     }
+    this.saving = true;
     const observable: Observable<User> = this.user.id ? this.userService.update(this.user) : this.userService.create(this.user);
     observable.subscribe(
       {
@@ -95,9 +97,11 @@ export class UserFormComponent implements OnInit {
           this.onSaved.emit(User.clone(user));
           this.biitSnackbarService.showNotification(this.transloco.translate('t.user_created_success'), NotificationType.SUCCESS, null);
         },
-        error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
+        error: error => {
+          ErrorHandler.notify(error, this.transloco, this.biitSnackbarService);
+        }
       }
-    );
+    ).add(() => this.saving = false);
   }
 
   protected validate(): boolean {

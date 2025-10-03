@@ -25,7 +25,8 @@
         ></biit-textarea>
       </div>
       <div class="form-bottom">
-        <button id="popup-organization-save-button" biit-button primary style="display: block" (click)="onSave()">
+        <button id="popup-organization-save-button" biit-button primary style="display: block" (click)="onSave()"
+                [disabled]="saving">
           {{ t('save') }}
         </button>
       </div>

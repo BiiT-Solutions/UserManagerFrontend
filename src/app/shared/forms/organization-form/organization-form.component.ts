@@ -4,7 +4,7 @@ import {Organization, OrganizationService, SessionService} from "user-manager-st
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {FormValidationFields} from "../../validations/form-validation-fields";
-import {InputLimits, ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-organization-form',
@@ -31,6 +31,7 @@ export class OrganizationFormComponent {
 
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;
+  protected saving: boolean = false;
 
 
   constructor(private organizationService: OrganizationService,
@@ -46,6 +47,7 @@ export class OrganizationFormComponent {
       return;
     }
     const observable: Observable<Organization> = this.organization.id ? this.organizationService.update(this.organization) : this.organizationService.create(this.organization);
+    this.saving = true;
     observable.subscribe(
       {
         next: (organization: Organization): void => {
@@ -64,7 +66,7 @@ export class OrganizationFormComponent {
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
-    );
+    ).add(() => this.saving = false);
   }
 
   protected validate(): boolean {

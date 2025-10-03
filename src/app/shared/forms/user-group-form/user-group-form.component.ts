@@ -4,7 +4,7 @@ import {SessionService, UserGroup, UserGroupService} from "user-manager-structur
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {FormValidationFields} from '../../validations/form-validation-fields';
-import {InputLimits, ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-group-form',
@@ -31,6 +31,8 @@ export class UserGroupFormComponent {
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected readonly FormValidationFields = FormValidationFields;
 
+  protected saving: boolean = false;
+
 
   constructor(private userGroupService: UserGroupService,
               protected sessionService: SessionService,
@@ -45,6 +47,7 @@ export class UserGroupFormComponent {
       return;
     }
     const observable: Observable<UserGroup> = this.userGroup.id ? this.userGroupService.update(this.userGroup) : this.userGroupService.create(this.userGroup);
+    this.saving = true;
     observable.subscribe(
       {
         next: (userGroup: UserGroup): void => {
@@ -63,7 +66,7 @@ export class UserGroupFormComponent {
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
-    );
+    ).add(() => this.saving = false);
   }
 
   protected validate(): boolean {

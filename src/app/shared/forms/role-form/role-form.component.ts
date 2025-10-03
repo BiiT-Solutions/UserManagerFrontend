@@ -4,7 +4,7 @@ import {Role, RoleService} from "user-manager-structure-lib";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
 import {FormValidationFields} from '../../validations/form-validation-fields';
-import {InputLimits, ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-role-form',
@@ -34,6 +34,8 @@ export class RoleFormComponent {
   protected readonly FormValidationFields = FormValidationFields;
   protected readonly RoleFormType = RoleFormType;
 
+  protected saving: boolean = false;
+
 
   constructor(private roleService: RoleService,
               protected transloco: TranslocoService,
@@ -47,6 +49,7 @@ export class RoleFormComponent {
       return;
     }
     const observable: Observable<Role> = this.type == RoleFormType.CREATE ? this.roleService.create(this.role) : this.roleService.update(this.role);
+    this.saving = true;
     observable.subscribe(
       {
         next: (role: Role): void => {
@@ -65,7 +68,7 @@ export class RoleFormComponent {
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
-    );
+    ).add(() => this.saving = false);
   }
 
   protected validate(): boolean {

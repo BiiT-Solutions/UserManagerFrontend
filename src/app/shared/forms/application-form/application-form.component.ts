@@ -34,6 +34,8 @@ export class ApplicationFormComponent {
   protected readonly FormValidationFields = FormValidationFields;
   protected readonly ApplicationFormType = ApplicationFormType;
 
+  protected saving: boolean = false;
+
 
   constructor(private applicationService: ApplicationService,
               protected transloco: TranslocoService,
@@ -47,6 +49,7 @@ export class ApplicationFormComponent {
       return;
     }
     const observable: Observable<Application> = this.type == ApplicationFormType.CREATE ? this.applicationService.create(this.application) : this.applicationService.update(this.application);
+    this.saving = true;
     observable.subscribe(
       {
         next: (application: Application): void => {
@@ -65,7 +68,7 @@ export class ApplicationFormComponent {
         },
         error: error => ErrorHandler.notify(error, this.transloco, this.biitSnackbarService)
       }
-    );
+    ).add(() => this.saving = false);
   }
 
   protected validate(): boolean {

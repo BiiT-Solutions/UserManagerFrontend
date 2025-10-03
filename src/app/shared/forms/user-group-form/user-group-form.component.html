@@ -25,7 +25,8 @@
       </div>
       <div class="form-bottom">
         <button id="popup-group-save-button"
-                biit-button primary style="display: block" (click)="onSave()">
+                biit-button primary style="display: block" (click)="onSave()"
+                [disabled]="saving">
           {{ t('save') }}
         </button>
       </div>

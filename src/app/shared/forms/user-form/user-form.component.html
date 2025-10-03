@@ -112,26 +112,26 @@
         </div>
         <div class="tab-row">
           <biit-input-text id="city"
-            [placeholder]="t('t.city')"
-            [(ngModel)]="user.city"
-            [maxLength]=CITY_MAX_LENGTH
+                           [placeholder]="t('t.city')"
+                           [(ngModel)]="user.city"
+                           [maxLength]=CITY_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text id="postalCode"
-            [placeholder]="t('t.postalCode')"
-            [maxLength]=POSTALCODE_MAX_LENGTH
+                           [placeholder]="t('t.postalCode')"
+                           [maxLength]=POSTALCODE_MAX_LENGTH
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text id="country"
-            [placeholder]="t('t.country')"
-            [(ngModel)]="user.country"
-            [maxLength]=COUNTRY_MAX_LENGTH
+                           [placeholder]="t('t.country')"
+                           [(ngModel)]="user.country"
+                           [maxLength]=COUNTRY_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text id="phone"
-            [placeholder]="t('t.phone')"
-            [(ngModel)]="user.phone"
-            [maxLength]=PHONE_MAX_LENGTH
-            error="{{errors | mapGet: [FormValidationFields.PHONE_INVALID]}}"
+                           [placeholder]="t('t.phone')"
+                           [(ngModel)]="user.phone"
+                           [maxLength]=PHONE_MAX_LENGTH
+                           error="{{errors | mapGet: [FormValidationFields.PHONE_INVALID]}}"
           ></biit-input-text>
         </div>
       </biit-tab>
@@ -140,27 +140,27 @@
                                               FormValidationFields.PASSWORD_MISMATCH])?.length"
       >
         <div class="tab-row-single" *ngIf="!(this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)">
-          <biit-input-text  id="old-password"
-            [placeholder]="t('t.currentPassword')"
-            [type]="Type.PASSWORD"
-            [(ngModel)]="oldPassword"
-            [maxLength]=PASSWORD_MAX_LENGTH
+          <biit-input-text id="old-password"
+                           [placeholder]="t('t.currentPassword')"
+                           [type]="Type.PASSWORD"
+                           [(ngModel)]="oldPassword"
+                           [maxLength]=PASSWORD_MAX_LENGTH
           ></biit-input-text>
         </div>
         <div class="tab-row">
           <biit-input-text id="new-password"
-            [placeholder]="t('t.newPassword')"
-            [type]="Type.PASSWORD"
-            [(ngModel)]="user.password"
-            error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
-            [maxLength]=PASSWORD_MAX_LENGTH
+                           [placeholder]="t('t.newPassword')"
+                           [type]="Type.PASSWORD"
+                           [(ngModel)]="user.password"
+                           error="{{errors | mapGet: FormValidationFields.PASSWORD_MANDATORY}}"
+                           [maxLength]=PASSWORD_MAX_LENGTH
           ></biit-input-text>
           <biit-input-text id="new-repeat-password"
-            [placeholder]="t('t.repeatPassword')"
-            [type]="Type.PASSWORD"
-            [(ngModel)]="pwdVerification"
-            [maxLength]=PASSWORD_MAX_LENGTH
-            error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
+                           [placeholder]="t('t.repeatPassword')"
+                           [type]="Type.PASSWORD"
+                           [(ngModel)]="pwdVerification"
+                           [maxLength]=PASSWORD_MAX_LENGTH
+                           error="{{errors | mapGet: FormValidationFields.PASSWORD_MISMATCH}}"
           ></biit-input-text>
         </div>
         <div class="tab-row-single">
@@ -171,7 +171,8 @@
       </biit-tab>
     </biit-tab-group>
     <div class="form-bottom">
-      <button id="popup-user-save-button" biit-button primary style="display: block" (click)="onSave()">
+      <button id="popup-user-save-button" biit-button primary style="display: block" (click)="onSave()"
+              [disabled]="saving">
         {{ t('t.save') }}
       </button>
     </div>
