@@ -1,4 +1,5 @@
 $space : 1em;
+
 .user-tabs {
   display: block;
   width: 100%;
@@ -32,6 +33,7 @@ $space : 1em;
   flex-direction: column;
   width: 100%;
   overflow: hidden;
+  height: 100%;
 }
 
 .form-bottom {

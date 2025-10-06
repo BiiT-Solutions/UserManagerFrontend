@@ -8,7 +8,7 @@ import {TranslocoModule} from "@ngneat/transloco";
 import {BiitPopupModule} from "biit-ui/popup";
 import {RoleApplicationsListModule} from "../../shared/lists/role-applications-list/role-applications-list.module";
 import {RoleFormModule} from "../../shared/forms/role-form/role-form.module";
-import {UserFormModule} from "../../shared/forms/user-form/user-form.module";
+import {UserFormPopupModule} from "../../shared/popups/user-form-popup/user-form-popup.module";
 import {ApplicationRolesListModule} from "../../shared/lists/application-roles-list/application-roles-list.module";
 import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
 
@@ -28,7 +28,7 @@ import {HasPermissionPipe} from "../../shared/pipes/has-permission.pipe";
         BiitButtonModule,
         BiitIconButtonModule,
         RoleFormModule,
-        UserFormModule,
+        UserFormPopupModule,
         ApplicationRolesListModule,
         RoleApplicationsListModule,
         HasPermissionPipe

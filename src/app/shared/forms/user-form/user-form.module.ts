@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserFormComponent } from './user-form.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UserFormComponent} from "./user-form.component";
 import {BiitPopupModule} from "biit-ui/popup";
 import {BiitTabGroupModule} from "biit-ui/navigation";
 import {BiitDatePickerModule, BiitInputTextModule, BiitTextareaModule, BiitToggleModule} from "biit-ui/inputs";
@@ -9,10 +9,9 @@ import {TranslocoRootModule} from "biit-ui/i18n";
 import {BiitButtonModule} from "biit-ui/button";
 import {UtilsModule} from "../../utils/utils.module";
 
+
 @NgModule({
-  declarations: [
-    UserFormComponent
-  ],
+  declarations: [UserFormComponent],
   exports: [
     UserFormComponent
   ],
@@ -30,4 +29,5 @@ import {UtilsModule} from "../../utils/utils.module";
     BiitToggleModule
   ]
 })
-export class UserFormModule { }
+export class UserFormModule {
+}

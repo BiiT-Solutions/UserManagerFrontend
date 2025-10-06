@@ -1,14 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppRole, PasswordRequest, User} from "authorization-services-lib";
-import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
+import {FormValidationFields} from "../../validations/form-validation-fields";
 import {Type} from "biit-ui/inputs";
+import {ErrorHandler, InputLimits} from "biit-ui/utils";
 import {SessionService, UserService} from "user-manager-structure-lib";
+import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {Observable} from "rxjs";
-import {FormValidationFields} from "../../validations/form-validation-fields";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
 
 @Component({
   selector: 'biit-user-form',
@@ -23,10 +23,10 @@ import {ErrorHandler, InputLimits} from "biit-ui/utils";
   ]
 })
 export class UserFormComponent implements OnInit {
+
   @Input() user: User;
-  @Output() onClosed: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
-  @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+  @Input() @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
+  @Input() @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
   protected USERNAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
   protected USERNAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
@@ -44,7 +44,7 @@ export class UserFormComponent implements OnInit {
   protected COUNTRY_MAX_LENGTH: number = InputLimits.MAX_SMALL_FIELD_LENGTH;
 
   protected expiratingAccount: boolean = false;
-  protected pwdVerification: string;
+  protected pwdVerification: string = '';
   protected oldPassword: string;
 
   protected readonly FormValidationFields = FormValidationFields;
