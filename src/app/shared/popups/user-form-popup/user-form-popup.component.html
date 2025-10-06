@@ -1,0 +1,13 @@
+<biit-popup id="user-popup"
+            [title]="user.id ? t('t.editUser') : t('t.newUser')"
+            (onClosed)="onClosed.emit()"
+            closable sixty-view
+            *transloco="let t"
+>
+  <biit-user-form class="form-container"
+                  [user]="user"
+                  (onSaved)="onSaved"
+                  [onSaved]="onSaved"
+                  (onError)="onError"
+                  [onError]="onError"></biit-user-form>
+</biit-popup>
