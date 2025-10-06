@@ -6,5 +6,6 @@
   "services" : "Services",
   "organizations" : "Organizations",
   "logout": "Logout",
-  "organization_teams": "Teams"
+  "organization_teams": "Teams",
+  "own-profile": "Profile"
 }

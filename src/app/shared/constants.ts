@@ -11,6 +11,7 @@ export class Constants {
     public static readonly SERVICES: string = 'services';
     public static readonly ORGANIZATIONS: string = 'organizations';
     public static readonly ORGANIZATION_TEAMS: string = 'teams';
+    public static readonly OWN_PROFILE: string = 'profile';
 
     public static readonly QUERY = class {
       public static readonly EXPIRED: string = 'expired';

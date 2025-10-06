@@ -17,6 +17,9 @@ import {PermissionService} from "../../services/permission.service";
 })
 
 export class BiitNavbarComponent implements AfterViewInit {
+  protected readonly Constants = Constants;
+
+
   @ViewChild('contextMenu') contextMenu: ContextMenuComponent<void>;
   @ViewChild('navUser', {read: ElementRef}) navUser: ElementRef;
   routes: Route[] = [];

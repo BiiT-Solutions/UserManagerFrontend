@@ -23,10 +23,6 @@ export class UserFormPopupComponent implements OnInit {
   @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
-  protected NAME_MIN_LENGTH: number = InputLimits.MIN_FIELD_LENGTH;
-  protected NAME_MAX_LENGTH: number = InputLimits.MAX_NORMAL_FIELD_LENGTH;
-  protected expiratingAccount: boolean = false;
-
   protected readonly FormValidationFields = FormValidationFields;
   protected errors: Map<FormValidationFields, string> = new Map<FormValidationFields, string>();
   protected loggedUser: User;
@@ -39,6 +35,5 @@ export class UserFormPopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUser = this.sessionService.getUser();
-    if (this.user.accountExpirationTime) this.expiratingAccount = true;
   }
 }

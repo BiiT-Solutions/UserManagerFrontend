@@ -25,6 +25,7 @@ import {PwdGenerator} from "../../utils/pwd-generator";
 export class UserFormComponent implements OnInit {
 
   @Input() user: User;
+  @Input() allowExpiration: boolean = true;
   @Input() @Output() onSaved: EventEmitter<User> = new EventEmitter<User>();
   @Input() @Output() onError: EventEmitter<any> = new EventEmitter<any>();
 
@@ -90,7 +91,14 @@ export class UserFormComponent implements OnInit {
       })
     }
     this.saving = true;
-    const observable: Observable<User> = this.user.id ? this.userService.update(this.user) : this.userService.create(this.user);
+    let observable: Observable<User>
+    if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN) && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_EDITOR)) {
+      if (this.loggedUser.id == this.user.id) {
+        observable = this.userService.updateOwn(this.user);
+      }
+    } else {
+      observable = this.user.id ? this.userService.update(this.user) : this.userService.create(this.user);
+    }
     observable.subscribe(
       {
         next: (user: User): void => {
@@ -133,13 +141,13 @@ export class UserFormComponent implements OnInit {
         this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }
     } else {
-      if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)) {
+      if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN) && !this.allowExpiration) {
         if (!this.oldPassword && (this.pwdVerification || this.user.password)) {
           verdict = false;
           this.errors.set(FormValidationFields.OLD_PASSWORD_MANDATORY, this.transloco.translate(`t.${FormValidationFields.OLD_PASSWORD_MANDATORY.toString()}`));
         }
       }
-      if (this.pwdVerification !== this.user.password) {
+      if (this.user.password && this.pwdVerification !== this.user.password) {
         verdict = false;
         this.errors.set(FormValidationFields.PASSWORD_MISMATCH, this.transloco.translate(`t.${FormValidationFields.PASSWORD_MISMATCH.toString()}`));
       }

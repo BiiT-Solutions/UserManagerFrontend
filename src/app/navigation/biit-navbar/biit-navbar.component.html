@@ -14,6 +14,11 @@
 <context-menu #contextMenu dir="rtl">
   <ng-template contextMenuItem
                *transloco="let t"
+               (execute)="router.navigate([Constants.PATHS.OWN_PROFILE])">
+    {{ t('t.own-profile') }}
+  </ng-template>
+  <ng-template contextMenuItem
+               *transloco="let t"
                (execute)="router.navigateByUrl('/login?logout')">
     <span id="usermanager-menu-logout">
       {{ t('t.logout') }}
