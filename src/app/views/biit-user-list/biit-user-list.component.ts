@@ -1,15 +1,14 @@
 import {AfterViewInit, Component, OnInit, QueryList, TemplateRef, ViewChildren} from '@angular/core';
-import {
-  DatatableColumn
-} from "biit-ui/table";
+import {DatatableColumn} from "biit-ui/table";
 import {SessionService, UserService} from "user-manager-structure-lib";
-import {User} from "authorization-services-lib";
+import {User, AppRole} from "authorization-services-lib";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {BiitSnackbarService, NotificationType} from "biit-ui/info";
 import {DatePipe} from "@angular/common";
 import {ErrorHandler} from "biit-ui/utils";
 import {Permission} from "../../config/rbac/permission";
+import {Constants} from "../../shared/constants";
 
 @Component({
   selector: 'app-biit-user-list',
@@ -18,7 +17,7 @@ import {Permission} from "../../config/rbac/permission";
   providers: [
     {
       provide: TRANSLOCO_SCOPE,
-      multi:true,
+      multi: true,
       useValue: {scope: 'components/lists', alias: 't'}
     }
   ]
@@ -38,6 +37,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
 
   protected assignRole: User;
   protected assignGroup: User;
+  protected loggedUser: User;
 
   constructor(private userService: UserService,
               private biitSnackbarService: BiitSnackbarService,
@@ -51,6 +51,12 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.loggedUser = this.sessionService.getUser();
+    if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)
+      && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_EDITOR)
+      && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ORGANIZATION_ADMIN)) {
+      window.location.href = "./" + Constants.PATHS.OWN_PROFILE;
+    }
   }
 
   ngAfterViewInit() {
@@ -61,10 +67,10 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
         this.transloco.selectTranslate('lastname'),
         this.transloco.selectTranslate('username'),
         this.transloco.selectTranslate('email'),
-        this.transloco.selectTranslate('phone', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('phone', {}, {scope: 'components/lists'}),
         this.transloco.selectTranslate('expirationDate'),
-        this.transloco.selectTranslate('accountLocked', {}, {scope:'components/lists'}),
-        this.transloco.selectTranslate('accountBlocked', {}, {scope:'components/lists'}),
+        this.transloco.selectTranslate('accountLocked', {}, {scope: 'components/lists'}),
+        this.transloco.selectTranslate('accountBlocked', {}, {scope: 'components/lists'}),
         this.transloco.selectTranslate('createdBy'),
         this.transloco.selectTranslate('createdAt'),
         this.transloco.selectTranslate('updatedBy'),
@@ -92,7 +98,7 @@ export class BiitUserListComponent implements OnInit, AfterViewInit {
 
   private loadData(): void {
     this.loading = true;
-    this.userService.getAll().subscribe( {
+    this.userService.getAll().subscribe({
       next: (users: User[]): void => {
         this.users = users.map(user => User.clone(user));
       },
