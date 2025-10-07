@@ -92,7 +92,9 @@ export class UserFormComponent implements OnInit {
     }
     this.saving = true;
     let observable: Observable<User>
-    if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN) && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_EDITOR)) {
+    if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)
+      && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_EDITOR)
+      && !this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ORGANIZATION_ADMIN)) {
       if (this.loggedUser.id == this.user.id) {
         observable = this.userService.updateOwn(this.user);
       }
