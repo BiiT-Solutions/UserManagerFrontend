@@ -1,2 +1,16 @@
 {
+  "update": "Update",
+  "update_password_title": "Maak een nieuw wachtwoord aan",
+  "update_password_subtitle": "Selecteer uw nieuwe wachtwoord",
+  "update_password_body": "Kies een sterk wachtwoord dat niet in een ander account wordt gebruikt",
+  "invalid_token_title": "...Oops!",
+  "invalid_token_subtitle": "Actie mislukt",
+  "invalid_token_body": "Er lijkt iets mis te zijn aan onze kant. Neem contact op met het supportteam voor meer informatie.",
+  "completed_title": "Succes!",
+  "completed_subtitle": "Actie is voltooid",
+  "completed_body": "U kunt nu inloggen met uw nieuwe wachtwoord. U kunt deze pagina veilig sluiten.",
+  "password": "Wachtwoord",
+  "password_mandatory": "Wachtwoord is verplicht",
+  "password_mismatch": "Wachtwoorden komen niet overeen",
+  "repeat_password": "Herhaal wachtwoord"
 }

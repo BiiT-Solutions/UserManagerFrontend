@@ -1,6 +1,6 @@
 {
   "update": "Update",
-  "update_password_title": "Update password",
+  "update_password_title": "Create a new password",
   "update_password_subtitle": "You do need a new spell...",
   "update_password_body": "Choose a powerful password and don't reuse it in other accounts",
   "invalid_token_title": "...Oops!",
