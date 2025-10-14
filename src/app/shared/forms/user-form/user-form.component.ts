@@ -90,6 +90,10 @@ export class UserFormComponent implements OnInit {
         }
       })
     }
+    // if username is not set, user email as username.
+    if (!this.user.username) {
+      this.user.username = this.user.email;
+    }
     this.saving = true;
     let observable: Observable<User>
     if (!this.loggedUser.applicationRoles.includes(AppRole.USERMANAGERSYSTEM_ADMIN)
