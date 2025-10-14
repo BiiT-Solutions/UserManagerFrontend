@@ -74,8 +74,7 @@
           {{ t('t.generate') }}
         </button>
       </div>
-      <div class="tab-row" *ngIf="this.allowExpiration && ((this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN)
-      || (this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_EDITOR))">
+      <div class="tab-row" *ngIf="this.allowExpiration && (this.loggedUser | hasRole: AppRole.USERMANAGERSYSTEM_ADMIN: AppRole.USERMANAGERSYSTEM_EDITOR)">
         <biit-datepicker
           [placeholder]="t('expirationDate')"
           [(ngModel)]="user.accountExpirationTime"
