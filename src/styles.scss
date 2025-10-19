@@ -48,3 +48,11 @@ biit-snackbar {
 .gap {
   gap: $space;
 }
+@media screen and (max-width: 600px) {
+  .table-view {
+    padding: unset !important;
+    margin: 2rem 0.5rem !important;
+    box-sizing: unset !important;
+    border: unset !important;
+  }
+}
