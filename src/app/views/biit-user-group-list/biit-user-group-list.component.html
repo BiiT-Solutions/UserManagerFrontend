@@ -8,30 +8,32 @@
                     [loading]="loading"
                     selectable
     >
-      <button id="button-plus" biit-icon icon="plus" *ngIf="Permission.ROLE_GROUPS.CREATE | hasPermission"
-              [title]="t('t.add')"
-              (click)="onAdd()"
-      ></button>
-      <button id="button-minus" biit-icon icon="minus" *ngIf="Permission.ROLE_GROUPS.DELETE | hasPermission"
-              [title]="t('t.delete')"
-              (click)="onDelete(table.selectedRows, false)"
-              [disabled]="!table.selectedRows.length"
-      ></button>
-      <button id="button-edit" biit-icon icon="edit" *ngIf="Permission.ROLE_GROUPS.EDIT | hasPermission"
-              [title]="t('t.edit')"
-              (click)="onEdit(table.selectedRows)"
-              [disabled]="table.selectedRows.length !== 1"
-      ></button>
-      <button id="button-linkage" biit-icon icon="linkage" *ngIf="Permission.ROLE_GROUPS.PERMISSIONS | hasPermission"
-              [title]="t('t.assign')"
-              (click)="onAssignAppRoles(table.selectedRows)"
-              [disabled]="table.selectedRows.length !== 1"
-      ></button>
-      <button id="button-group" biit-icon icon="user_group" *ngIf="Permission.ROLE_GROUPS.ASSIGN | hasPermission"
-              [title]="t('t.users')"
-              (click)="onAssignUsers(table.selectedRows)"
-              [disabled]="table.selectedRows.length !== 1"
-      ></button>
+      <ng-template #actions>
+        <button id="button-plus" biit-icon icon="plus" *ngIf="Permission.ROLE_GROUPS.CREATE | hasPermission"
+                [title]="t('t.add')"
+                (click)="onAdd()"
+        ></button>
+        <button id="button-minus" biit-icon icon="minus" *ngIf="Permission.ROLE_GROUPS.DELETE | hasPermission"
+                [title]="t('t.delete')"
+                (click)="onDelete(table.selectedRows, false)"
+                [disabled]="!table.selectedRows.length"
+        ></button>
+        <button id="button-edit" biit-icon icon="edit" *ngIf="Permission.ROLE_GROUPS.EDIT | hasPermission"
+                [title]="t('t.edit')"
+                (click)="onEdit(table.selectedRows)"
+                [disabled]="table.selectedRows.length !== 1"
+        ></button>
+        <button id="button-linkage" biit-icon icon="linkage" *ngIf="Permission.ROLE_GROUPS.PERMISSIONS | hasPermission"
+                [title]="t('t.assign')"
+                (click)="onAssignAppRoles(table.selectedRows)"
+                [disabled]="table.selectedRows.length !== 1"
+        ></button>
+        <button id="button-group" biit-icon icon="user_group" *ngIf="Permission.ROLE_GROUPS.ASSIGN | hasPermission"
+                [title]="t('t.users')"
+                (click)="onAssignUsers(table.selectedRows)"
+                [disabled]="table.selectedRows.length !== 1"
+        ></button>
+      </ng-template>
     </biit-datatable>
   </div>
 

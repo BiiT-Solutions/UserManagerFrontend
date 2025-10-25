@@ -7,16 +7,18 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="user-assign-button" biit-icon icon="user_add"
-            (click)="assignGroup(user_groups.selectedRows, false)"
-            [title]="t('t.assign')"
-            [disabled]="!user_groups.selectedRows.length"
-    ></button>
-    <button id="user-unassign-button"  biit-icon icon="user_remove"
-            [title]="t('t.unassign')"
-            (click)="unassignGroup(user_groups.selectedRows, false)"
-            [disabled]="!user_groups.selectedRows.length"
-    ></button>
+    <ng-template #actions>
+      <button id="user-assign-button" biit-icon icon="user_add"
+              (click)="assignGroup(user_groups.selectedRows, false)"
+              [title]="t('t.assign')"
+              [disabled]="!user_groups.selectedRows.length"
+      ></button>
+      <button id="user-unassign-button"  biit-icon icon="user_remove"
+              [title]="t('t.unassign')"
+              (click)="unassignGroup(user_groups.selectedRows, false)"
+              [disabled]="!user_groups.selectedRows.length"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup id="user-group-assign-popup" *ngIf="assigningGroups"

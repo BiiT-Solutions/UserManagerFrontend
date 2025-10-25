@@ -28,6 +28,12 @@ biit-snackbar {
   flex-direction: row;
 }
 
+@media screen and (max-width: 600px) {
+  .horizontal {
+    flex-direction: column;
+  }
+}
+
 .vertical {
   display: flex;
   flex-direction: column;
@@ -54,5 +60,12 @@ biit-snackbar {
     margin: 2rem 0.5rem !important;
     box-sizing: unset !important;
     border: unset !important;
+  }
+  .tab-row {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .tab-row-single {
+    width: unset !important;
   }
 }

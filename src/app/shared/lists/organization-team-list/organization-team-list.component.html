@@ -7,25 +7,27 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="organization-team-button-plus" biit-icon icon="plus"
-            [title]="t('t.add')"
-            (click)="onCommand(undefined, 'ADD')"
-    ></button>
-    <button id="organization-team-button-minus" biit-icon icon="minus"
-            [title]="t('t.delete')"
-            [disabled]="teamsTable.selectedRows.length < 1"
-            (click)="onRemoveTeam(teamsTable.selectedRows,false)"
-    ></button>
-    <button id="organization-team-button-edit" biit-icon icon="edit"
-            [title]="t('t.edit')"
-            [disabled]="teamsTable.selectedRows.length !== 1"
-            (click)="onCommand(teamsTable.selectedRows[0], 'EDIT')"
-    ></button>
-    <button id="organization-team-button-user" biit-icon icon="user_single"
-            [title]="t('t.assign')"
-            [disabled]="teamsTable.selectedRows.length !== 1"
-            (click)="onManageTeam(teamsTable.selectedRows[0])"
-    ></button>
+    <ng-template #actions>
+      <button id="organization-team-button-plus" biit-icon icon="plus"
+              [title]="t('t.add')"
+              (click)="onCommand(undefined, 'ADD')"
+      ></button>
+      <button id="organization-team-button-minus" biit-icon icon="minus"
+              [title]="t('t.delete')"
+              [disabled]="teamsTable.selectedRows.length < 1"
+              (click)="onRemoveTeam(teamsTable.selectedRows,false)"
+      ></button>
+      <button id="organization-team-button-edit" biit-icon icon="edit"
+              [title]="t('t.edit')"
+              [disabled]="teamsTable.selectedRows.length !== 1"
+              (click)="onCommand(teamsTable.selectedRows[0], 'EDIT')"
+      ></button>
+      <button id="organization-team-button-user" biit-icon icon="user_single"
+              [title]="t('t.assign')"
+              [disabled]="teamsTable.selectedRows.length !== 1"
+              (click)="onManageTeam(teamsTable.selectedRows[0])"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'REMOVE'"
@@ -88,16 +90,18 @@
                     selectable scrollbarH
                     style="width: 100%"
     >
-      <button biit-icon icon="user_add" id="assign-user"
-              [title]="t('t.assign')"
-              [disabled]="!usersTable.selectedRows.length"
-              (click)="onAssignUser(usersTable.selectedRows, false)"
-      ></button>
-      <button biit-icon icon="user_remove" id="unassign-user"
-              [title]="t('t.unassign')"
-              [disabled]="!usersTable.selectedRows.length"
-              (click)="onUnassignUser(usersTable.selectedRows, false)"
-      ></button>
+      <ng-template #actions>
+        <button biit-icon icon="user_add" id="assign-user"
+                [title]="t('t.assign')"
+                [disabled]="!usersTable.selectedRows.length"
+                (click)="onAssignUser(usersTable.selectedRows, false)"
+        ></button>
+        <button biit-icon icon="user_remove" id="unassign-user"
+                [title]="t('t.unassign')"
+                [disabled]="!usersTable.selectedRows.length"
+                (click)="onUnassignUser(usersTable.selectedRows, false)"
+        ></button>
+      </ng-template>
     </biit-datatable>
 
     <biit-popup id="confirmation-assign-popup" *ngIf="confirm === 'ASSIGN'"

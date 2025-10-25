@@ -7,20 +7,22 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="application-button-plus" biit-icon icon="plus"
-            [title]="t('t.add')"
-            (click)="onAdd()"
-    ></button>
-    <button id="application-button-minus" biit-icon icon="minus"
-            [title]="t('t.delete')"
-            (click)="onDelete(application_roles.selectedRows, false)"
-            [disabled]="!application_roles.selectedRows.length"
-    ></button>
-    <button id="application-button-linkage" biit-icon icon="linkage"
-            [title]="t('t.assign')"
-            (click)="onAssign(application_roles.selectedRows)"
-            [disabled]="application_roles.selectedRows.length !== 1"
-    ></button>
+    <ng-template #actions>
+      <button id="application-button-plus" biit-icon icon="plus"
+              [title]="t('t.add')"
+              (click)="onAdd()"
+      ></button>
+      <button id="application-button-minus" biit-icon icon="minus"
+              [title]="t('t.delete')"
+              (click)="onDelete(application_roles.selectedRows, false)"
+              [disabled]="!application_roles.selectedRows.length"
+      ></button>
+      <button id="application-button-linkage" biit-icon icon="linkage"
+              [title]="t('t.assign')"
+              (click)="onAssign(application_roles.selectedRows)"
+              [disabled]="application_roles.selectedRows.length !== 1"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup *ngIf="applicationRole" id="assign-application-popup"
