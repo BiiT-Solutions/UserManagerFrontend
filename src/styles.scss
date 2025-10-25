@@ -68,4 +68,8 @@ biit-snackbar {
   .tab-row-single {
     width: unset !important;
   }
+  .form-bottom {
+    position: sticky;
+    bottom: 0;
+  }
 }
