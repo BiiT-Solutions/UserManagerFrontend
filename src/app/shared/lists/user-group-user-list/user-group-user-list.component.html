@@ -7,16 +7,18 @@
                   [loading]="loading"
                   selectable scrollbarH
   >
-    <button id="popup-assign-button" biit-icon icon="user_add"
-            [title]="t('t.assign')"
-            [disabled]="!userTable.selectedRows.length"
-            (click)="onAssign(userTable.selectedRows, false)"
-    ></button>
-    <button id="popup-unassign-button" biit-icon icon="user_remove"
-            [title]="t('t.unassign')"
-            [disabled]="!userTable.selectedRows.length"
-            (click)="onRemove(userTable.selectedRows, false)"
-    ></button>
+    <ng-template #actions>
+      <button id="popup-assign-button" biit-icon icon="user_add"
+              [title]="t('t.assign')"
+              [disabled]="!userTable.selectedRows.length"
+              (click)="onAssign(userTable.selectedRows, false)"
+      ></button>
+      <button id="popup-unassign-button" biit-icon icon="user_remove"
+              [title]="t('t.unassign')"
+              [disabled]="!userTable.selectedRows.length"
+              (click)="onRemove(userTable.selectedRows, false)"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup id="confirmation-popup" *ngIf="confirm === 'ASSIGN'"

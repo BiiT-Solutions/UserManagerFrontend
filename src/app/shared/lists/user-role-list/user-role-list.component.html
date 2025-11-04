@@ -7,15 +7,17 @@
                   [loading]="loading"
                   selectable
   >
-    <button id="user-role-button-plus" biit-icon icon="plus"
-            (click)="onAdd()"
-            [title]="t('t.add')"
-    ></button>
-    <button id="user-role-button-minus" biit-icon icon="minus"
-            [title]="t('t.delete')"
-            (click)="onDelete(user_roles.selectedRows, false)"
-            [disabled]="!user_roles.selectedRows.length"
-    ></button>
+    <ng-template #actions>
+      <button id="user-role-button-plus" biit-icon icon="plus"
+              (click)="onAdd()"
+              [title]="t('t.add')"
+      ></button>
+      <button id="user-role-button-minus" biit-icon icon="minus"
+              [title]="t('t.delete')"
+              (click)="onDelete(user_roles.selectedRows, false)"
+              [disabled]="!user_roles.selectedRows.length"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup id="confirmation-delete-popup" *ngIf="confirm === 'DELETE'"

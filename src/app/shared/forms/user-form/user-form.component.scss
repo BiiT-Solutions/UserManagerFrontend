@@ -5,7 +5,7 @@ $space : 1em;
   width: 100%;
   margin-top: 5vh;
   flex-grow: 1;
-  height: 95%;
+  height: calc(100% - 3rem);
 }
 
 .tab-row {

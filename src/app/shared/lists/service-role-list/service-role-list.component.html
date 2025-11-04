@@ -6,15 +6,17 @@
                   [pageSizeList]="pageSizes"
                   [loading]="loading"
                   selectable>
-    <button id="popup-service-button-plus" biit-icon icon="plus"
-            [title]="t('t.add')"
-            (click)="onAdd()"
-    ></button>
-    <button id="popup-service-button-minus" biit-icon icon="minus"
-            [title]="t('t.delete')"
-            (click)="onDelete(service_roles.selectedRows, false)"
-            [disabled]="!service_roles.selectedRows.length"
-    ></button>
+    <ng-template #actions>
+      <button id="popup-service-button-plus" biit-icon icon="plus"
+              [title]="t('t.add')"
+              (click)="onAdd()"
+      ></button>
+      <button id="popup-service-button-minus" biit-icon icon="minus"
+              [title]="t('t.delete')"
+              (click)="onDelete(service_roles.selectedRows, false)"
+              [disabled]="!service_roles.selectedRows.length"
+      ></button>
+    </ng-template>
   </biit-datatable>
 
   <biit-popup id="create-service-role" *ngIf="role != null" [title]="t('t.create_role')">
