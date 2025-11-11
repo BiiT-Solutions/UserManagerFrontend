@@ -13,7 +13,7 @@
     "prepare:translations": "npm run clean:translations && cpx \"./node_modules/@biit-solutions/wizardry-theme/assets/i18n/**/*.json\" \"./src/assets/i18n/biit-ui/\"",
     "prepare:docs": "cpx ./README.md ./dist/user-manager-ui && echo \"{\\\"name\\\": \\\"`node -e \"console.log(require('./package.json').name);\"\n`\\\", \\\"version\\\": \\\"`node -e \"console.log(require('./package.json').version);\"\n`\\\"}\" > ./dist/user-manager-ui/package.json",
     "prepare:publication": "npm run build && npm run prepare:docs",
-    "publish": "npm run prepare:publication && npm publish ./dist/user-manager-ui",
+    "publish": "npm run prepare:publication && npm publish --access=public ./dist/user-manager-ui",
     "test": "ng test"
   },
   "dependencies": {
