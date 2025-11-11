@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DatatableColumn} from "biit-ui/table";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {
@@ -8,9 +8,9 @@ import {
   ApplicationRoleId,
   ApplicationRoleService, ApplicationService,
   Role, UserGroup, UserGroupService,
-} from "user-manager-structure-lib";
-import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler} from "biit-ui/utils";
+} from "@biit-solutions/user-manager-structure";
+import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-user-group-role-list',

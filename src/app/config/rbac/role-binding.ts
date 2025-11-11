@@ -1,6 +1,6 @@
-import {Role} from "authorization-services-lib";
+import {Role} from "@biit-solutions/authorization-services";
 import {Permission} from "./permission";
-import {AppRole} from "authorization-services-lib/lib/models/app-role";
+import {AppRole} from "@biit-solutions/authorization-services/lib/models/app-role";
 
 export class RoleBinding {
 

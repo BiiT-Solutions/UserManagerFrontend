@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {DatatableColumn} from "biit-ui/table";
-import {UserGroup, UserGroupService} from "user-manager-structure-lib";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
+import {UserGroup, UserGroupService} from "@biit-solutions/user-manager-structure";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 import {Permission} from "../../config/rbac/permission";
 
 @Component({

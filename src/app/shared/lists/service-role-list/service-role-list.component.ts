@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DatatableColumn} from "biit-ui/table";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {
   BackendService,
   BackendServiceRole,
   BackendServiceRoleId,
   BackendServiceRoleService
-} from "user-manager-structure-lib";
+} from "@biit-solutions/user-manager-structure";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-service-role-list',

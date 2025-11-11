@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BiitResetPasswordComponent } from './biit-reset-password.component';
-import {BiitPopupModule} from "biit-ui/popup";
-import {BiitIconModule} from "biit-ui/icon";
-import {BiitInputTextModule, BiitToggleModule} from "biit-ui/inputs";
+import {BiitPopupModule} from "@biit-solutions/wizardry-theme/popup";
+import {BiitIconModule} from "@biit-solutions/wizardry-theme/icon";
+import {BiitInputTextModule, BiitToggleModule} from "@biit-solutions/wizardry-theme/inputs";
 import {FormsModule} from "@angular/forms";
-import {BiitButtonModule} from "biit-ui/button";
-import {TranslocoRootModule} from "biit-ui/i18n";
+import {BiitButtonModule} from "@biit-solutions/wizardry-theme/button";
+import {TranslocoRootModule} from "@biit-solutions/wizardry-theme/i18n";
 import {BiitResetPasswordRoutingModule} from "./biit-reset-password-routing.module";
 
 

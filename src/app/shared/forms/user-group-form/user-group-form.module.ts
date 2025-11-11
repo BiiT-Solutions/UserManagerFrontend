@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserGroupFormComponent } from './user-group-form.component';
-import {BiitPopupModule} from "biit-ui/popup";
-import {BiitTabGroupModule} from "biit-ui/navigation";
-import {BiitInputTextModule, BiitTextareaModule} from "biit-ui/inputs";
+import {BiitPopupModule} from "@biit-solutions/wizardry-theme/popup";
+import {BiitTabGroupModule} from "@biit-solutions/wizardry-theme/navigation";
+import {BiitInputTextModule, BiitTextareaModule} from "@biit-solutions/wizardry-theme/inputs";
 import {FormsModule} from "@angular/forms";
-import {TranslocoRootModule} from "biit-ui/i18n";
-import {BiitButtonModule} from "biit-ui/button";
+import {TranslocoRootModule} from "@biit-solutions/wizardry-theme/i18n";
+import {BiitButtonModule} from "@biit-solutions/wizardry-theme/button";
 import {UtilsModule} from "../../utils/utils.module";
 
 @NgModule({

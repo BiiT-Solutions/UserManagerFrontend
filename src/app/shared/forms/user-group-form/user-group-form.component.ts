@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {SessionService, UserGroup, UserGroupService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {SessionService, UserGroup, UserGroupService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {Observable} from "rxjs";
 import {FormValidationFields} from '../../validations/form-validation-fields';
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-user-group-form',

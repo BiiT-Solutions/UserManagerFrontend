@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {BiitLogin} from "biit-ui/models";
-import {AuthService, SessionService, UserService} from "user-manager-structure-lib";
+import {BiitLogin} from "@biit-solutions/wizardry-theme/models";
+import {AuthService, SessionService, UserService} from "@biit-solutions/user-manager-structure";
 import {Constants} from "../../shared/constants";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BiitProgressBarType, BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute, Router} from "@angular/router";
-import {LoginRequest, User} from "authorization-services-lib";
-import {ErrorHandler} from "biit-ui/utils";
+import {LoginRequest, User} from "@biit-solutions/authorization-services";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 import {PermissionService} from "../../services/permission.service";
 
 @Component({

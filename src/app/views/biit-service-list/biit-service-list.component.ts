@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {BackendService, BackendServiceService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BackendService, BackendServiceService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {DatatableColumn} from "biit-ui/table";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {combineLatest, Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
 import {Permission} from "../../config/rbac/permission";
 
 @Component({

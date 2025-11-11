@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "authorization-services-lib";
-import {SessionService} from "user-manager-structure-lib";
+import {User} from "@biit-solutions/authorization-services";
+import {SessionService} from "@biit-solutions/user-manager-structure";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 
 @Component({

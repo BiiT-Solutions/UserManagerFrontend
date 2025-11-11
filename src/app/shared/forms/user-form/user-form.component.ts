@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppRole, PasswordRequest, User} from "authorization-services-lib";
+import {AppRole, PasswordRequest, User} from "@biit-solutions/authorization-services";
 import {FormValidationFields} from "../../validations/form-validation-fields";
-import {Type} from "biit-ui/inputs";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
-import {SessionService, UserService} from "user-manager-structure-lib";
+import {Type} from "@biit-solutions/wizardry-theme/inputs";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
+import {SessionService, UserService} from "@biit-solutions/user-manager-structure";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {Observable} from "rxjs";
 import {TypeValidations} from "../../utils/type-validations";
 import {PwdGenerator} from "../../utils/pwd-generator";

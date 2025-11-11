@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {Organization, OrganizationService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler} from "biit-ui/utils";
+import {Organization, OrganizationService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 import {Router} from "@angular/router";
 import {Constants} from "../../shared/constants";
 

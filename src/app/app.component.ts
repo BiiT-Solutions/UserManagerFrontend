@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
-import {SessionService, UserManagerRootService} from "user-manager-structure-lib";
+import {SessionService, UserManagerRootService} from "@biit-solutions/user-manager-structure";
 import {Environment} from "../environments/environment";
-import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "biit-ui/info";
+import {BiitSnackbarHorizontalPosition, BiitSnackbarService, BiitSnackbarVerticalPosition} from "@biit-solutions/wizardry-theme/info";
 import {AvailableLangs, TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {Route, Router} from "@angular/router";
-import {completeIconSet} from "biit-icons-collection";
-import {BiitIconService} from "biit-ui/icon";
+import {completeIconSet} from "@biit-solutions/biit-icons-collection";
+import {BiitIconService} from "@biit-solutions/wizardry-theme/icon";
 import {PermissionService} from "./services/permission.service";
-import {User} from "authorization-services-lib";
+import {User} from "@biit-solutions/authorization-services";
 
 @Component({
   selector: 'app-root',

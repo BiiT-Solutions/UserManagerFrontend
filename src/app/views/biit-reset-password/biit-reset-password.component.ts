@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {Type} from "biit-ui/inputs";
+import {Type} from "@biit-solutions/wizardry-theme/inputs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {ActivatedRoute} from "@angular/router";
 import {FormValidationFields} from "../../shared/validations/form-validation-fields";
-import {UserService} from "user-manager-structure-lib";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
-import {BiitSnackbarService} from "biit-ui/info";
+import {UserService} from "@biit-solutions/user-manager-structure";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
+import {BiitSnackbarService} from "@biit-solutions/wizardry-theme/info";
 
 @Component({
   selector: 'biit-reset-password',

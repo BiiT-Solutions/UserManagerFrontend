@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {User} from "authorization-services-lib";
+import {User} from "@biit-solutions/authorization-services";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {SessionService} from "user-manager-structure-lib";
+import {SessionService} from "@biit-solutions/user-manager-structure";
 import {FormValidationFields} from "../../validations/form-validation-fields";
-import {InputLimits} from "biit-ui/utils";
+import {InputLimits} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-user-form-popup-popup',

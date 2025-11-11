@@ -4,15 +4,15 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {BiitCookiesConsentModule, BiitSnackbarModule} from "biit-ui/info";
-import {TranslocoRootModule} from "biit-ui/i18n";
+import {BiitCookiesConsentModule, BiitSnackbarModule} from "@biit-solutions/wizardry-theme/info";
+import {TranslocoRootModule} from "@biit-solutions/wizardry-theme/i18n";
 import {CommonModule, registerLocaleData} from "@angular/common";
 import {HeaderInterceptor} from "./config/header-interceptor";
 
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
 import localeNL from '@angular/common/locales/nl';
-import {BiitNavMenuModule, BiitNavUserModule} from "biit-ui/navigation";
+import {BiitNavMenuModule, BiitNavUserModule} from "@biit-solutions/wizardry-theme/navigation";
 import {BiitNavbarModule} from "./navigation/biit-navbar/biit-navbar.module";
 import {ContextMenuModule} from "@perfectmemory/ngx-contextmenu";
 

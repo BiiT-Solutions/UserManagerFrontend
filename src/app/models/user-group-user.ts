@@ -1,5 +1,5 @@
-import {User} from "authorization-services-lib";
-import {biitIcon} from "biit-icons-collection";
+import {User} from "@biit-solutions/authorization-services";
+import {biitIcon} from "@biit-solutions/biit-icons-collection";
 
 export class UserGroupUser extends User {
   assigned: biitIcon;

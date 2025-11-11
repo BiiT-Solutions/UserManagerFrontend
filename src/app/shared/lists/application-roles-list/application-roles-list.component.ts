@@ -4,12 +4,12 @@ import {
   ApplicationRole, ApplicationRoleId,
   ApplicationRoleService,
   Role, RoleService
-} from "user-manager-structure-lib";
-import {DatatableColumn} from "biit-ui/table";
+} from "@biit-solutions/user-manager-structure";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler} from "biit-ui/utils";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-application-roles-list',

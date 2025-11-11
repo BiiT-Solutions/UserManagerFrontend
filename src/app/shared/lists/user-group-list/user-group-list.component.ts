@@ -8,14 +8,14 @@ import {
   TemplateRef,
   ViewChildren
 } from '@angular/core';
-import {User} from "authorization-services-lib";
-import {DatatableColumn} from "biit-ui/table";
+import {User} from "@biit-solutions/authorization-services";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {UserGroup, UserGroupService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {UserGroup, UserGroupService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'user-group-list',

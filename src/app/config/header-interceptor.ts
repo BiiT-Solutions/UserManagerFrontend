@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from 
 import {Observable} from "rxjs";
 import {Constants} from "../shared/constants";
 import {Injectable} from "@angular/core";
-import {SessionService} from "user-manager-structure-lib";
+import {SessionService} from "@biit-solutions/user-manager-structure";
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {

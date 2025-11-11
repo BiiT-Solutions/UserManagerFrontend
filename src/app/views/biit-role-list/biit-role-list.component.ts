@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {DatatableColumn} from "biit-ui/table";
-import {Role, RoleService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
+import {Role, RoleService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
 import {RoleFormType} from "../../shared/forms/role-form/role-form.component";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 import {Permission} from "../../config/rbac/permission";
 
 @Component({

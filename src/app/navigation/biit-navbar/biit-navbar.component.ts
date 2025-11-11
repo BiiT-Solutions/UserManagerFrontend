@@ -2,11 +2,11 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {Route, Router} from '@angular/router';
 import {provideTranslocoScope, TranslocoService} from '@ngneat/transloco';
 import {Constants} from '../../shared/constants';
-import {SessionService} from "user-manager-structure-lib";
+import {SessionService} from "@biit-solutions/user-manager-structure";
 import {ContextMenuComponent, ContextMenuService} from '@perfectmemory/ngx-contextmenu'
 import {AuthGuard} from '../../services/auth-guard.service';
 import {Permission} from "../../config/rbac/permission";
-import {User} from "authorization-services-lib";
+import {User} from "@biit-solutions/authorization-services";
 import {PermissionService} from "../../services/permission.service";
 
 @Component({

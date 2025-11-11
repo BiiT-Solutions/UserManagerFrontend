@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, OnInit, QueryList, TemplateRef, ViewChildren} from '@angular/core';
-import {DatatableColumn} from "biit-ui/table";
-import {SessionService, UserService} from "user-manager-structure-lib";
-import {User, AppRole} from "authorization-services-lib";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
+import {SessionService, UserService} from "@biit-solutions/user-manager-structure";
+import {User, AppRole} from "@biit-solutions/authorization-services";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {combineLatest} from "rxjs";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 import {Permission} from "../../config/rbac/permission";
 import {Constants} from "../../shared/constants";
 

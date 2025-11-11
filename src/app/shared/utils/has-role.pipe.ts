@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {User, AppRole} from "authorization-services-lib";
+import {User, AppRole} from "@biit-solutions/authorization-services";
 
 @Pipe({
   name: 'hasRole'

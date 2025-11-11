@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "authorization-services-lib";
-import {DatatableColumn} from "biit-ui/table";
+import {User} from "@biit-solutions/authorization-services";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
 import {combineLatest} from "rxjs";
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
 import {
@@ -10,9 +10,9 @@ import {
   ApplicationRoleService, ApplicationService,
   Role,
   UserService
-} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
-import {ErrorHandler} from "biit-ui/utils";
+} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-user-role-list',

@@ -9,14 +9,14 @@ import {
   AfterViewChecked
 } from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {SessionService, UserGroup, UserGroupService, UserService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {SessionService, UserGroup, UserGroupService, UserService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {combineLatest} from "rxjs";
-import {DatatableColumn} from "biit-ui/table";
-import {User} from "authorization-services-lib";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
+import {User} from "@biit-solutions/authorization-services";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler} from "biit-ui/utils";
+import {ErrorHandler} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'biit-user-group-user-list',

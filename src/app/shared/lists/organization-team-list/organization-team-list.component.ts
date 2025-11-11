@@ -9,15 +9,15 @@ import {
   ViewChildren
 } from '@angular/core';
 import {TRANSLOCO_SCOPE, TranslocoService} from "@ngneat/transloco";
-import {Organization, SessionService, Team, TeamService, UserService} from "user-manager-structure-lib";
-import {BiitSnackbarService, NotificationType} from "biit-ui/info";
+import {Organization, SessionService, Team, TeamService, UserService} from "@biit-solutions/user-manager-structure";
+import {BiitSnackbarService, NotificationType} from "@biit-solutions/wizardry-theme/info";
 import {combineLatest, Observable} from "rxjs";
-import {DatatableColumn} from "biit-ui/table";
-import {User} from "authorization-services-lib";
+import {DatatableColumn} from "@biit-solutions/wizardry-theme/table";
+import {User} from "@biit-solutions/authorization-services";
 import {FormValidationFields} from "../../validations/form-validation-fields";
 import {UserGroupUser} from "../../../models/user-group-user";
 import {DatePipe} from "@angular/common";
-import {ErrorHandler, InputLimits} from "biit-ui/utils";
+import {ErrorHandler, InputLimits} from "@biit-solutions/wizardry-theme/utils";
 
 @Component({
   selector: 'organization-team-list',

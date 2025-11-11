@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 import {Constants} from "../shared/constants";
-import {SessionService} from "user-manager-structure-lib";
+import {SessionService} from "@biit-solutions/user-manager-structure";
 
 @Injectable({
   providedIn: 'root'

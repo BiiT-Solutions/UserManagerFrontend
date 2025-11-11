@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import { BiitUserGroupListComponent } from './biit-user-group-list.component';
-import {BiitDatatableModule} from "biit-ui/table";
-import {TranslocoRootModule} from "biit-ui/i18n";
-import {BiitPopupModule} from "biit-ui/popup";
-import {BiitButtonModule, BiitIconButtonModule} from "biit-ui/button";
+import {BiitDatatableModule} from "@biit-solutions/wizardry-theme/table";
+import {TranslocoRootModule} from "@biit-solutions/wizardry-theme/i18n";
+import {BiitPopupModule} from "@biit-solutions/wizardry-theme/popup";
+import {BiitButtonModule, BiitIconButtonModule} from "@biit-solutions/wizardry-theme/button";
 import {BiitUserGroupListRoutingModule} from "./biit-user-group-list-routing.module";
 import {UserGroupFormModule} from "../../shared/forms/user-group-form/user-group-form.module";
 import {UserFormPopupModule} from "../../shared/popups/user-form-popup/user-form-popup.module";
