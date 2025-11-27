@@ -77,7 +77,7 @@ export class RoleBinding {
 
   public getPermissions(): Set<Permission> {
     const roles: Permission[] = this.roles.map(role => {
-      switch (role.toUpperCase()) {
+      switch (role.toUpperCase().replace(" ", "_")) {
         case Role.USERMANAGERSYSTEM_ADMIN:
           return this.USERMANAGERSYSTEM_ADMIN;
         case Role.USERMANAGERSYSTEM_EDITOR:
